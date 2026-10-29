@@ -349,6 +349,7 @@ footer {
       <a href="#news">مطالب</a>
       <a href="#guides">راهنما</a>
       <a href="#community">کامیونیتی</a>
+      <a href="#members">اعضای سایت</a>
     </nav>
 
     <a class="btn" href="#news">شروع کن</a>
@@ -436,6 +437,18 @@ footer {
   </div>
 </section>
 
+
+<section id="members">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>اعضای کامیونیتی</h2><p>فهرست اعضایی که مدیر اضافه می‌کند</p></div>
+      <span class="tag">COMMUNITY</span>
+    </div>
+    <p id="peopleStatus" class="lead">در حال بارگذاری اعضا...</p>
+    <div id="peopleList" class="cards"></div>
+  </div>
+</section>
+
 <section id="guides">
   <div class="wrap split">
     <div class="panel">
@@ -464,7 +477,7 @@ footer {
         <h2>تیم خودت رو بساز</h2>
         <p class="lead">لینک دیسکورد یا شبکهٔ اجتماعی خودت رو اینجا قرار بده تا بازیکن‌ها پیدات کنن.</p>
       </div>
-      <a class="btn" href="mailto:hello@example.com">ارتباط با ما</a>
+      <a class="btn" href="tel:09121579314">تماس با ما: 09121579314</a>
     </div>
   </div>
 </section>
@@ -482,14 +495,49 @@ footer {
 
 <script>
 const topBtn = document.getElementById("topBtn");
-
 window.addEventListener("scroll", () => {
   topBtn.style.display = window.scrollY > 350 ? "block" : "none";
 });
+topBtn.addEventListener("click", () => window.scrollTo({top:0,behavior:"smooth"}));
 
-topBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+const SUPABASE_URL = "https://wizwuaptaypzabmvrwiq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_6X8vkKyo0lIOt1LK5HDSWg_eq3qG3Ds";
+
+async function loadPeople() {
+  const status = document.getElementById("peopleStatus");
+  const list = document.getElementById("peopleList");
+  try {
+    const response = await fetch(SUPABASE_URL + "/rest/v1/people?select=id,name,game_id,role,created_at&order=created_at.desc", {
+      headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY }
+    });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const people = await response.json();
+    list.replaceChildren();
+    if (!people.length) { status.textContent = "هنوز عضوی اضافه نشده است."; return; }
+    status.textContent = "";
+    for (const person of people) {
+      const card = document.createElement("article");
+      card.className = "card";
+      const top = document.createElement("div");
+      top.className = "card-top";
+      top.textContent = "🎮";
+      const body = document.createElement("div");
+      body.className = "card-body";
+      const name = document.createElement("h3");
+      name.textContent = person.name || "بدون نام";
+      const role = document.createElement("p");
+      role.textContent = person.role || "عضو کامیونیتی";
+      const gameId = document.createElement("p");
+      gameId.textContent = person.game_id ? "شناسه بازی: " + person.game_id : "";
+      body.append(name, role, gameId);
+      card.append(top, body);
+      list.append(card);
+    }
+  } catch (error) {
+    status.textContent = "اتصال به فهرست اعضا ناموفق بود. مطمئن شو جدول people در Supabase ساخته شده و دسترسی خواندن دارد.";
+  }
+}
+loadPeople();
 </script>
 
 </body>
