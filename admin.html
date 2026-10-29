@@ -1,325 +1,112 @@
-from pathlib import Path
-import zipfile, textwrap
-
-base = Path("/mnt/data/cs2_site_package")
-base.mkdir(exist_ok=True)
-
-index_html = r'''<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CS2 ARENA | دنیای کانتر</title>
+<title>پنل مدیریت | CS2 ARENA</title>
 <style>
-:root{--bg:#080a0f;--panel:#111722;--red:#ff3b45;--text:#f5f7fb;--muted:#a5adbb;--line:#293142}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.85}
-a{color:inherit;text-decoration:none}.wrap{width:min(1120px,92%);margin:auto}
-header{position:sticky;top:0;z-index:4;background:#080a0fee;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;flex-wrap:wrap}
-.logo{font-size:1.3rem;font-weight:900}.logo span{color:var(--red)}.links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted)}
-.links a:hover{color:white}.btn{display:inline-block;padding:10px 17px;border-radius:9px;background:var(--red);color:white;font-weight:bold;border:1px solid var(--red);cursor:pointer}
-.btn:hover{filter:brightness(1.12)}.btn.ghost{background:transparent;border-color:#424b5c}
-.hero{padding:72px 0 52px;background:radial-gradient(ellipse at 12% 20%,#ff3b4525,transparent 45%),linear-gradient(130deg,#101722,#080a0f 65%)}
-.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:30px}.tag{display:inline-block;color:#ff9298;border:1px solid #77323a;background:#35151b;padding:4px 11px;border-radius:999px;font-size:.8rem}
-h1{font-size:clamp(2.3rem,6vw,4.5rem);line-height:1.3;margin:16px 0}h1 span{color:var(--red);text-shadow:0 0 28px #ff3b4540}
-.lead{color:var(--muted);max-width:620px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
-.art{min-height:280px;border:1px solid #353d4b;border-radius:24px;display:grid;place-items:center;position:relative;overflow:hidden;background:linear-gradient(145deg,#202633,#0c0f16)}
-.art:before,.art:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #ff3b4560;transform:rotate(45deg);border-radius:35px}.art:after{width:155px;height:155px;border-color:#ffffff25}
-.cross{font-size:6rem;color:var(--red);z-index:1;text-shadow:0 0 32px #ff3b4580}.art small{position:absolute;bottom:14px;right:18px;color:var(--muted)}
-section{padding:48px 0}.head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:20px}h2{margin:0;font-size:1.8rem}.head p{margin:4px 0 0;color:var(--muted)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card,.person,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.card-top{height:125px;display:grid;place-items:center;font-size:3rem;background:radial-gradient(circle,#ff3b4525,transparent 65%),linear-gradient(135deg,#1d2430,#10131a);border-bottom:1px solid var(--line)}
-.card-body{padding:17px}.pill{font-size:.75rem;color:#ff9ca1;background:#35151b;border-radius:6px;padding:4px 8px}.card p,.muted{color:var(--muted);font-size:.93rem}
-.people-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.person{padding:18px}.avatar{width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:#35151b;color:#ff858b;font-size:1.35rem;font-weight:bold;margin-bottom:10px}.person h3{margin:4px 0}.person p{margin:3px 0;color:var(--muted);overflow-wrap:anywhere}
-.panel{padding:24px}.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}.callout{border:1px solid #71313a;background:linear-gradient(110deg,#291116,#11151d);border-radius:18px;padding:25px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:.85rem}.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-#top{position:fixed;bottom:18px;left:18px;width:44px;height:44px;border:1px solid #454e5d;background:#171c26;color:white;border-radius:12px;cursor:pointer;display:none}
-@media(max-width:760px){.hero-grid,.split{grid-template-columns:1fr}.cards,.people-grid{grid-template-columns:1fr}.hero{padding-top:45px}.art{min-height:210px}.links{gap:11px}}
-</style>
-</head>
-<body>
-<header><div class="wrap nav">
-<a class="logo" href="#"><span>CS2</span> ARENA</a>
-<nav class="links"><a href="#news">مطالب</a><a href="#people">اعضای سایت</a><a href="#guides">راهنما</a><a href="#contact">ارتباط</a></nav>
-<a class="btn" href="#people">دیدن اعضا</a>
-</div></header>
-<main>
-<section class="hero"><div class="wrap hero-grid"><div>
-<span class="tag">TACTICAL • COMPETITIVE • COMMUNITY</span>
-<h1>وارد میدان شو.<br><span>افسانه بساز.</span></h1>
-<p class="lead">به پایگاه طرفداران Counter-Strike 2 خوش اومدی؛ جایی برای راهنماها، مطالب گیمینگ و معرفی اعضای کامیونیتی.</p>
-<div class="actions"><a class="btn" href="#news">کاوش مطالب</a><a class="btn ghost" href="#people">اعضای کامیونیتی</a></div>
-</div><div class="art"><div class="cross">⌖</div><small>YOUR NEXT ROUND STARTS HERE</small></div></div></section>
-<section id="news"><div class="wrap"><div class="head"><div><h2>مرکز عملیات</h2><p>مطالب پیشنهادی برای بازیکن‌های CS2</p></div><span class="tag">CS2 CONTENT</span></div>
-<div class="cards">
-<article class="card"><div class="card-top">🎯</div><div class="card-body"><span class="pill">آموزش</span><h3>دقت تیراندازی</h3><p>هدف‌گیری، کنترل حرکت و انتخاب زمان مناسب شلیک را تمرین کن.</p></div></article>
-<article class="card"><div class="card-top">🗺️</div><div class="card-body"><span class="pill">نقشه‌ها</span><h3>شناخت مپ‌ها</h3><p>مسیرها، موقعیت‌های مهم و ارتباط با هم‌تیمی‌ها را یاد بگیر.</p></div></article>
-<article class="card"><div class="card-top">⚡</div><div class="card-body"><span class="pill">تنظیمات</span><h3>بهینه‌سازی بازی</h3><p>تنظیمات مناسب سیستم و سبک بازی خودت را پیدا کن.</p></div></article>
-</div></div></section>
-<section id="people"><div class="wrap"><div class="head"><div><h2>اعضای کامیونیتی</h2><p>افرادی که مدیر از پنل مدیریت اضافه می‌کند</p></div></div>
-<div id="peopleStatus" class="muted">در حال بارگذاری اعضا...</div><div id="peopleList" class="people-grid"></div>
-</div></section>
-<section id="guides"><div class="wrap split">
-<div class="panel"><h2>چطور بهتر بازی کنیم؟</h2><ul class="muted"><li>قبل از راند برای تیم برنامه داشته باش.</li><li>به اطلاعات هم‌تیمی‌ها توجه کن.</li><li>بعد از مسابقه یک نکته برای تمرین انتخاب کن.</li><li>بازی جوانمردانه را رعایت کن.</li></ul></div>
-<div class="panel"><h2>قانون‌های آرنا</h2><p class="muted">احترام به بازیکن‌ها و دوری از تقلب، تجربهٔ بازی را برای همه بهتر می‌کند.</p><p class="muted">این یک پروژهٔ طرفداری مستقل است و وابسته به Valve نیست.</p></div>
-</div></section>
-<section id="contact"><div class="wrap"><div class="callout"><div><h2>ارتباط با ما</h2><p class="lead">برای ارتباط با مدیر سایت تماس بگیر.</p></div><a class="btn" href="tel:09121579314">تماس با ما: 09121579314</a></div></div></section>
-</main>
-<footer><div class="wrap foot"><span>© CS2 ARENA — ساخته‌شده برای طرفداران بازی</span><a href="./admin.html">ورود مدیر</a></div></footer>
-<button id="top" aria-label="بالای صفحه">↑</button>
-<script>
-const topButton=document.getElementById('top');
-window.addEventListener('scroll',()=>topButton.style.display=window.scrollY>350?'block':'none');
-topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-
-const SUPABASE_URL="YOUR_SUPABASE_URL";
-const SUPABASE_KEY="YOUR_SUPABASE_PUBLISHABLE_KEY";
-async function loadPeople(){
- const status=document.getElementById('peopleStatus');
- const list=document.getElementById('peopleList');
- if(!SUPABASE_URL.startsWith('https://')||!SUPABASE_KEY.startsWith('sb_publishable_')){
-   status.textContent='برای نمایش فهرست اعضا، ابتدا تنظیمات Supabase را در index.html و admin.html وارد کن.';
-   return;
- }
- try{
-  const r=await fetch(SUPABASE_URL.replace(/\/+$/,'')+'/rest/v1/people?select=id,name,game_id,role,created_at&order=created_at.desc',{
-   headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}
-  });
-  if(!r.ok)throw new Error('HTTP '+r.status);
-  const people=await r.json();
-  list.replaceChildren();
-  if(!people.length){status.textContent='هنوز عضوی اضافه نشده است.';return;}
-  status.textContent='';
-  people.forEach(p=>{
-   const article=document.createElement('article');article.className='person';
-   const avatar=document.createElement('div');avatar.className='avatar';avatar.textContent=(p.name||'?').trim().charAt(0)||'?';
-   const name=document.createElement('h3');name.textContent=p.name||'بدون نام';
-   const role=document.createElement('p');role.textContent=p.role||'عضو کامیونیتی';
-   const game=document.createElement('p');game.textContent=p.game_id?'شناسه بازی: '+p.game_id:'';
-   article.append(avatar,name,role,game);list.append(article);
-  });
- }catch(e){status.textContent='بارگذاری اعضا ناموفق بود. تنظیمات جدول و دسترسی‌های Supabase را بررسی کن.';}
-}
-loadPeople();
-</script>
-</body>
-</html>
-'''
-
-admin_html = r'''<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>مدیریت CS2 ARENA</title>
-<style>
-:root{--bg:#080a0f;--panel:#111722;--red:#ff3b45;--text:#f5f7fb;--muted:#a5adbb;--line:#293142}
+:root{color-scheme:dark;--bg:#080a0f;--panel:#111722;--red:#ff3b45;--text:#f5f7fb;--muted:#a5adbb;--line:#293142}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
-a{color:#ff858b;text-decoration:none}.wrap{width:min(850px,92%);margin:35px auto}.brand{font-weight:900;font-size:1.2rem}.brand span{color:var(--red)}
-.panel{margin-top:18px;padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:16px}
-h1{font-size:1.8rem;margin:8px 0}h2{font-size:1.2rem;margin-top:0}
-label{display:block;margin:12px 0 5px;color:var(--muted)}
-input{width:100%;padding:12px;border-radius:9px;border:1px solid #3a4354;background:#090d14;color:white;font:inherit}
-button{padding:11px 16px;margin-top:14px;border:0;border-radius:9px;background:var(--red);color:white;font:inherit;font-weight:bold;cursor:pointer}
-button.secondary{background:#293142}button.danger{background:#7d222b}
-.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1}
-.status{padding:10px 0;color:#cbd3df;overflow-wrap:anywhere}.muted{color:var(--muted);font-size:.92rem}
-.person{padding:13px;margin-top:10px;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.person p{margin:0}.hidden{display:none!important}
-@media(max-width:600px){.panel{padding:17px}.row{display:block}}
+main{width:min(900px,92%);margin:36px auto}.brand{font-size:1.35rem;font-weight:900}.brand span{color:var(--red)}a{color:#ff8b91}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;margin:18px 0}
+h1{font-size:1.8rem}h2{font-size:1.25rem;margin-top:0}.muted{color:var(--muted)}label{display:block;margin:10px 0 5px}
+input{display:block;width:100%;padding:12px;border-radius:9px;border:1px solid #424b5c;background:#080a0f;color:white;font:inherit}
+button{font:inherit;cursor:pointer;border:0;border-radius:9px;padding:10px 16px;background:var(--red);color:white;font-weight:bold;margin-top:12px}
+button.secondary{background:#303846}button.danger{background:#8f222b;margin:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.member{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px}.member p{margin:0}.status{white-space:pre-wrap;color:#ffb4b8}
+[hidden]{display:none!important}@media(max-width:600px){.row{grid-template-columns:1fr}.member{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
-<body>
-<div class="wrap">
-<a class="brand" href="./"><span>CS2</span> ARENA</a>
-<h1>پنل مدیریت اعضا</h1>
-<p class="muted">از اینجا می‌توانی اعضای کامیونیتی را اضافه یا حذف کنی. ابتدا باید Supabase را طبق راهنمای همراه فایل تنظیم کنی.</p>
-
-<section class="panel" id="loginPanel">
-<h2>ورود مدیر</h2>
-<label for="email">ایمیل مدیر</label><input id="email" type="email" autocomplete="username" placeholder="admin@example.com">
-<label for="password">رمز عبور</label><input id="password" type="password" autocomplete="current-password" placeholder="رمز عبور Supabase">
-<button id="loginBtn">ورود</button>
-<div id="loginStatus" class="status"></div>
-<p class="muted">برای امنیت، حساب مدیر را از داشبورد Supabase بساز؛ ثبت‌نام عمومی را فعال نکن.</p>
+<body><main>
+<div class="brand"><span>CS2</span> ARENA · پنل مدیریت</div>
+<p class="muted">برای افزودن یا حذف اعضای فهرست سایت وارد حساب مدیر شو.</p>
+<section id="loginPanel" class="panel">
+<h1>ورود مدیر</h1>
+<form id="loginForm">
+<label for="email">ایمیل مدیر</label><input id="email" type="email" autocomplete="username" required>
+<label for="password">رمز عبور</label><input id="password" type="password" autocomplete="current-password" required>
+<button type="submit">ورود</button>
+</form>
 </section>
-
-<section class="panel hidden" id="appPanel">
-<div class="row"><h2>افزودن عضو جدید</h2><div style="text-align:left"><button id="logoutBtn" class="secondary">خروج</button></div></div>
-<form id="personForm">
-<label for="name">نام نمایشی *</label><input id="name" maxlength="80" required placeholder="مثلاً PlayerOne">
-<label for="gameId">شناسه بازی (اختیاری)</label><input id="gameId" maxlength="100" placeholder="Steam ID یا نام داخل بازی">
-<label for="role">عنوان یا نقش (اختیاری)</label><input id="role" maxlength="80" placeholder="مثلاً Rifler، مدیر یا عضو">
+<section id="adminPanel" class="panel" hidden>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+<h1>مدیریت اعضا</h1><button id="logout" class="secondary" type="button">خروج</button>
+</div>
+<form id="addForm">
+<h2>افزودن عضو جدید</h2>
+<div class="row">
+<div><label for="name">نام عضو *</label><input id="name" maxlength="80" required></div>
+<div><label for="gameId">شناسه بازی (اختیاری)</label><input id="gameId" maxlength="100"></div>
+</div>
+<label for="role">نقش</label><input id="role" maxlength="80" value="عضو کامیونیتی">
 <button type="submit">افزودن عضو</button>
 </form>
-<div id="appStatus" class="status"></div>
-<hr style="border-color:var(--line);margin:22px 0">
-<h2>اعضای فعلی</h2>
-<div id="peopleList"></div>
+<hr style="border-color:var(--line);margin:24px 0">
+<h2>فهرست اعضا</h2><div id="members">در حال بارگذاری...</div>
 </section>
-<p><a href="./">← بازگشت به سایت</a></p>
-</div>
-
+<p id="status" class="status" role="status"></p>
+<p><a href="./index.html">← بازگشت به سایت</a></p>
+</main>
 <script>
-const SUPABASE_URL="YOUR_SUPABASE_URL";
-const SUPABASE_KEY="YOUR_SUPABASE_PUBLISHABLE_KEY";
-const $=id=>document.getElementById(id);
-let accessToken=null;
-
-function configured(){
- return SUPABASE_URL.startsWith('https://') &&
-        SUPABASE_KEY.startsWith('sb_publishable_');
+const SUPABASE_URL = "https://wizwuaptaypzabmvrwiq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_6X8vkKyo0lIOt1LK5HDSWg_eq3qG3Ds";
+let accessToken = "";
+const $ = id => document.getElementById(id);
+function showStatus(message){$("status").textContent=message;}
+async function api(path, options={}) {
+  const headers = { apikey: SUPABASE_KEY, Authorization: "Bearer " + (accessToken || SUPABASE_KEY), ...(options.headers||{}) };
+  const response = await fetch(SUPABASE_URL + path, {...options, headers});
+  const raw = await response.text();
+  let data = null; try { data = raw ? JSON.parse(raw) : null; } catch {}
+  if (!response.ok) throw new Error(data?.msg || data?.message || data?.error_description || raw || ("HTTP " + response.status));
+  return data;
 }
-function showStatus(id,message){$(id).textContent=message;}
-async function api(path, options={}){
- const headers=Object.assign({
-  apikey:SUPABASE_KEY,
-  Authorization:'Bearer '+(accessToken||SUPABASE_KEY),
-  'Content-Type':'application/json'
- },options.headers||{});
- const response=await fetch(SUPABASE_URL.replace(/\/+$/,'')+path,{...options,headers});
- if(!response.ok){
-  let msg='HTTP '+response.status;
-  try{const data=await response.json();msg=data.message||data.msg||data.error_description||msg;}catch{}
-  throw new Error(msg);
- }
- if(response.status===204)return null;
- const text=await response.text();return text?JSON.parse(text):null;
+function setLoggedIn(value){
+  $("loginPanel").hidden=value;
+  $("adminPanel").hidden=!value;
 }
-function showApp(isLoggedIn){
- $('loginPanel').classList.toggle('hidden',isLoggedIn);
- $('appPanel').classList.toggle('hidden',!isLoggedIn);
-}
-$('loginBtn').addEventListener('click',async()=>{
- if(!configured()){showStatus('loginStatus','ابتدا SUPABASE_URL و SUPABASE_KEY را در کد وارد کن.');return;}
- const email=$('email').value.trim(),password=$('password').value;
- if(!email||!password){showStatus('loginStatus','ایمیل و رمز عبور را وارد کن.');return;}
- showStatus('loginStatus','در حال ورود...');
- try{
-  const r=await fetch(SUPABASE_URL.replace(/\/+$/,'')+'/auth/v1/token?grant_type=password',{
-   method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},
-   body:JSON.stringify({email,password})
-  });
-  const data=await r.json();
-  if(!r.ok)throw new Error(data.msg||data.message||data.error_description||'ورود ناموفق بود.');
-  accessToken=data.access_token;
-  showApp(true);showStatus('appStatus','ورود انجام شد.');await loadPeople();
- }catch(e){showStatus('loginStatus','خطا در ورود: '+e.message);}
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault(); showStatus("در حال ورود...");
+  try{
+    const response=await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=password",{
+      method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},
+      body:JSON.stringify({email:$("email").value.trim(),password:$("password").value})
+    });
+    const data=await response.json();
+    if(!response.ok) throw new Error(data.msg||data.message||"ایمیل یا رمز عبور درست نیست.");
+    accessToken=data.access_token; setLoggedIn(true); showStatus("ورود موفق بود."); await loadMembers();
+  }catch(err){accessToken="";setLoggedIn(false);showStatus("خطا در ورود: "+err.message);}
 });
-$('logoutBtn').addEventListener('click',()=>{
- accessToken=null;showApp(false);$('password').value='';showStatus('loginStatus','از حساب خارج شدی.');
-});
-$('personForm').addEventListener('submit',async e=>{
- e.preventDefault();
- if(!accessToken){showStatus('appStatus','ابتدا وارد شو.');return;}
- const person={name:$('name').value.trim(),game_id:$('gameId').value.trim()||null,role:$('role').value.trim()||'عضو کامیونیتی'};
- if(!person.name){showStatus('appStatus','نام نمایشی را وارد کن.');return;}
- showStatus('appStatus','در حال افزودن عضو...');
- try{
-  await api('/rest/v1/people',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(person)});
-  $('personForm').reset();showStatus('appStatus','عضو اضافه شد.');await loadPeople();
- }catch(e){showStatus('appStatus','افزودن انجام نشد: '+e.message+' — جدول و سیاست‌های RLS را بررسی کن.');}
-});
-async function loadPeople(){
- const list=$('peopleList');list.replaceChildren();
- try{
-  const people=await api('/rest/v1/people?select=id,name,game_id,role,created_at&order=created_at.desc');
-  if(!people.length){list.textContent='هنوز عضوی اضافه نشده.';return;}
-  people.forEach(p=>{
-   const item=document.createElement('div');item.className='person';
-   const info=document.createElement('div');
-   const name=document.createElement('strong');name.textContent=p.name;
-   const detail=document.createElement('p');detail.className='muted';detail.textContent=[p.role,p.game_id?'ID: '+p.game_id:''].filter(Boolean).join(' · ');
-   info.append(name,detail);
-   const del=document.createElement('button');del.className='danger';del.textContent='حذف';del.addEventListener('click',()=>deletePerson(p.id,p.name));
-   item.append(info,del);list.append(item);
-  });
- }catch(e){showStatus('appStatus','دریافت فهرست ناموفق بود: '+e.message);}
+async function loadMembers(){
+  $("members").textContent="در حال بارگذاری...";
+  try{
+    const people=await api("/rest/v1/people?select=id,name,game_id,role,created_at&order=created_at.desc");
+    const container=$("members");container.replaceChildren();
+    if(!people.length){container.textContent="هنوز عضوی ثبت نشده است.";return;}
+    for(const person of people){
+      const item=document.createElement("div");item.className="member";
+      const info=document.createElement("div");
+      const name=document.createElement("p");name.textContent=person.name||"بدون نام";name.style.fontWeight="bold";
+      const detail=document.createElement("p");detail.className="muted";detail.textContent=(person.role||"عضو کامیونیتی")+(person.game_id?" · شناسه بازی: "+person.game_id:"");
+      info.append(name,detail);
+      const del=document.createElement("button");del.className="danger";del.type="button";del.textContent="حذف";
+      del.addEventListener("click",async()=>{
+        if(!confirm("عضو «"+(person.name||"بدون نام")+"» حذف شود؟"))return;
+        del.disabled=true;
+        try{await api("/rest/v1/people?id=eq."+encodeURIComponent(person.id),{method:"DELETE",headers:{Prefer:"return=minimal"}});showStatus("عضو حذف شد.");await loadMembers();}
+        catch(err){showStatus("خطا در حذف: "+err.message);del.disabled=false;}
+      });
+      item.append(info,del);container.append(item);
+    }
+  }catch(err){$("members").textContent="";showStatus("خطا در دریافت اعضا: "+err.message+" — تنظیمات جدول و RLS را بررسی کن.");}
 }
-async function deletePerson(id,name){
- if(!confirm('عضو «'+name+'» حذف شود؟'))return;
- try{await api('/rest/v1/people?id=eq.'+encodeURIComponent(id),{method:'DELETE'});showStatus('appStatus','عضو حذف شد.');await loadPeople();}
- catch(e){showStatus('appStatus','حذف انجام نشد: '+e.message);}
-}
-if(!configured())showStatus('loginStatus','برای فعال شدن پنل، آدرس پروژه و کلید عمومی Supabase را جایگزین مقادیر نمونه کن.');
+$("addForm").addEventListener("submit",async e=>{
+  e.preventDefault();showStatus("در حال افزودن عضو...");
+  try{
+    await api("/rest/v1/people",{method:"POST",headers:{"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify([{name:$("name").value.trim(),game_id:$("gameId").value.trim()||null,role:$("role").value.trim()||"عضو کامیونیتی"}])});
+    $("addForm").reset();$("role").value="عضو کامیونیتی";showStatus("عضو با موفقیت اضافه شد.");await loadMembers();
+  }catch(err){showStatus("خطا در افزودن عضو: "+err.message+" — مطمئن شو جدول people ساخته شده است.");}
+});
+$("logout").addEventListener("click",()=>{accessToken="";setLoggedIn(false);$("password").value="";$("members").replaceChildren();showStatus("از پنل خارج شدی.");});
 </script>
-</body>
-</html>
-'''
-
-sql = r'''-- در Supabase > SQL Editor اجرا کن.
--- این جدول فهرست اعضای کامیونیتی است؛ این کار حساب کاربری واقعی برای افراد نمی‌سازد.
-create table if not exists public.people (
-  id bigint generated by default as identity primary key,
-  name text not null check (char_length(name) <= 80),
-  game_id text,
-  role text default 'عضو کامیونیتی',
-  created_at timestamptz not null default now()
-);
-
-alter table public.people enable row level security;
-
--- همه می‌توانند فهرست اعضا را ببینند.
-create policy "Anyone can view people"
-on public.people for select
-to anon, authenticated
-using (true);
-
--- فقط کاربران واردشده می‌توانند عضو اضافه کنند یا حذف کنند.
--- برای امنیت، در Supabase ثبت‌نام عمومی را غیرفعال کن و فقط حساب مدیر بساز.
-create policy "Signed-in admins can add people"
-on public.people for insert
-to authenticated
-with check (true);
-
-create policy "Signed-in admins can delete people"
-on public.people for delete
-to authenticated
-using (true);
-
-grant select on public.people to anon, authenticated;
-grant insert, delete on public.people to authenticated;
-grant usage, select on sequence public.people_id_seq to authenticated;
-'''
-
-readme = r'''# راه‌اندازی سایت CS2 ARENA
-
-## فایل‌ها
-- `index.html`: سایت عمومی، نمایش اعضا و دکمه تماس 09121579314
-- `admin.html`: پنل ورود مدیر برای افزودن و حذف اعضا
-- `supabase_setup.sql`: جدول و سیاست‌های پایه دیتابیس
-
-## 1) تنظیم Supabase
-1. در Supabase پروژه‌ات را باز کن و برو به SQL Editor.
-2. محتوای `supabase_setup.sql` را اجرا کن.
-3. از Project Settings آدرس پروژه (Project URL) و Publishable key را بردار.
-4. در هر دو فایل HTML، این دو مقدار را جایگزین کن:
-   `YOUR_SUPABASE_URL`
-   `YOUR_SUPABASE_PUBLISHABLE_KEY`
-
-کلید `sb_secret_` را هرگز داخل فایل HTML قرار نده.
-
-## 2) حساب مدیر
-از بخش Authentication در Supabase یک کاربر مدیر بساز. برای این نمونه، ثبت‌نام عمومی را غیرفعال کن تا افراد ناشناس نتوانند خودشان حساب بسازند. فقط حساب‌هایی که خودت می‌سازی می‌توانند وارد پنل شوند.
-
-## 3) انتشار در GitHub Pages
-در مخزن `site-cs2` هر دو فایل `index.html` و `admin.html` را در ریشه مخزن آپلود/جایگزین کن و Commit changes بزن.
-- سایت: https://ngodstar9-lab.github.io/site-cs2/
-- پنل: https://ngodstar9-lab.github.io/site-cs2/admin.html
-
-## مهم
-این پنل، «افراد» را در فهرست سایت ثبت می‌کند؛ برای ساخت حساب ورود واقعی برای هر فرد، باید فرایند ثبت‌نام/دعوت جداگانه طراحی شود. اگر بعداً نقش‌های مدیریتی چندسطحی خواستی، سیاست‌های RLS باید با نقش مدیر واقعی محدودتر شوند. کد فعلی اجازه می‌دهد هر حساب authenticated که در پروژه وجود دارد، اعضا را اضافه یا حذف کند؛ پس ثبت‌نام عمومی را روشن نکن و حساب‌ها را فقط خودت بساز.
-'''
-
-(base/'index.html').write_text(index_html,encoding='utf-8')
-(base/'admin.html').write_text(admin_html,encoding='utf-8')
-(base/'supabase_setup.sql').write_text(sql,encoding='utf-8')
-(base/'README.txt').write_text(readme,encoding='utf-8')
-zip_path=Path('/mnt/data/cs2_site_package.zip')
-with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED) as z:
-    for p in base.iterdir():
-        z.write(p,arcname=p.name)
-print("Created files:")
-for p in base.iterdir():
-    print(f"{p.name}: {p.stat().st_size} bytes")
-print(f"ZIP: {zip_path} ({zip_path.stat().st_size} bytes)")
+</body></html>
