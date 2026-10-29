@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پنل مدیریت CS2</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 24px;
+      font-family: Tahoma, Arial, sans-serif;
+      background: #0b1020; color: #fff;
+    }
+    .container {
+      max-width: 700px; margin: 40px auto; padding: 28px;
+      background: #151d32; border: 1px solid #293550;
+      border-radius: 16px;
+    }
+    h1 { color: #67e8f9; text-align: center; }
+    input, textarea, button {
+      display: block; width: 100%; margin-top: 14px;
+      padding: 13px; border-radius: 8px; font: inherit;
+    }
+    input, textarea {
+      background: #0b1020; color: white; border: 1px solid #374151;
+    }
+    button {
+      border: 0; background: #06b6d4; color: #07111f;
+      font-weight: bold; cursor: pointer;
+    }
+    #status { margin-top: 16px; line-height: 1.9; overflow-wrap: anywhere; }
+    a { color: #67e8f9; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>پنل مدیریت CS2</h1>
+    <p>مدیریت مطالب سایت کانتر استرایک ۲</p>
+    <form id="postForm">
+      <input id="title" type="text" placeholder="عنوان مطلب" required>
+      <textarea id="content" rows="6" placeholder="متن مطلب" required></textarea>
+      <button type="submit">انتشار مطلب</button>
+    </form>
+    <p id="status">برای اتصال به پایگاه داده، تنظیمات را کامل کن.</p>
+    <p><a href="./">بازگشت به سایت اصلی</a></p>
+  </main>
+  <script>
+    // اطلاعات پروژه Supabase را اینجا قرار بده
+    const SUPABASE_URL = "YOUR_SUPABASE_URL";
+    const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+    const form = document.getElementById("postForm");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const url = SUPABASE_URL.trim().replace(/\/+$/, "");
+      const key = SUPABASE_KEY.trim();
+
+      if (!url.startsWith("https://") ||
+          key === "YOUR_SUPABASE_PUBLISHABLE_KEY" ||
+          !key.startsWith("sb_publishable_")) {
+        status.textContent = "ابتدا آدرس پروژه و Publishable key را در کد تنظیم کن.";
+        return;
+      }
+
+      status.textContent = "در حال ارسال مطلب...";
+      try {
+        const response = await fetch(url + "/rest/v1/posts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": key,
+            "Authorization": "Bearer " + key,
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            title: document.getElementById("title").value,
+            content: document.getElementById("content").value
+          })
+        });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        status.textContent = "مطلب با موفقیت منتشر شد.";
+        form.reset();
+      } catch (error) {
+        status.textContent = "ارسال انجام نشد: " + error.message +
+          " — تنظیمات دیتابیس و اتصال را بررسی کن.";
+      }
+    });
+  </script>
+</body>
+</html>
