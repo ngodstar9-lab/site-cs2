@@ -14,4 +14,4 @@ create policy "Members can register themselves" on public.community_members for 
 create policy "Members can update their own profile" on public.community_members for update to authenticated using (auth.uid() = id) with check (auth.uid() = id);
 grant select (id, display_name, created_at) on public.community_members to anon, authenticated;
 grant insert (id, phone, display_name) on public.community_members to authenticated;
-grant update (phone, display_name) on public.community_members to authenticated;
+grant update (id, phone, display_name) on public.community_members to authenticated;
