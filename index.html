@@ -8,12 +8,12 @@
 
 <style>
 :root {
-  --bg: #080a0f;
-  --panel: #11151d;
-  --red: #ff3b45;
+  --bg: #050609;
+  --panel: #0d1017;
+  --red: #ff2638;
   --text: #f5f7fb;
   --muted: #9ba4b5;
-  --line: #252c38;
+  --line: #242936;
 }
 
 * { box-sizing: border-box; }
@@ -22,7 +22,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: radial-gradient(ellipse at 50% -20%, #241018 0, transparent 45%), var(--bg);
   color: var(--text);
   font-family: Tahoma, Arial, sans-serif;
   line-height: 1.8;
@@ -39,8 +39,9 @@ header {
   position: sticky;
   top: 0;
   z-index: 5;
-  background: #080a0fee;
-  border-bottom: 1px solid var(--line);
+  background: #050609eF;
+  border-bottom: 1px solid #ffffff12;
+  box-shadow: 0 12px 35px #0008;
   backdrop-filter: blur(12px);
 }
 
@@ -93,9 +94,10 @@ header {
 
 .hero {
   padding: 75px 0 55px;
-  background:
-    radial-gradient(ellipse at 12% 20%, #ff3b4525, transparent 45%),
-    linear-gradient(130deg, #10141d, #080a0f 65%);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 15% 25%, #ff263826, transparent 42%), radial-gradient(ellipse at 85% 80%, #8b1c2b20, transparent 38%), linear-gradient(135deg, #11141d 0%, #07080d 60%, #0c0b10 100%);
 }
 
 .hero-grid {
@@ -141,13 +143,14 @@ h1 span {
 
 .hero-art {
   min-height: 290px;
-  border: 1px solid #353d4b;
+  border: 1px solid #ffffff20;
+  box-shadow: 0 25px 80px #0009, inset 0 0 50px #ff26380c;
   border-radius: 24px;
   display: grid;
   place-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(145deg, #202633, #0c0f16);
+  background: radial-gradient(circle at 50% 45%, #ff263826, transparent 42%), linear-gradient(145deg, #171b26, #08090e);
 }
 
 .hero-art::before,
@@ -229,16 +232,18 @@ h2 { margin: 0; font-size: 1.8rem; }
 }
 
 .card {
-  background: var(--panel);
-  border: 1px solid var(--line);
+  background: linear-gradient(145deg, #121620, #0a0c12);
+  border: 1px solid #ffffff13;
   border-radius: 16px;
+  box-shadow: 0 14px 38px #0005;
   overflow: hidden;
   transition: .2s;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  border-color: #754047;
+  border-color: #ff3b456b;
+  box-shadow: 0 18px 45px #ff263814;
 }
 
 .card-top {
@@ -336,6 +341,28 @@ footer {
   .cards { grid-template-columns: 1fr; }
   .links { gap: 11px; }
 }
+
+/* PREMIUM ARENA DETAILS */
+::selection{background:#ff2638;color:#fff}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.13;background-image:linear-gradient(#ffffff10 1px,transparent 1px),linear-gradient(90deg,#ffffff10 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 90%)}
+.logo{letter-spacing:1px;text-shadow:0 0 22px #ff263844}
+.tag{box-shadow:0 0 24px #ff263814;letter-spacing:1px}
+.btn{box-shadow:0 8px 25px #ff26382b}
+.btn.ghost{box-shadow:none}
+.hero-art{animation:floatArt 7s ease-in-out infinite}
+.crosshair{font-size:7rem}
+.stat,.panel,.card{backdrop-filter:blur(12px)}
+.stat{background:linear-gradient(145deg,#151923,#0b0d13);border-color:#ffffff16}
+.card-top{background:radial-gradient(circle at 50% 50%,#ff26382b,transparent 62%),linear-gradient(135deg,#1a1e29,#090b11)}
+section{position:relative}
+.section-head h2{position:relative;padding-right:14px}
+.section-head h2:before{content:"";position:absolute;right:0;top:9px;width:4px;height:25px;border-radius:5px;background:var(--red);box-shadow:0 0 15px var(--red)}
+.callout{background:radial-gradient(ellipse at 10% 50%,#ff263822,transparent 55%),linear-gradient(110deg,#171019,#0c1018);box-shadow:0 20px 60px #0006}
+footer{background:#050609}
+#newsList .card{min-height:170px}
+#newsList .card-body{height:100%}
+@keyframes floatArt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 
@@ -402,7 +429,8 @@ footer {
       </div>
       <span class="tag">LATEST CONTENT</span>
     </div>
-
+    <p id="newsStatus" class="lead">در حال بارگذاری خبرها...</p>
+    <div id="newsList" class="cards"></div>
     <div class="cards">
       <article class="card">
         <div class="card-top">🎯</div>
@@ -477,7 +505,7 @@ footer {
         <h2>تیم خودت رو بساز</h2>
         <p class="lead">لینک دیسکورد یا شبکهٔ اجتماعی خودت رو اینجا قرار بده تا بازیکن‌ها پیدات کنن.</p>
       </div>
-      <a class="btn" href="tel:09121579314">تماس با ما: 09121579314</a>
+      <a class="btn" href="#members">مشاهده اعضای آرنا</a>
     </div>
   </div>
 </section>
