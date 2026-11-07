@@ -30,19 +30,18 @@ language sql
 stable
 security definer
 set search_path = ''
-as $
+as '
   select coalesce(
-    auth.uid() = '8b866c9a-f7c6-4b72-bf5e-8ac5b39887ea'::uuid
+    auth.uid() = ''8b866c9a-f7c6-4b72-bf5e-8ac5b39887ea''::uuid
     or exists (
       select 1
       from public.quran_admin_roles r
       where r.user_id = auth.uid()
-        and r.role in ('owner','admin')
+        and r.role in (''owner'',''admin'')
     ),
     false
   );
-$;
-
+';
 revoke all on function public.is_quran_site_admin() from public;
 revoke all on function public.is_quran_site_admin() from anon;
 
