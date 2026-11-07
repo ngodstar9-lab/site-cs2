@@ -41,7 +41,10 @@ as $$
     ),
     false
   );
-$$;
+$;
+
+revoke all on function public.is_quran_site_admin() from public;
+revoke all on function public.is_quran_site_admin() from anon;
 
 -- Seed the existing site owner. Only this fixed owner can add/remove roles or review applications.
 insert into public.quran_admin_roles (user_id, role, label)
