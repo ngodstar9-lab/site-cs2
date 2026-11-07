@@ -29,8 +29,8 @@ returns boolean
 language sql
 stable
 security definer
-set search_path = public
-as $$
+set search_path = ''
+as $
   select coalesce(
     auth.uid() = '8b866c9a-f7c6-4b72-bf5e-8ac5b39887ea'::uuid
     or exists (
