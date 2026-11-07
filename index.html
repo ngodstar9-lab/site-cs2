@@ -50,8 +50,9 @@ main{padding:34px 0 10px}.section{margin:0 0 30px}.section-head{display:flex;jus
 <section id="reader" class="reader" hidden>
 <div class="reader-top"><div><h2 id="readerTitle">در حال آماده‌سازی...</h2><div class="reader-meta" id="readerMeta"></div></div><div class="reader-controls"><select id="translationSelect" aria-label="انتخاب ترجمه"><option value="fa.makarem">ترجمه آیت‌الله مکارم شیرازی</option><option value="fa.ansarian">ترجمه حسین انصاریان</option></select><select id="reciterSelect" aria-label="انتخاب قاری"><option value="parhizgar">استاد شهریار پرهیزگار</option><option value="ar.husary">استاد محمود خلیل‌الحصری</option><option value="ar.minshawi">استاد محمد صدیق منشاوی</option></select></div></div>
 <div class="reader-actions"><button class="btn btn-primary" id="playSurah" type="button">پخش کامل سوره</button><button class="btn btn-soft" id="bookmarkSurah" type="button">ذخیره محل مطالعه</button><button class="btn btn-soft" id="closeReader" type="button">بستن خواندن</button></div>
-<audio id="surahAudio" class="audio-player" controls preload="none" hidden></audio>
-<p id="readerStatus" class="muted">در حال دریافت آیات...</p><div id="ayahList"></div>
+<audio id="surahAudio" class="audio-player" controls preload="metadata" playsinline hidden></audio>
+<div class="reader-actions"><button class="btn btn-soft" id="retryAudioBtn" type="button" hidden>تلاش دوباره برای پخش</button></div>
+<p id="readerStatus" class="muted" role="status" aria-live="polite">در حال دریافت آیات...</p><div id="ayahList"></div>
 </section>
 <section id="surahs" class="section">
 <div class="section-head"><div><span class="section-label">متن کامل قرآن</span><h2>فهرست سوره‌ها</h2><p>از میان ۱۱۴ سوره، سوره موردنظرت را انتخاب کن.</p></div><span id="surahCount" class="muted">در حال بارگذاری...</span></div>
@@ -83,22 +84,103 @@ const SURAH_AUDIO_CDN="https://cdn.islamic.network/quran/audio-surah/128";
 const SUPABASE_URL="https://wizwuaptaypzabmvrwiq.supabase.co";
 const SUPABASE_KEY="sb_publishable_6X8vkKyo0lIOt1LK5HDSWg_eq3qG3Ds";
 const $=id=>document.getElementById(id);
-let allSurahs=[],currentSurah=null,currentAyahs=[],translationEdition="fa.makarem",reciterEdition="parhizgar",playingSequence=false,sequenceIndex=-1;
+let allSurahs=[],currentSurah=null,currentAyahs=[],translationEdition="fa.makarem",reciterEdition="parhizgar",playingSequence=false,sequenceIndex=-1,surahLoadId=0,audioSessionId=0,activeAudioState=null,lastAudioIndex=0,lastAudioWasSequence=false;
 const RECITER_NAMES={"parhizgar":"استاد شهریار پرهیزگار","ar.husary":"استاد محمود خلیل‌الحصری","ar.minshawi":"استاد محمد صدیق منشاوی","ar.alafasy":"مشاری العفاسی"};
 function toast(message){const el=$("toast");el.textContent=message;el.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove("show"),3200)}
-async function getJson(url){const response=await fetch(url);if(!response.ok)throw new Error("خطا در دریافت اطلاعات ("+response.status+")");const data=await response.json();if(data.code!==200)throw new Error(data.status||"پاسخ سرویس قرآن معتبر نیست.");return data.data}
+async function getJson(url,timeoutMs=18000){const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),timeoutMs);try{const response=await fetch(url,{signal:controller.signal,cache:"no-store"});if(!response.ok)throw new Error("خطا در دریافت اطلاعات ("+response.status+")");const data=await response.json();if(data.code!==200)throw new Error(data.status||"پاسخ سرویس قرآن معتبر نیست.");return data.data}catch(error){if(error.name==="AbortError")throw new Error("پاسخ سرویس قرآن بیش از حد طول کشید. دوباره تلاش کن.");throw error}finally{clearTimeout(timeout)}}
 function numberFa(n){return Number(n).toLocaleString("fa-IR")}
 function safeText(el,value){el.textContent=value==null?"":String(value)}
 async function loadSurahs(){try{allSurahs=await getJson(QURAN_API+"/surah");$("surahCount").textContent=numberFa(allSurahs.length)+" سوره";renderSurahs(allSurahs);const select=$("tartilSurahSelect");select.replaceChildren();for(const surah of allSurahs){const option=document.createElement("option");option.value=surah.number;option.textContent=numberFa(surah.number)+" · "+surah.name;select.append(option)}}catch(error){$("surahGrid").textContent="دریافت فهرست سوره‌ها ممکن نشد. اتصال اینترنت را بررسی و صفحه را تازه‌سازی کن.";safeText($("surahCount"),"خطا");$("tartilSurahSelect").textContent="فهرست سوره‌ها در دسترس نیست."}}
 function renderSurahs(rows){const grid=$("surahGrid");grid.replaceChildren();if(!rows.length){grid.textContent="سوره‌ای پیدا نشد.";return}for(const s of rows){const button=document.createElement("button");button.type="button";button.className="surah-card";const no=document.createElement("span");no.className="surah-no";const noInner=document.createElement("span");noInner.textContent=numberFa(s.number);no.append(noInner);const info=document.createElement("span");info.className="surah-info";const title=document.createElement("strong");title.textContent=s.englishName+" · "+s.name;const meta=document.createElement("small");meta.textContent=(s.revelationType==="Meccan"?"مکی":"مدنی")+" · "+numberFa(s.numberOfAyahs)+" آیه";info.append(title,meta);const arabic=document.createElement("span");arabic.className="surah-ar";arabic.textContent=s.name;button.append(no,info,arabic);button.addEventListener("click",()=>openSurah(s.number));grid.append(button)}}
 $("surahSearch").addEventListener("input",()=>{const q=$("surahSearch").value.trim().toLocaleLowerCase();renderSurahs(allSurahs.filter(s=>String(s.number).includes(q)||s.name.includes(q)||s.englishName.toLocaleLowerCase().includes(q)||s.englishNameTranslation.toLocaleLowerCase().includes(q)))});
 $("clearSearch").addEventListener("click",()=>{$("surahSearch").value="";renderSurahs(allSurahs)});
-function editionsUrl(surah,translation,reciter){const editions=reciter==="parhizgar"?"quran-uthmani,"+encodeURIComponent(translation):"quran-uthmani,"+encodeURIComponent(translation)+","+encodeURIComponent(reciter);return QURAN_API+"/surah/"+surah+"/editions/"+editions}
-async function openSurah(number,focusAyah){playingSequence=false;sequenceIndex=-1;$("reader").hidden=false;$("reader").scrollIntoView({behavior:"smooth",block:"start"});$("readerStatus").textContent="در حال دریافت آیات...";$("ayahList").replaceChildren();$("readerTitle").textContent="در حال دریافت سوره...";$("surahAudio").hidden=true;$("surahAudio").pause();try{const editions=await getJson(editionsUrl(number,translationEdition,reciterEdition));const arabic=editions[0],translation=editions[1],audio=editions[2];currentSurah=arabic;currentAyahs=arabic.ayahs.map((ayah,i)=>({arabic:ayah,translation:translation.ayahs[i],audio:audio?.ayahs?.[i]||null}));$("readerTitle").textContent=arabic.name+" · "+arabic.englishName;$("readerMeta").textContent=(arabic.revelationType==="Meccan"?"مکی":"مدنی")+" · "+numberFa(arabic.numberOfAyahs)+" آیه · ترجمه: "+translation.name+" · قاری: "+(RECITER_NAMES[reciterEdition]||reciterEdition);$("readerStatus").textContent=reciterEdition==="parhizgar"?"تلاوت استاد پرهیزگار به‌صورت آیه‌به‌آیه از EveryAyah پخش می‌شود.":"تلاوت "+(RECITER_NAMES[reciterEdition]||"قاری انتخاب‌شده")+" از سرویس صوت قرآن دریافت می‌شود.";renderAyahs(focusAyah||0);saveBookmark(number,focusAyah||1,false)}catch(error){$("readerStatus").textContent="بارگذاری این سوره با ترجمه انتخاب‌شده انجام نشد. ترجمه دیگری انتخاب کن یا دوباره تلاش کن. ("+error.message+")"}}
-function renderAyahs(focus){const list=$("ayahList");list.replaceChildren();currentAyahs.forEach((item,index)=>{const ayahNo=index+1;const article=document.createElement("article");article.className="ayah";article.id="ayah-"+ayahNo;const arabic=document.createElement("div");arabic.className="ayah-ar";arabic.lang="ar";arabic.dir="rtl";const marker=document.createElement("span");marker.className="ayah-number";marker.textContent=numberFa(ayahNo);arabic.append(marker,document.createTextNode(" "+item.arabic.text));const translated=document.createElement("div");translated.className="ayah-translation";translated.textContent=item.translation.text;const actions=document.createElement("div");actions.className="ayah-actions";const play=document.createElement("button");play.type="button";play.textContent="▶ پخش این آیه";play.addEventListener("click",()=>playAyah(index));const mark=document.createElement("button");mark.type="button";mark.textContent="ذخیره تا این آیه";mark.addEventListener("click",()=>{saveBookmark(currentSurah.number,ayahNo,true);toast("محل مطالعه ذخیره شد.")});actions.append(play,mark);article.append(arabic,translated,actions);list.append(article)});if(focus>0){const target=$("ayah-"+focus);if(target)target.scrollIntoView({behavior:"smooth",block:"center"})}}
-function playAyah(index,keepSequence){const item=currentAyahs[index];if(!item||!currentSurah)return;if(!keepSequence){playingSequence=false;sequenceIndex=index}const player=$("surahAudio");let audioUrl;if(reciterEdition==="parhizgar"){const surahNo=String(currentSurah.number).padStart(3,"0"),ayahNo=String(index+1).padStart(3,"0");audioUrl="https://everyayah.com/data/Parhizgar_48kbps/"+surahNo+ayahNo+".mp3"}else{audioUrl=item.audio?.audio||AUDIO_CDN+"/128/"+reciterEdition+"/"+item.arabic.number+".mp3"}player.src=audioUrl;player.hidden=false;player.play().catch(()=>toast("پخش صوت شروع نشد؛ اتصال اینترنت را بررسی کن."))}
-$("surahAudio").addEventListener("ended",()=>{if(!playingSequence)return;const next=sequenceIndex+1;if(next<currentAyahs.length){sequenceIndex=next;playAyah(next,true)}else{playingSequence=false;toast("تلاوت این سوره به پایان رسید.")}});
-$("playSurah").addEventListener("click",()=>{if(!currentSurah)return;playingSequence=true;sequenceIndex=0;playAyah(0,true)});
+function editionsUrl(surah,translation){return QURAN_API+"/surah/"+surah+"/editions/quran-uthmani,"+encodeURIComponent(translation)}
+function stopAudio(){audioSessionId++;activeAudioState=null;playingSequence=false;sequenceIndex=-1;const player=$("surahAudio");player.pause();player.removeAttribute("src");player.load();player.hidden=true;$("retryAudioBtn").hidden=true}
+async function openSurah(number,focusAyah){
+ const loadId=++surahLoadId;
+ stopAudio();currentSurah=null;currentAyahs=[];
+ $("reader").hidden=false;$("reader").scrollIntoView({behavior:"smooth",block:"start"});
+ $("readerStatus").textContent="در حال دریافت متن سوره و ترجمه...";$("ayahList").replaceChildren();
+ $("readerTitle").textContent="در حال دریافت سوره...";$("playSurah").disabled=true;$("bookmarkSurah").disabled=true;
+ try{
+  const editions=await getJson(editionsUrl(number,translationEdition));
+  if(loadId!==surahLoadId)return;
+  const arabic=editions[0],translation=editions[1];
+  if(!arabic?.ayahs?.length||!translation?.ayahs?.length||arabic.ayahs.length!==translation.ayahs.length)throw new Error("متن عربی و ترجمه کامل دریافت نشدند.");
+  currentSurah=arabic;
+  currentAyahs=arabic.ayahs.map((ayah,i)=>({arabic:ayah,translation:translation.ayahs[i]}));
+  $("readerTitle").textContent=arabic.name+" · "+arabic.englishName;
+  $("readerMeta").textContent=(arabic.revelationType==="Meccan"?"مکی":"مدنی")+" · "+numberFa(arabic.numberOfAyahs)+" آیه · ترجمه: "+translation.name+" · قاری: "+(RECITER_NAMES[reciterEdition]||reciterEdition);
+  $("readerStatus").textContent="آیات آماده‌اند. برای شروع، «پخش کامل سوره» یا دکمه پخش کنار هر آیه را بزن.";
+  $("playSurah").disabled=false;$("bookmarkSurah").disabled=false;
+  renderAyahs(focusAyah||0);saveBookmark(number,focusAyah||1,false);
+ }catch(error){
+  if(loadId!==surahLoadId)return;
+  $("readerStatus").textContent="بارگذاری سوره انجام نشد: "+error.message+" — دکمه انتخاب سوره را دوباره بزن.";
+  $("playSurah").disabled=true;$("bookmarkSurah").disabled=true;
+ }
+}
+function audioCandidates(index){
+ const item=currentAyahs[index];if(!item||!currentSurah)return [];
+ if(reciterEdition==="parhizgar"){
+  const file=String(currentSurah.number).padStart(3,"0")+String(index+1).padStart(3,"0")+".mp3";
+  return ["https://everyayah.com/data/Parhizgar_48kbps/"+file,"https://huggingface.co/datasets/maqra-project/parhizgar-48kbps/resolve/main/"+file];
+ }
+ const globalAyah=item.arabic.number;
+ return [AUDIO_CDN+"/128/"+reciterEdition+"/"+globalAyah+".mp3",AUDIO_CDN+"/64/"+reciterEdition+"/"+globalAyah+".mp3"];
+}
+function showAudioError(message){$("readerStatus").textContent=message;$("retryAudioBtn").hidden=false;playingSequence=false}
+function handleAudioFailure(state,error){
+ if(!state||activeAudioState!==state||state.token!==audioSessionId)return;
+ if(state.handledSource===state.sourceIndex)return;
+ state.handledSource=state.sourceIndex;
+ if(error?.name==="NotAllowedError"){
+  showAudioError("مرورگر اجازه شروع پخش را نداد. دوباره روی دکمه پخش بزن.");
+  return;
+ }
+ if(state.sourceIndex+1<state.urls.length){
+  state.sourceIndex++;state.handledSource=-1;
+  $("readerStatus").textContent="منبع اول پاسخ نداد؛ در حال امتحان منبع جایگزین...";
+  const player=$("surahAudio");player.src=state.urls[state.sourceIndex];
+  const playResult=player.play();
+  if(playResult?.catch)playResult.catch(nextError=>handleAudioFailure(state,nextError));
+  return;
+ }
+ showAudioError("این فایل صوتی از منبع فعلی دریافت نشد. اتصال اینترنت یا دسترسی به سرویس صوت را بررسی کن و «تلاش دوباره» را بزن.");
+}
+function playAyah(index,keepSequence){
+ const item=currentAyahs[index];if(!item||!currentSurah)return;
+ if(!keepSequence){playingSequence=false;sequenceIndex=index}
+ else sequenceIndex=index;
+ lastAudioIndex=index;lastAudioWasSequence=!!keepSequence||playingSequence;
+ const urls=audioCandidates(index);if(!urls.length){showAudioError("نشانی صوت برای این آیه پیدا نشد.");return}
+ const player=$("surahAudio");const state={token:++audioSessionId,index,urls,sourceIndex:0,handledSource:-1};
+ activeAudioState=state;$("retryAudioBtn").hidden=true;
+ player.pause();player.hidden=false;player.preload="auto";player.src=urls[0];
+ $("readerStatus").textContent="در حال شروع تلاوت "+(RECITER_NAMES[reciterEdition]||reciterEdition)+"، آیه "+numberFa(index+1)+"...";
+ const playResult=player.play();
+ if(playResult?.then)playResult.then(()=>{
+  if(activeAudioState===state)$("readerStatus").textContent="در حال پخش "+(RECITER_NAMES[reciterEdition]||reciterEdition)+" · آیه "+numberFa(index+1);
+ }).catch(error=>handleAudioFailure(state,error));
+}
+$("surahAudio").addEventListener("error",()=>{if(activeAudioState)handleAudioFailure(activeAudioState,new Error("audio media error"))});
+$("surahAudio").addEventListener("playing",()=>{if(activeAudioState)$("readerStatus").textContent="در حال پخش "+(RECITER_NAMES[reciterEdition]||reciterEdition)+" · آیه "+numberFa(activeAudioState.index+1)});
+$("surahAudio").addEventListener("waiting",()=>{if(activeAudioState)$("readerStatus").textContent="در حال دریافت ادامه صوت...";});
+$("surahAudio").addEventListener("ended",()=>{
+ if(!playingSequence)return;
+ const next=sequenceIndex+1;
+ if(next<currentAyahs.length){sequenceIndex=next;playAyah(next,true)}
+ else{playingSequence=false;activeAudioState=null;$("readerStatus").textContent="تلاوت این سوره به پایان رسید.";toast("تلاوت این سوره به پایان رسید.")}
+});
+$("playSurah").addEventListener("click",()=>{
+ if(!currentSurah||!currentAyahs.length)return;
+ playingSequence=true;sequenceIndex=0;playAyah(0,true);
+});
+$("retryAudioBtn").addEventListener("click",()=>{
+ if(lastAudioWasSequence){playingSequence=true;sequenceIndex=lastAudioIndex}
+ playAyah(lastAudioIndex,lastAudioWasSequence);
+});
+
 $("translationSelect").addEventListener("change",async()=>{translationEdition=$("translationSelect").value;if(currentSurah)await openSurah(currentSurah.number)});
 $("reciterSelect").addEventListener("change",async()=>{reciterEdition=$("reciterSelect").value;updateTartilCards();if(currentSurah)await openSurah(currentSurah.number)});
 function updateTartilCards(){document.querySelectorAll("[data-reciter-card]").forEach(card=>{const selected=card.dataset.reciterCard===reciterEdition;card.classList.toggle("selected",selected);const button=card.querySelector("button");if(button)button.setAttribute("aria-pressed",selected?"true":"false")});$("tartilStatus").textContent="قاری انتخاب‌شده: "+(RECITER_NAMES[reciterEdition]||reciterEdition)}
@@ -109,7 +191,7 @@ $("bookmarkSurah").addEventListener("click",()=>{if(currentSurah)saveBookmark(cu
 $("resumeBtn").addEventListener("click",()=>{try{const b=JSON.parse(localStorage.getItem("noor-quran-bookmark")||"null");if(!b||!b.surah){toast("هنوز محل مطالعه‌ای ذخیره نشده است.");return}openSurah(b.surah,b.ayah)}catch{toast("نشان مطالعه قابل خواندن نیست.")}});
 $("readDaily").addEventListener("click",()=>openSurah(2,255));
 $("randomBtn").addEventListener("click",()=>{if(!allSurahs.length){toast("فهرست سوره‌ها هنوز آماده نیست.");return}const s=allSurahs[Math.floor(Math.random()*allSurahs.length)];openSurah(s.number)});
-$("closeReader").addEventListener("click",()=>{$("reader").hidden=true;$("surahAudio").pause()});
+$("closeReader").addEventListener("click",()=>{$("reader").hidden=true;stopAudio()});
 async function loadDaily(){try{const editions=await getJson(QURAN_API+"/ayah/2:255/editions/quran-uthmani,fa.makarem");$("dailyArabic").textContent=editions[0].text;$("dailyTranslation").textContent=editions[1].text;$("dailyTranslator").textContent=editions[1].edition.name||"ترجمه فارسی"}catch{$("dailyArabic").textContent="آیه برگزیده در حال حاضر در دسترس نیست.";$("dailyTranslation").textContent=""}}
 async function loadAnnouncements(){const box=$("announcementList");try{const r=await fetch(SUPABASE_URL+"/rest/v1/quran_announcements?select=id,title,body,created_at&is_published=eq.true&order=created_at.desc",{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});if(!r.ok)throw new Error("unavailable");const rows=await r.json();box.replaceChildren();if(!rows.length){box.textContent="در حال حاضر اطلاعیه‌ای ثبت نشده است.";return}for(const n of rows){const card=document.createElement("article");card.className="notice-card";const h=document.createElement("h3");h.textContent=n.title;const p=document.createElement("p");p.textContent=n.body;card.append(h,p);box.append(card)}}catch{box.textContent="اطلاعیه‌ها فعلاً بارگذاری نشدند."}}
 $("feedbackForm").addEventListener("submit",async e=>{e.preventDefault();const status=$("feedbackStatus");const message=$("feedbackMessage").value.trim();const contact=$("feedbackContact").value.trim();const subject=$("feedbackSubject").value;const packed="[ارتباط با مدیر]\nموضوع: "+subject+"\nراه پاسخ‌گویی: "+(contact||"ارائه نشده")+"\nمتن پیام:\n"+message;if(packed.length>1200){status.textContent="متن پیام به‌همراه اطلاعات واردشده بیش از حد طولانی است؛ کوتاه‌ترش کن.";return}status.textContent="در حال ارسال پیام خصوصی...";try{const r=await fetch(SUPABASE_URL+"/rest/v1/quran_feedback",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({name:$("feedbackName").value.trim(),message:packed})});if(!r.ok){const error=await r.json().catch(()=>({}));throw new Error(error.message||"ارسال پیام انجام نشد.")}$("feedbackForm").reset();status.textContent="پیام با موفقیت به صندوق خصوصی پنل مدیریت ارسال شد."}catch(error){status.textContent="خطا در ارسال پیام: "+error.message+" (ممکن است فایل quran_setup.sql هنوز اجرا نشده باشد.)"}});
