@@ -352,7 +352,7 @@ $("loadSajdaBtn").addEventListener("click",async()=>{
 
 function saveBookmark(surah,ayah,notify){localStorage.setItem("noor-quran-bookmark",JSON.stringify({surah:surah,ayah:ayah,savedAt:new Date().toISOString()}));if(notify)toast("محل مطالعه ذخیره شد.")}
 $("bookmarkSurah").addEventListener("click",()=>{if(!currentAyahs.length||!currentSurah)return;const first=currentAyahs[0].arabic;saveBookmark(first.surah?.number||currentSurah.number,first.numberInSurah||1,true)});
-$("bookmarkSurah").addEventListener("click",()=>{if(currentSurah)saveBookmark(currentSurah.number,1,true)});
+
 $("resumeBtn").addEventListener("click",()=>{try{const b=JSON.parse(localStorage.getItem("noor-quran-bookmark")||"null");if(!b||!b.surah){toast("هنوز محل مطالعه‌ای ذخیره نشده است.");return}openSurah(b.surah,b.ayah)}catch{toast("نشان مطالعه قابل خواندن نیست.")}});
 $("readDaily").addEventListener("click",()=>{const parts=dailyAyahRef.split(":").map(Number);if(parts.length===2&&parts.every(Number.isInteger))openSurah(parts[0],parts[1]);else toast("نشانی آیه منتخب معتبر نیست.")});
 $("randomBtn").addEventListener("click",()=>{if(!allSurahs.length){toast("فهرست سوره‌ها هنوز آماده نیست.");return}const s=allSurahs[Math.floor(Math.random()*allSurahs.length)];openSurah(s.number)});
