@@ -221,10 +221,11 @@ $("surahAudio").addEventListener("error",()=>{if(activeAudioState)handleAudioFai
 $("surahAudio").addEventListener("playing",()=>{if(activeAudioState)$("readerStatus").textContent="در حال پخش "+(RECITER_NAMES[reciterEdition]||reciterEdition)+" · آیه "+numberFa(activeAudioState.index+1)});
 $("surahAudio").addEventListener("waiting",()=>{if(activeAudioState)$("readerStatus").textContent="در حال دریافت ادامه صوت...";});
 $("surahAudio").addEventListener("ended",()=>{
+ if(repeatCurrentAudio&&activeAudioState){const replayIndex=activeAudioState.index;playAyah(replayIndex,playingSequence);return}
  if(!playingSequence)return;
  const next=sequenceIndex+1;
  if(next<currentAyahs.length){sequenceIndex=next;playAyah(next,true)}
- else if(repeatCurrentAudio){playAyah(sequenceIndex,true)}else{playingSequence=false;activeAudioState=null;$("readerStatus").textContent="تلاوت این بخش به پایان رسید.";toast("تلاوت این بخش به پایان رسید.")}
+ else{playingSequence=false;activeAudioState=null;$("readerStatus").textContent="تلاوت این بخش به پایان رسید.";toast("تلاوت این بخش به پایان رسید.")}
 });
 $("playSurah").addEventListener("click",()=>{
  if(!currentSurah||!currentAyahs.length)return;
