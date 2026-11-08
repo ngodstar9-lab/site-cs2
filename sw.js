@@ -1,4 +1,6 @@
-const CACHE_NAME = "noor-quran-shell-v1";
+const CACHE_NAME = "noor-quran-shell-v2";
+const AUDIO_CACHE_NAME = "noor-quran-surah-audio-v1";
+const AUDIO_PATH_PREFIX = "/quran/audio-surah/128/ar.shahriarparhizgar/";
 const CORE_FILES = [
   "./",
   "./index.html",
@@ -31,6 +33,30 @@ self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET") return;
   const url = new URL(request.url);
+
+  // Cache full-surah recitation files for offline listening in the installed app.
+  if (url.origin === "https://cdn.islamic.network" && url.pathname.startsWith(AUDIO_PATH_PREFIX)) {
+    event.respondWith((async () => {
+      const cache = await caches.open(AUDIO_CACHE_NAME);
+      const cached = await cache.match(request.url);
+      if (cached) return cached;
+      try {
+        const response = await fetch(request);
+        if (response && (response.ok || response.type === "opaque")) {
+          cache.put(request, response.clone()).catch(() => {});
+        }
+        return response;
+      } catch (error) {
+        const saved = await cache.match(request.url);
+        return saved || new Response("فایل صوتی آفلاین در این دستگاه ذخیره نشده است.", {
+          status: 503,
+          headers: { "Content-Type": "text/plain; charset=utf-8" }
+        });
+      }
+    })());
+    return;
+  }
+
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
