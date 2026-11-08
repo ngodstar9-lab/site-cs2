@@ -104,10 +104,106 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  macos:
+    name: Build macOS DMG and ZIP
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install app dependencies
+        working-directory: apps
+        run: npm install --no-audit --no-fund
+
+      - name: Build universal macOS app
+        working-directory: apps
+        run: npm run build:mac
+
+      - name: Upload macOS packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: noor-quran-macos
+          path: |
+            apps/dist/*.dmg
+            apps/dist/*.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  ios:
+    name: Build unsigned iOS IPA
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install app dependencies
+        working-directory: apps
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare bundled Quran app
+        working-directory: apps
+        run: npm run prepare:site
+
+      - name: Create iOS project
+        working-directory: apps
+        env:
+          CAPACITOR_APP_ID: ir.noorquran.ios
+        run: npx cap add ios --packagemanager SPM
+
+      - name: Sync iOS project
+        working-directory: apps
+        env:
+          CAPACITOR_APP_ID: ir.noorquran.ios
+        run: npx cap sync ios
+
+      - name: Build unsigned iOS app
+        working-directory: apps
+        run: |
+          xcodebuild \
+            -project ios/App/App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath ios/build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+
+      - name: Package unsigned IPA
+        working-directory: apps
+        run: |
+          APP_PATH="ios/build/Build/Products/Release-iphoneos/App.app"
+          test -d "$APP_PATH"
+          mkdir -p dist/ios-package/Payload
+          cp -R "$APP_PATH" dist/ios-package/Payload/
+          cd dist/ios-package
+          /usr/bin/zip -qry ../Noor-Quran-iOS-unsigned.ipa Payload
+          cd ..
+          rm -rf ios-package
+
+      - name: Upload unsigned iOS package
+        uses: actions/upload-artifact@v4
+        with:
+          name: noor-quran-ios-unsigned
+          path: apps/dist/Noor-Quran-iOS-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 14
+
   release:
     name: Publish app downloads
     runs-on: ubuntu-latest
-    needs: [windows, android]
+    needs: [windows, android, macos, ios]
     steps:
       - name: Download build packages
         uses: actions/download-artifact@v4
