@@ -19,7 +19,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: noor-quran-app-build-${{ github.ref }}
+  group: noor-quran-app-build-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: false
 
 jobs:
