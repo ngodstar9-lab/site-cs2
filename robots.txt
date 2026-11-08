@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+
+Sitemap: https://ngodstar9-lab.github.io/site-cs2/sitemap.xml
