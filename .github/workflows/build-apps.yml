@@ -1,0 +1,126 @@
+name: Build Noor Quran apps
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/**"
+      - ".github/workflows/build-apps.yml"
+      - "index.html"
+      - "admin.html"
+      - "app-icon.svg"
+      - "favicon.png"
+      - "manifest.webmanifest"
+      - "sw.js"
+      - "offline.html"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: noor-quran-app-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  windows:
+    name: Build Windows EXE
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install app dependencies
+        working-directory: apps
+        run: npm install --no-audit --no-fund
+
+      - name: Build Windows installer and portable app
+        working-directory: apps
+        run: npm run build:windows
+
+      - name: Upload Windows packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: noor-quran-windows
+          path: apps/dist/*.exe
+          if-no-files-found: error
+          retention-days: 14
+
+  android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install app dependencies
+        working-directory: apps
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare bundled Quran app
+        working-directory: apps
+        run: npm run prepare:site
+
+      - name: Create Android project
+        working-directory: apps
+        run: npx cap add android
+
+      - name: Sync Android project
+        working-directory: apps
+        run: npx cap sync android
+
+      - name: Build installable APK
+        working-directory: apps/android
+        run: |
+          chmod +x ./gradlew
+          ./gradlew --no-daemon assembleDebug
+
+      - name: Stage APK
+        run: |
+          mkdir -p apps/dist
+          cp apps/android/app/build/outputs/apk/debug/app-debug.apk apps/dist/Noor-Quran-Android.apk
+
+      - name: Upload Android package
+        uses: actions/upload-artifact@v4
+        with:
+          name: noor-quran-android
+          path: apps/dist/Noor-Quran-Android.apk
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    name: Publish app downloads
+    runs-on: ubuntu-latest
+    needs: [windows, android]
+    steps:
+      - name: Download build packages
+        uses: actions/download-artifact@v4
+        with:
+          pattern: noor-quran-*
+          path: release-assets
+          merge-multiple: true
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: noor-quran-apps-${{ github.run_number }}
+          name: Noor Quran Apps ${{ github.run_number }}
+          make_latest: true
+          files: release-assets/*
+          generate_release_notes: true
