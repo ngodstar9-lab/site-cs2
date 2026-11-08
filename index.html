@@ -127,7 +127,7 @@ const SURAH_AUDIO_CDN="https://cdn.islamic.network/quran/audio-surah/128";
 const SUPABASE_URL="https://wizwuaptaypzabmvrwiq.supabase.co";
 const SUPABASE_KEY="sb_publishable_6X8vkKyo0lIOt1LK5HDSWg_eq3qG3Ds";
 const $=id=>document.getElementById(id);
-let allSurahs=[],currentSurah=null,currentAyahs=[],translationEdition="fa.makarem",reciterEdition="parhizgar",playingSequence=false,sequenceIndex=-1,surahLoadId=0,audioSessionId=0,activeAudioState=null,lastAudioIndex=0,lastAudioWasSequence=false,repeatCurrentAudio=false,dailyAyahRef="2:255",dailyAyahNote="آیه‌ای برای تأمل و یادآوری",dailyLoadSequence=0,audioDownloadRunning=false,audioDownloadPaused=false,activeSurahObjectUrl=null;
+let allSurahs=[],currentSurah=null,currentAyahs=[],currentContentIsFullSurah=false,translationEdition="fa.makarem",reciterEdition="parhizgar",playingSequence=false,sequenceIndex=-1,surahLoadId=0,audioSessionId=0,activeAudioState=null,lastAudioIndex=0,lastAudioWasSequence=false,repeatCurrentAudio=false,dailyAyahRef="2:255",dailyAyahNote="آیه‌ای برای تأمل و یادآوری",dailyLoadSequence=0,audioDownloadRunning=false,audioDownloadPaused=false,activeSurahObjectUrl=null;
 const RECITER_NAMES={"parhizgar":"استاد شهریار پرهیزگار","ar.husary":"استاد محمود خلیل‌الحصری","ar.minshawi":"استاد محمد صدیق منشاوی","ar.alafasy":"مشاری العفاسی"};
 function toast(message){const el=$("toast");el.textContent=message;el.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove("show"),3200)}
 async function getJson(url,timeoutMs=18000){const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),timeoutMs);try{const response=await fetch(url,{signal:controller.signal,cache:"no-store"});if(!response.ok)throw new Error("خطا در دریافت اطلاعات ("+response.status+")");const data=await response.json();if(data.code!==200)throw new Error(data.status||"پاسخ سرویس قرآن معتبر نیست.");return data.data}catch(error){if(error.name==="AbortError")throw new Error("پاسخ سرویس قرآن بیش از حد طول کشید. دوباره تلاش کن.");throw error}finally{clearTimeout(timeout)}}
@@ -141,7 +141,7 @@ function editionsUrl(surah,translation){return QURAN_API+"/surah/"+surah+"/editi
 function stopAudio(){audioSessionId++;activeAudioState=null;playingSequence=false;sequenceIndex=-1;const player=$("surahAudio");player.pause();player.removeAttribute("src");player.load();player.hidden=true;$("retryAudioBtn").hidden=true;if(activeSurahObjectUrl){URL.revokeObjectURL(activeSurahObjectUrl);activeSurahObjectUrl=null}}
 async function openSurah(number,focusAyah){
  const loadId=++surahLoadId;
- stopAudio();currentSurah=null;currentAyahs=[];
+ stopAudio();currentSurah=null;currentAyahs=[];currentContentIsFullSurah=false;
  $("reader").hidden=false;$("reader").scrollIntoView({behavior:"smooth",block:"start"});
  $("readerStatus").textContent="در حال دریافت متن سوره و ترجمه...";$("ayahList").replaceChildren();
  $("readerTitle").textContent="در حال دریافت سوره...";$("playSurah").disabled=true;$("bookmarkSurah").disabled=true;
@@ -150,7 +150,7 @@ async function openSurah(number,focusAyah){
   if(loadId!==surahLoadId)return;
   const arabic=editions[0],translation=editions[1];
   if(!arabic?.ayahs?.length||!translation?.ayahs?.length||arabic.ayahs.length!==translation.ayahs.length)throw new Error("متن عربی و ترجمه کامل دریافت نشدند.");
-  currentSurah=arabic;
+  currentSurah=arabic;currentContentIsFullSurah=true;
   currentAyahs=arabic.ayahs.map((ayah,i)=>({arabic:ayah,translation:translation.ayahs[i]}));
   $("readerTitle").textContent=arabic.name+" · "+arabic.englishName;
   $("readerMeta").textContent=(arabic.revelationType==="Meccan"?"مکی":"مدنی")+" · "+numberFa(arabic.numberOfAyahs)+" آیه · ترجمه: "+translation.name+" · قاری: "+(RECITER_NAMES[reciterEdition]||reciterEdition);
@@ -240,7 +240,7 @@ $("surahAudio").addEventListener("ended",()=>{
 });
 $("playSurah").addEventListener("click",async()=>{
  if(!currentSurah||!currentAyahs.length)return;
- if(reciterEdition==="parhizgar"){
+ if(reciterEdition==="parhizgar"&&currentContentIsFullSurah){
   const url=offlineSurahAudioUrl(currentSurah.number);
   try{
    const cache=await caches.open(OFFLINE_AUDIO_CACHE);
@@ -277,7 +277,7 @@ async function openReadingUnit(kind,number){
  const n=Number(number);
  if(!ranges[kind]||!Number.isInteger(n)||n<1||n>ranges[kind]){toast("شماره بخش معتبر نیست.");return}
  const labels={juz:"جزء",page:"صفحه",manzil:"منزل",hizbQuarter:"ربع حزب"};
- const seq=++surahLoadId;stopAudio();currentSurah=null;currentAyahs=[];
+ const seq=++surahLoadId;stopAudio();currentSurah=null;currentAyahs=[];currentContentIsFullSurah=false;
  $("reader").hidden=false;$("reader").scrollIntoView({behavior:"smooth",block:"start"});
  $("readerTitle").textContent="در حال دریافت "+labels[kind]+" "+numberFa(n);
  $("readerMeta").textContent="در حال بارگذاری متن عربی و ترجمه فارسی...";
