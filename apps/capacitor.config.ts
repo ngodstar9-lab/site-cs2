@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "ir.noorquran.android",
+  appId: process.env.CAPACITOR_APP_ID || "ir.noorquran.android",
   appName: "نور قرآن",
   webDir: "shared/www",
   server: {
