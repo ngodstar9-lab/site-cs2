@@ -5,8 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="app-icon.svg"><link rel="icon" type="image/png" href="favicon.png?v=20261108"><link rel="apple-touch-icon" href="favicon.png?v=20261108"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="نور قرآن"><meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#123b30">
-<meta name="description" content="نور قرآن؛ خواندن قرآن کریم همراه ترجمه فارسی، تلاوت صوتی و جستجوی سوره‌ها.">
-<title>نور قرآن | قرآن کریم، تلاوت و ترجمه فارسی</title>
+<meta name="description" content="نور قرآن؛ متن کامل ۱۱۴ سوره قرآن کریم همراه ترجمه فارسی، تلاوت صوتی سه قاری، جستجوی آیات، نشانک، برنامه ختم و ابزارهای مطالعه. نسخه‌های ویندوز، مک و اندروید نیز برای دانلود در دسترس‌اند.">
+<meta name="keywords" content="قرآن کریم, قرآن با ترجمه فارسی, تلاوت قرآن, ترتیل قرآن, دانلود قرآن, قرآن آفلاین, ختم قرآن, جستجوی آیات, نور قرآن">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://ngodstar9-lab.github.io/site-cs2/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:site_name" content="نور قرآن">
+<meta property="og:title" content="نور قرآن | قرآن کریم، ترجمه فارسی و تلاوت">
+<meta property="og:description" content="متن کامل قرآن کریم با ترجمه فارسی، تلاوت سه قاری، جستجوی آیات و ابزارهای برنامه‌ریزی مطالعه.">
+<meta property="og:url" content="https://ngodstar9-lab.github.io/site-cs2/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="نور قرآن | قرآن کریم، ترجمه فارسی و تلاوت">
+<meta name="twitter:description" content="قرآن کریم را بخوان، ترجمه را دنبال کن، تلاوت گوش بده و مطالعه‌ات را برنامه‌ریزی کن.">
+<title>نور قرآن | قرآن کریم، ترجمه فارسی و تلاوت صوتی</title>
 <style>
 :root{--bg:#f7f5ed;--paper:#fffef9;--paper2:#f0eee4;--green:#123b30;--green2:#1d5945;--green3:#2d7659;--gold:#c49a48;--gold2:#e3c47b;--ink:#1b2923;--muted:#69756e;--line:#e5e0d2;--shadow:0 18px 50px #163a2a12}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:85px}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.9}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #c49a48aa;outline-offset:2px}
@@ -26,7 +38,7 @@ main{padding:34px 0 10px}.section{margin:0 0 30px}.section-head{display:flex;jus
 <div class="topbar"><div class="wrap"><span>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span>قرآن کریم · تلاوت · ترجمه · تدبّر</span></div></div>
 <header><div class="wrap nav">
 <a class="brand" href="#" aria-label="نور قرآن، صفحه اصلی"><span class="brand-mark">۞</span><span><span class="brand-name">نور قرآن</span><small>همراهی برای خواندن و شنیدن قرآن</small></span></a>
-<nav aria-label="منوی اصلی"><a href="#surahs">سوره‌ها</a><a href="#tartil">ترتیل</a><a href="#studyTools">ابزار مطالعه</a><a href="#learning">آموزش تجوید</a><a href="#announcements">اطلاعیه‌ها</a><a href="#contactAdmin">ارتباط</a></nav>
+<nav aria-label="منوی اصلی"><a href="#surahs">سوره‌ها</a><a href="#tartil">ترتیل</a><a href="#studyTools">ابزار مطالعه</a><a href="#learning">آموزش تجوید</a><a href="#announcements">اطلاعیه‌ها</a><a href="#contactAdmin">ارتباط</a><a href="./download.html">دانلود برنامه</a></nav>
 <div class="nav-actions"><button id="resumeBtn" class="btn btn-soft" type="button">ادامه مطالعه</button><button id="installAppBtn" class="btn btn-gold install-button" type="button">نصب اپ</button><a class="btn btn-primary" href="admin.html">مدیریت</a></div>
 </div></header>
 <aside id="installHelp" class="install-help" hidden><h3>نصب اپلیکیشن نور قرآن</h3><p id="installInstructions">برای نصب، از منوی مرورگر گزینه نصب برنامه یا افزودن به صفحه اصلی را انتخاب کن.</p><p>برای دریافت متن قرآن، ترجمه و صوت ترتیل، اتصال اینترنت لازم است. پوسته اصلی برنامه پس از اولین بازدید قابل دسترسی آفلاین خواهد بود.</p><button id="closeInstallHelp" type="button" class="btn btn-soft">متوجه شدم</button></aside>
@@ -118,7 +130,7 @@ main{padding:34px 0 10px}.section{margin:0 0 30px}.section-head{display:flex;jus
 <p class="access-note" style="margin-top:14px">این فرم فقط درخواست همکاری می‌فرستد؛ رمز عبور، کد تأیید، اطلاعات بانکی یا مبلغ پرداختی را وارد نکن. تأیید نهایی و اعطای دسترسی فقط با تصمیم اونر انجام می‌شود.</p>
 </section>
 </main>
-<footer><div class="wrap footer-row"><span>نور قرآن · وب‌سایتی برای خواندن و شنیدن قرآن کریم</span><span>متن و ترجمه: Al Quran Cloud · تلاوت پرهیزگار: <a href="https://everyayah.com/" target="_blank" rel="noopener noreferrer">EveryAyah.com</a></span><a href="admin.html">ورود مدیر سایت</a></div></footer>
+<footer><div class="wrap"><div class="footer-row"><span>نور قرآن · همراه مطالعه و تلاوت قرآن کریم</span><span>متن و ترجمه: Al Quran Cloud · تلاوت پرهیزگار: <a href="https://everyayah.com/" target="_blank" rel="noopener noreferrer">EveryAyah.com</a></span><a href="admin.html">ورود مدیر سایت</a></div><div class="footer-row" style="margin-top:14px;padding-top:12px;border-top:1px solid #ffffff20"><span>نور قرآن را به دوستانت معرفی کن:</span><span><a href="https://t.me/share/url?url=https%3A%2F%2Fngodstar9-lab.github.io%2Fsite-cs2%2F&text=%D9%86%D9%88%D8%B1%20%D9%82%D8%B1%D8%A2%D9%86%20%7C%20%D9%82%D8%B1%D8%A2%D9%86%20%DA%A9%D8%B1%DB%8C%D9%85%20%D8%A8%D8%A7%20%D8%AA%D8%B1%D8%AC%D9%85%D9%87%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C%20%D9%88%20%D8%AA%D9%84%D8%A7%D9%88%D8%AA" target="_blank" rel="noopener noreferrer">اشتراک در تلگرام</a> · <a href="https://wa.me/?text=%D9%86%D9%88%D8%B1%20%D9%82%D8%B1%D8%A2%D9%86%20-%20%D9%82%D8%B1%D8%A2%D9%86%20%DA%A9%D8%B1%DB%8C%D9%85%20%D8%A8%D8%A7%20%D8%AA%D8%B1%D8%AC%D9%85%D9%87%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C%20%D9%88%20%D8%AA%D9%84%D8%A7%D9%88%D8%AA%3A%20https%3A%2F%2Fngodstar9-lab.github.io%2Fsite-cs2%2F" target="_blank" rel="noopener noreferrer">اشتراک در واتساپ</a> · <a href="./download.html">دریافت اپلیکیشن</a></span></div></div></footer>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 const QURAN_API="https://api.alquran.cloud/v1";
