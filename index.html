@@ -62,7 +62,7 @@ main{padding:34px 0 10px}.section{margin:0 0 30px}.section-head{display:flex;jus
 <div id="surahGrid" class="surah-grid"><p class="muted">در حال دریافت فهرست سوره‌ها...</p></div>
 </section>
 <section id="studyTools" class="section study-section">
-<div class="section-head"><div><span class="section-label">مطالعه و مرور</span><h2>ابزارهای قرآنی</h2><p>خواندن قرآن را بر اساس جزء و صفحه ادامه بده، آیه جستجو کن و برنامه شخصی مطالعه بساز.</p></div></div>
+<div class="section-head"><div><span class="section-label">مطالعه و مرور</span><h2>ابزارهای قرآنی</h2><p id="studyIntro">خواندن قرآن را بر اساس جزء و صفحه ادامه بده، آیه جستجو کن و برنامه شخصی مطالعه بساز.</p></div></div>
 <div class="study-grid">
 <article class="tool-card"><h3>مرور بر اساس جزء، صفحه و منزل</h3><p>بخش دلخواه قرآن را از ساختارهای رایج انتخاب کن.</p>
 <div class="tool-row"><select id="unitType" aria-label="نوع بخش"><option value="juz">جزء (۱ تا ۳۰)</option><option value="page">صفحه (۱ تا ۶۰۴)</option><option value="manzil">منزل (۱ تا ۷)</option><option value="hizbQuarter">ربع حزب (۱ تا ۲۴۰)</option></select><input id="unitNumber" type="number" min="1" max="30" value="1" aria-label="شماره بخش"><button class="btn btn-primary" id="openUnitBtn" type="button">بازکردن</button></div>
@@ -73,14 +73,14 @@ main{padding:34px 0 10px}.section{margin:0 0 30px}.section-head{display:flex;jus
 <div id="quranSearchResults" class="tool-results" aria-live="polite"></div>
 </article>
 <article class="tool-card"><h3>نشانک‌های آیات من</h3><p>آیه‌هایی را که می‌خواهی دوباره بخوانی ذخیره کن؛ نشانک‌ها در همین مرورگر می‌مانند.</p><div id="savedAyahList" class="tool-results"><span class="muted">هنوز آیه‌ای ذخیره نکرده‌ای.</span></div></article>
-<article class="tool-card"><h3>برنامه ختم قرآن</h3><p>هر جزء را پس از مطالعه علامت بزن تا میزان پیشرفتت مشخص شود.</p><strong id="khatmProgressText">۰ از ۳۰ جزء</strong><div class="mini-progress"><span id="khatmProgressBar"></span></div><div id="khatmChecks" class="juz-checks"></div><button class="btn btn-soft" id="resetKhatmBtn" type="button">شروع دوباره برنامه ختم</button></article>
-<article class="tool-card"><h3>هدف روزانه مطالعه</h3><p>یک هدف ساده برای تعداد آیه‌هایی که امروز می‌خواهی بخوانی انتخاب کن.</p><div class="tool-row"><select id="dailyGoalSelect"><option value="5">۵ آیه</option><option value="10" selected>۱۰ آیه</option><option value="20">۲۰ آیه</option><option value="30">۳۰ آیه</option></select><button class="btn btn-primary" id="addDailyProgress" type="button">ثبت مطالعه</button><button class="btn btn-soft" id="resetDailyProgress" type="button">صفرکردن امروز</button></div><strong id="dailyGoalText">۰ از ۱۰ آیه</strong><div class="mini-progress"><span id="dailyGoalBar"></span></div></article>
-<article class="tool-card"><h3>تسبیح شمارنده</h3><p>برای شمارش ذکرها؛ تعداد فقط روی همین دستگاه ذخیره می‌شود.</p><div id="tasbihCount" class="tasbih-number">۰</div><div class="tool-row"><select id="tasbihTarget"><option value="33">هدف ۳۳</option><option value="100">هدف ۱۰۰</option><option value="0">بدون هدف</option></select></div><div class="tasbih-actions"><button class="btn btn-primary" id="tasbihAdd" type="button">+ یک شمارش</button><button class="btn btn-soft" id="tasbihReset" type="button">شروع دوباره</button></div><p id="tasbihStatus" class="study-note" role="status"></p></article>
+<article class="tool-card" id="khatmCard"><h3>برنامه ختم قرآن</h3><p>هر جزء را پس از مطالعه علامت بزن تا میزان پیشرفتت مشخص شود.</p><strong id="khatmProgressText">۰ از ۳۰ جزء</strong><div class="mini-progress"><span id="khatmProgressBar"></span></div><div id="khatmChecks" class="juz-checks"></div><button class="btn btn-soft" id="resetKhatmBtn" type="button">شروع دوباره برنامه ختم</button></article>
+<article class="tool-card" id="dailyGoalCard"><h3>هدف روزانه مطالعه</h3><p>یک هدف ساده برای تعداد آیه‌هایی که امروز می‌خواهی بخوانی انتخاب کن.</p><div class="tool-row"><select id="dailyGoalSelect"><option value="5">۵ آیه</option><option value="10" selected>۱۰ آیه</option><option value="20">۲۰ آیه</option><option value="30">۳۰ آیه</option></select><button class="btn btn-primary" id="addDailyProgress" type="button">ثبت مطالعه</button><button class="btn btn-soft" id="resetDailyProgress" type="button">صفرکردن امروز</button></div><strong id="dailyGoalText">۰ از ۱۰ آیه</strong><div class="mini-progress"><span id="dailyGoalBar"></span></div></article>
+<article class="tool-card" id="tasbihCard"><h3>تسبیح شمارنده</h3><p>برای شمارش ذکرها؛ تعداد فقط روی همین دستگاه ذخیره می‌شود.</p><div id="tasbihCount" class="tasbih-number">۰</div><div class="tool-row"><select id="tasbihTarget"><option value="33">هدف ۳۳</option><option value="100">هدف ۱۰۰</option><option value="0">بدون هدف</option></select></div><div class="tasbih-actions"><button class="btn btn-primary" id="tasbihAdd" type="button">+ یک شمارش</button><button class="btn btn-soft" id="tasbihReset" type="button">شروع دوباره</button></div><p id="tasbihStatus" class="study-note" role="status"></p></article>
 </div>
 </section>
 <section id="learning" class="section study-section">
 <div class="section-head"><div><span class="section-label">یادگیری قرائت</span><h2>آموزش مقدماتی تجوید و آیات سجده</h2><p>آشنایی کوتاه با چند نشانه و قاعده قرائت؛ تمرین دقیق را با معلم قرآن انجام بده.</p></div></div>
-<div class="tajweed-grid">
+<div class="tajweed-grid" id="tajweedLessonGrid">
 <article class="tajweed-card"><strong>مدّ طبیعی</strong><p>کشیده‌خواندن معمولی حرف مد؛ در حالت پایه به اندازه دو حرکت.</p></article>
 <article class="tajweed-card"><strong>قلقله</strong><p>طنین کوتاه در حروف «ق، ط، ب، ج، د» هنگام ساکن بودن.</p></article>
 <article class="tajweed-card"><strong>اخفاء</strong><p>خواندن نون ساکن یا تنوین با حالت میانی و غنّه، پیش از حروف اخفاء.</p></article>
@@ -89,7 +89,7 @@ main{padding:34px 0 10px}.section{margin:0 0 30px}.section-head{display:flex;jus
 <article class="tajweed-card"><strong>غنّه</strong><p>طنین بینی در مواردی که قاعده قرائت آن را لازم می‌کند.</p></article>
 </div>
 <p class="study-note">این توضیح‌ها فقط آشنایی مقدماتی‌اند و جای آموزش استاد تجوید را نمی‌گیرند. <a href="https://alquran.cloud/tajweed-guide" target="_blank" rel="noopener noreferrer">راهنمای تجوید و نشانه‌های رنگی</a></p>
-<div class="tool-card" style="margin-top:14px"><div class="section-head"><div><h3>آیات سجده</h3><p>فهرست آیه‌هایی که در نشانه‌گذاری این سرویس برای سجده معرفی شده‌اند. تعداد و حکم سجده ممکن است بر اساس مذهب فقهی تفاوت داشته باشد.</p></div><button id="loadSajdaBtn" class="btn btn-soft" type="button">نمایش آیات سجده</button></div><div id="sajdaList" class="tool-results"></div></div>
+<div class="tool-card" id="sajdaToolCard" style="margin-top:14px"><div class="section-head"><div><h3>آیات سجده</h3><p>فهرست آیه‌هایی که در نشانه‌گذاری این سرویس برای سجده معرفی شده‌اند. تعداد و حکم سجده ممکن است بر اساس مذهب فقهی تفاوت داشته باشد.</p></div><button id="loadSajdaBtn" class="btn btn-soft" type="button">نمایش آیات سجده</button></div><div id="sajdaList" class="tool-results"></div></div>
 </section>
 <section id="announcements" class="section">
 <div class="section-head"><div><span class="section-label">از طرف مدیر سایت</span><h2>اطلاعیه‌ها</h2><p>خبرها و پیام‌های مربوط به این وب‌سایت.</p></div></div>
@@ -240,7 +240,118 @@ $("reciterSelect").addEventListener("change",async()=>{reciterEdition=$("reciter
 function updateTartilCards(){document.querySelectorAll("[data-reciter-card]").forEach(card=>{const selected=card.dataset.reciterCard===reciterEdition;card.classList.toggle("selected",selected);const button=card.querySelector("button");if(button)button.setAttribute("aria-pressed",selected?"true":"false")});$("tartilStatus").textContent="قاری انتخاب‌شده: "+(RECITER_NAMES[reciterEdition]||reciterEdition)}
 document.querySelectorAll(".tartil-choice").forEach(button=>button.addEventListener("click",()=>{reciterEdition=button.dataset.reciter;$("reciterSelect").value=reciterEdition;updateTartilCards();if(currentSurah)openSurah(currentSurah.number)}));
 $("openTartilSurah").addEventListener("click",()=>{const number=Number($("tartilSurahSelect").value);if(!number){toast("اول یک سوره انتخاب کن.");return}openSurah(number)});
+
+// مرور با جزء، صفحه، منزل یا ربع حزب
+async function openReadingUnit(kind,number){
+ const ranges={juz:30,page:604,manzil:7,hizbQuarter:240};
+ const n=Number(number);
+ if(!ranges[kind]||!Number.isInteger(n)||n<1||n>ranges[kind]){toast("شماره بخش معتبر نیست.");return}
+ const labels={juz:"جزء",page:"صفحه",manzil:"منزل",hizbQuarter:"ربع حزب"};
+ const seq=++surahLoadId;stopAudio();currentSurah=null;currentAyahs=[];
+ $("reader").hidden=false;$("reader").scrollIntoView({behavior:"smooth",block:"start"});
+ $("readerTitle").textContent="در حال دریافت "+labels[kind]+" "+numberFa(n);
+ $("readerMeta").textContent="در حال بارگذاری متن عربی و ترجمه فارسی...";
+ $("readerStatus").textContent="در حال دریافت آیات...";$("ayahList").replaceChildren();
+ $("playSurah").disabled=true;$("bookmarkSurah").disabled=true;
+ try{
+  const base=QURAN_API+"/"+kind+"/"+n;
+  const editions=await Promise.all([getJson(base+"/quran-uthmani"),getJson(base+"/"+translationEdition)]);
+  if(seq!==surahLoadId)return;
+  const arabic=editions[0],translation=editions[1];
+  if(!arabic?.ayahs?.length||!translation?.ayahs?.length||arabic.ayahs.length!==translation.ayahs.length)throw new Error("متن و ترجمه کامل دریافت نشد.");
+  currentSurah={number:arabic.ayahs[0].surah?.number||1,name:labels[kind]+" "+n,englishName:labels[kind]+" "+n,revelationType:""};
+  currentAyahs=arabic.ayahs.map((ayah,i)=>({arabic:ayah,translation:translation.ayahs[i]}));
+  $("readerTitle").textContent=labels[kind]+" "+numberFa(n);
+  $("readerMeta").textContent=numberFa(currentAyahs.length)+" آیه · ترجمه: "+translation.name+" · قاری: "+(RECITER_NAMES[reciterEdition]||reciterEdition);
+  $("readerStatus").textContent="آیات آماده‌اند؛ می‌توانی بخوانی یا ترتیل را پخش کنی.";
+  $("playSurah").disabled=false;$("bookmarkSurah").disabled=false;
+  renderAyahs(0);
+  const first=currentAyahs[0].arabic;
+  saveBookmark(first.surah?.number||currentSurah.number,first.numberInSurah||1,false);
+ }catch(error){if(seq!==surahLoadId)return;$("readerStatus").textContent="بارگذاری این بخش انجام نشد: "+error.message;$("playSurah").disabled=true;$("bookmarkSurah").disabled=true}
+}
+$("openUnitBtn").addEventListener("click",()=>openReadingUnit($("unitType").value,$("unitNumber").value));
+$("unitType").addEventListener("change",()=>{const max={juz:30,page:604,manzil:7,hizbQuarter:240}[$("unitType").value];$("unitNumber").max=String(max);$("unitNumber").value="1";$("unitNumber").placeholder="۱ تا "+max;$("unitHelp").textContent="شماره‌ای بین ۱ تا "+numberFa(max)+" وارد کن."});
+// جستجو در ترجمه فارسی قرآن
+$("quranSearchForm").addEventListener("submit",async event=>{
+ event.preventDefault();const query=$("quranSearchInput").value.trim();const box=$("quranSearchResults");
+ if(query.length<2){box.textContent="برای جستجو دست‌کم دو حرف وارد کن.";return}
+ box.textContent="در حال جستجو در ترجمه فارسی...";
+ try{
+  const result=await getJson(QURAN_API+"/search/"+encodeURIComponent(query)+"/all/"+encodeURIComponent(translationEdition));
+  const matches=(result.matches||[]).slice(0,40);box.replaceChildren();
+  if(!matches.length){box.textContent="نتیجه‌ای پیدا نشد؛ عبارت دیگری امتحان کن.";return}
+  for(const match of matches){
+   const button=document.createElement("button");button.type="button";button.className="tool-result";
+   const title=document.createElement("strong");title.textContent=(match.surah?.name||"سوره")+" · آیه "+numberFa(match.numberInSurah);
+   const text=document.createElement("small");text.textContent=match.text;
+   button.append(title,text);button.addEventListener("click",()=>openSurah(match.surah.number,match.numberInSurah));box.append(button);
+  }
+  const note=document.createElement("p");note.className="study-note";note.textContent="نمایش "+numberFa(matches.length)+" نتیجه نخست.";box.append(note);
+ }catch(error){box.textContent="جستجو انجام نشد: "+error.message}
+});
+// نشانک‌های شخصی، فقط در مرورگر همین دستگاه
+function getSavedAyahs(){try{return JSON.parse(localStorage.getItem("noor-quran-saved-ayahs")||"[]")}catch{return []}}
+function addSavedAyah(surah,ayah,arabic,translation){
+ const list=getSavedAyahs();const ref=surah+":"+ayah;
+ if(list.some(item=>item.ref===ref)){toast("این آیه قبلاً ذخیره شده است.");return}
+ list.unshift({ref,surah,ayah,arabic,translation,savedAt:new Date().toISOString()});
+ localStorage.setItem("noor-quran-saved-ayahs",JSON.stringify(list.slice(0,100)));
+ renderSavedAyahs();toast("آیه به نشانک‌های تو اضافه شد.");
+}
+function renderSavedAyahs(){
+ const box=$("savedAyahList");box.replaceChildren();const list=getSavedAyahs();
+ if(!list.length){box.textContent="هنوز آیه‌ای ذخیره نکرده‌ای.";return}
+ for(const item of list){
+  const wrap=document.createElement("div");wrap.className="tool-result";
+  const title=document.createElement("strong");title.textContent="سوره "+numberFa(item.surah)+" · آیه "+numberFa(item.ayah);
+  const text=document.createElement("small");text.textContent=item.translation||item.arabic||"";
+  const actions=document.createElement("div");actions.className="tool-row";
+  const open=document.createElement("button");open.type="button";open.className="btn btn-soft";open.textContent="بازکردن آیه";open.addEventListener("click",()=>openSurah(item.surah,item.ayah));
+  const remove=document.createElement("button");remove.type="button";remove.className="btn btn-soft";remove.textContent="حذف نشانک";remove.addEventListener("click",()=>{localStorage.setItem("noor-quran-saved-ayahs",JSON.stringify(getSavedAyahs().filter(x=>x.ref!==item.ref)));renderSavedAyahs()});
+  actions.append(open,remove);wrap.append(title,text,actions);box.append(wrap);
+ }
+}
+// برنامه ختم ۳۰ جزء
+function getKhatmState(){try{return JSON.parse(localStorage.getItem("noor-quran-khatm")||"[]")}catch{return []}}
+function renderKhatm(){
+ const box=$("khatmChecks");box.replaceChildren();const done=getKhatmState();let count=0;
+ for(let n=1;n<=30;n++){
+  const label=document.createElement("label");label.className="juz-check";
+  const input=document.createElement("input");input.type="checkbox";input.checked=done.includes(n);if(input.checked)count++;
+  input.addEventListener("change",()=>{let list=getKhatmState();list=input.checked?[...new Set([...list,n])]:list.filter(x=>x!==n);localStorage.setItem("noor-quran-khatm",JSON.stringify(list));renderKhatm()});
+  const text=document.createElement("span");text.textContent="جزء "+numberFa(n);label.append(input,text);box.append(label);
+ }
+ $("khatmProgressText").textContent=numberFa(count)+" از ۳۰ جزء تکمیل شده";
+ $("khatmProgressBar").style.width=(count/30*100)+"%";
+}
+$("resetKhatmBtn").addEventListener("click",()=>{if(!confirm("پیشرفت برنامه ختم پاک و از ابتدا شروع شود؟"))return;localStorage.removeItem("noor-quran-khatm");renderKhatm()});
+// هدف روزانه خواندن
+function dayKey(){const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function getDailyProgress(){try{const d=JSON.parse(localStorage.getItem("noor-quran-daily-progress")||"{}");return d.day===dayKey()?d:{day:dayKey(),count:0}}catch{return {day:dayKey(),count:0}}}
+function renderDailyGoal(){const state=getDailyProgress(),goal=Number($("dailyGoalSelect").value)||10;$("dailyGoalText").textContent=numberFa(state.count)+" از "+numberFa(goal)+" آیه امروز";$("dailyGoalBar").style.width=Math.min(100,state.count/goal*100)+"%"}
+$("dailyGoalSelect").addEventListener("change",renderDailyGoal);
+$("addDailyProgress").addEventListener("click",()=>{const state=getDailyProgress();state.count+=1;localStorage.setItem("noor-quran-daily-progress",JSON.stringify(state));renderDailyGoal();toast("یک آیه به پیشرفت امروز اضافه شد.")});
+$("resetDailyProgress").addEventListener("click",()=>{localStorage.setItem("noor-quran-daily-progress",JSON.stringify({day:dayKey(),count:0}));renderDailyGoal()});
+// تسبیح دیجیتال
+function getTasbih(){try{return Number(localStorage.getItem("noor-quran-tasbih")||0)||0}catch{return 0}}
+function renderTasbih(){const count=getTasbih(),target=Number($("tasbihTarget").value);$("tasbihCount").textContent=numberFa(count);$("tasbihStatus").textContent=target>0&&count>=target?"به هدف انتخاب‌شده رسیدی.":target>0?"تا هدف "+numberFa(Math.max(0,target-count))+" شمارش باقی مانده.":"شمارنده آماده است."}
+$("tasbihAdd").addEventListener("click",()=>{localStorage.setItem("noor-quran-tasbih",String(getTasbih()+1));renderTasbih()});
+$("tasbihReset").addEventListener("click",()=>{localStorage.setItem("noor-quran-tasbih","0");renderTasbih()});
+$("tasbihTarget").addEventListener("change",renderTasbih);
+// حالت حفظ و تکرار آیه
+$("memorizeMode").addEventListener("change",()=>{document.querySelectorAll(".ayah-translation").forEach(el=>el.hidden=$("memorizeMode").checked);toast($("memorizeMode").checked?"حالت حفظ روشن شد؛ ترجمه‌ها پنهان شدند.":"ترجمه‌ها دوباره نمایش داده می‌شوند.")});
+$("repeatAyahBtn").addEventListener("click",()=>{repeatCurrentAudio=!repeatCurrentAudio;$("repeatAyahBtn").textContent="تکرار آیه: "+(repeatCurrentAudio?"روشن":"خاموش");$("repeatAyahBtn").setAttribute("aria-pressed",repeatCurrentAudio?"true":"false")});
+// آیات سجده
+$("loadSajdaBtn").addEventListener("click",async()=>{
+ const box=$("sajdaList");box.textContent="در حال دریافت فهرست آیات سجده...";
+ try{const data=await getJson(QURAN_API+"/sajda/quran-uthmani");const rows=data.ayahs||[];box.replaceChildren();if(!rows.length){box.textContent="فهرست آیات سجده در دسترس نیست.";return}
+ for(const ayah of rows){const button=document.createElement("button");button.type="button";button.className="tool-result";const title=document.createElement("strong");title.textContent=(ayah.surah?.name||"سوره")+" · آیه "+numberFa(ayah.numberInSurah);const text=document.createElement("small");text.textContent=ayah.text;button.append(title,text);button.addEventListener("click",()=>openSurah(ayah.surah.number,ayah.numberInSurah));box.append(button)}
+ }catch(error){box.textContent="دریافت آیات سجده انجام نشد: "+error.message}
+});
+
 function saveBookmark(surah,ayah,notify){localStorage.setItem("noor-quran-bookmark",JSON.stringify({surah:surah,ayah:ayah,savedAt:new Date().toISOString()}));if(notify)toast("محل مطالعه ذخیره شد.")}
+$("bookmarkSurah").addEventListener("click",()=>{if(!currentAyahs.length||!currentSurah)return;const first=currentAyahs[0].arabic;saveBookmark(first.surah?.number||currentSurah.number,first.numberInSurah||1,true)});
 $("bookmarkSurah").addEventListener("click",()=>{if(currentSurah)saveBookmark(currentSurah.number,1,true)});
 $("resumeBtn").addEventListener("click",()=>{try{const b=JSON.parse(localStorage.getItem("noor-quran-bookmark")||"null");if(!b||!b.surah){toast("هنوز محل مطالعه‌ای ذخیره نشده است.");return}openSurah(b.surah,b.ayah)}catch{toast("نشان مطالعه قابل خواندن نیست.")}});
 $("readDaily").addEventListener("click",()=>{const parts=dailyAyahRef.split(":").map(Number);if(parts.length===2&&parts.every(Number.isInteger))openSurah(parts[0],parts[1]);else toast("نشانی آیه منتخب معتبر نیست.")});
@@ -250,8 +361,8 @@ async function loadDaily(ref=dailyAyahRef,note=dailyAyahNote){const seq=++dailyL
 async function loadAnnouncements(){const box=$("announcementList");try{const r=await fetch(SUPABASE_URL+"/rest/v1/quran_announcements?select=id,title,body,created_at&is_published=eq.true&order=created_at.desc",{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});if(!r.ok)throw new Error("unavailable");const rows=await r.json();box.replaceChildren();if(!rows.length){box.textContent="در حال حاضر اطلاعیه‌ای ثبت نشده است.";return}for(const n of rows){const card=document.createElement("article");card.className="notice-card";const h=document.createElement("h3");h.textContent=n.title;const p=document.createElement("p");p.textContent=n.body;card.append(h,p);box.append(card)}}catch{box.textContent="اطلاعیه‌ها فعلاً بارگذاری نشدند."}}
 $("feedbackForm").addEventListener("submit",async e=>{e.preventDefault();const status=$("feedbackStatus");const message=$("feedbackMessage").value.trim();const contact=$("feedbackContact").value.trim();const subject=$("feedbackSubject").value;const packed="[ارتباط با مدیر]\nموضوع: "+subject+"\nراه پاسخ‌گویی: "+(contact||"ارائه نشده")+"\nمتن پیام:\n"+message;if(packed.length>1200){status.textContent="متن پیام به‌همراه اطلاعات واردشده بیش از حد طولانی است؛ کوتاه‌ترش کن.";return}status.textContent="در حال ارسال پیام خصوصی...";try{const r=await fetch(SUPABASE_URL+"/rest/v1/quran_feedback",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({name:$("feedbackName").value.trim(),message:packed})});if(!r.ok){const error=await r.json().catch(()=>({}));throw new Error(error.message||"ارسال پیام انجام نشد.")}$("feedbackForm").reset();status.textContent="پیام با موفقیت به صندوق خصوصی پنل مدیریت ارسال شد."}catch(error){status.textContent="خطا در ارسال پیام: "+error.message+" (ممکن است فایل quran_setup.sql هنوز اجرا نشده باشد.)"}});
 $("adminRequestForm").addEventListener("submit",async event=>{event.preventDefault();const status=$("adminRequestStatus");status.textContent="در حال ارسال درخواست...";try{const response=await fetch(SUPABASE_URL+"/rest/v1/quran_admin_requests",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({display_name:$("requestName").value.trim(),contact:$("requestContact").value.trim(),reason:$("requestReason").value.trim()})});if(!response.ok){const error=await response.json().catch(()=>({}));throw new Error(error.message||"ارسال درخواست انجام نشد.")}$("adminRequestForm").reset();status.textContent="درخواستت ثبت شد. نتیجه پس از بررسی اونر اعلام می‌شود."}catch(error){status.textContent="خطا در ثبت درخواست: "+error.message+" — ممکن است فایل quran_admin_access_setup.sql هنوز اجرا نشده باشد."}});
-async function loadSettings(){try{const r=await fetch(SUPABASE_URL+"/rest/v1/quran_site_settings?select=key,value",{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});if(!r.ok)return;const rows=await r.json();const settings=Object.fromEntries(rows.map(x=>[x.key,x.value]));if(settings.translation_edition){translationEdition=settings.translation_edition;$("translationSelect").value=translationEdition}if(settings.reciter_edition&&RECITER_NAMES[settings.reciter_edition]){reciterEdition=settings.reciter_edition;$("reciterSelect").value=reciterEdition;updateTartilCards()}else{reciterEdition="parhizgar";$("reciterSelect").value=reciterEdition;updateTartilCards()}if(settings.daily_ayah_ref||settings.daily_ayah_note)await loadDaily(settings.daily_ayah_ref||dailyAyahRef,settings.daily_ayah_note||dailyAyahNote);if(settings.site_notice_enabled==="true"&&settings.site_notice_text){safeText($("siteNoticeBanner"),settings.site_notice_text);$("siteNoticeBanner").hidden=false}else{$("siteNoticeBanner").hidden=true}if(settings.admin_access_price)safeText($("adminAccessPrice"),settings.admin_access_price);if(settings.admin_access_terms)safeText($("adminAccessTerms"),settings.admin_access_terms)}catch{}}
-Promise.all([loadSurahs(),loadDaily(),loadAnnouncements(),loadSettings()]);
+async function loadSettings(){try{const r=await fetch(SUPABASE_URL+"/rest/v1/quran_site_settings?select=key,value",{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});if(!r.ok)return;const rows=await r.json();const settings=Object.fromEntries(rows.map(x=>[x.key,x.value]));if(settings.translation_edition){translationEdition=settings.translation_edition;$("translationSelect").value=translationEdition}if(settings.reciter_edition&&RECITER_NAMES[settings.reciter_edition]){reciterEdition=settings.reciter_edition;$("reciterSelect").value=reciterEdition;updateTartilCards()}else{reciterEdition="parhizgar";$("reciterSelect").value=reciterEdition;updateTartilCards()}if(settings.daily_ayah_ref||settings.daily_ayah_note)await loadDaily(settings.daily_ayah_ref||dailyAyahRef,settings.daily_ayah_note||dailyAyahNote);if(settings.site_notice_enabled==="true"&&settings.site_notice_text){safeText($("siteNoticeBanner"),settings.site_notice_text);$("siteNoticeBanner").hidden=false}else{$("siteNoticeBanner").hidden=true}if(settings.study_intro)safeText($("studyIntro"),settings.study_intro);if(["5","10","20","30"].includes(settings.daily_goal_default))$("dailyGoalSelect").value=settings.daily_goal_default;if(settings.show_sajda_tools==="false")$("sajdaToolCard").hidden=true;if(settings.show_tajweed_guide==="false")$("tajweedLessonGrid").hidden=true;if(settings.show_khatm_tracker==="false")$("khatmCard").hidden=true;if(settings.show_tasbih_counter==="false")$("tasbihCard").hidden=true;if(settings.admin_access_price)safeText($("adminAccessPrice"),settings.admin_access_price);if(settings.admin_access_terms)safeText($("adminAccessTerms"),settings.admin_access_terms);renderDailyGoal()}catch{}}
+Promise.all([loadSurahs(),loadDaily(),loadAnnouncements(),loadSettings()]).finally(()=>{renderSavedAyahs();renderKhatm();renderDailyGoal();renderTasbih()});
 </script>
 </body>
 </html>
