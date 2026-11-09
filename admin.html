@@ -126,7 +126,7 @@ body.dark-mode .btn-soft{background:#26392b;color:#e0ebe2;border-color:#405544}
   <p id="adminIdentityLine">وضعیت حساب پس از ورود نمایش داده می‌شود.</p>
  </div>
  <div class="admin-console-actions">
-  <span id="adminRoleChip" class="admin-role-chip">نشست امن</span>
+  <span id="adminRoleChip" class="admin-role-chip">نشست امن</span><button id="adminThemeToggle" class="btn btn-soft btn-small" type="button" aria-pressed="false">حالت شب</button>
   <form id="adminGlobalSearchForm" class="admin-global-search" role="search">
    <input id="adminGlobalSearch" type="search" autocomplete="off" placeholder="جستجوی سریع در پیام‌ها، اطلاعیه‌ها و درخواست‌ها...">
    <button class="btn btn-small" type="submit">جستجو</button>
@@ -282,7 +282,7 @@ function showStatus(message){$("status").textContent=message}
 if(recoveryClient){recoveryClient.auth.onAuthStateChange((event,session)=>{
  if(session){accessToken=session.access_token;currentSession=session}
  if(event==="PASSWORD_RECOVERY"&&session){authRecoveryActive=true;$("loginPanel").hidden=true;$("adminPanel").hidden=true;$("recoveryPanel").hidden=false;showStatus("لینک بازیابی تأیید شد؛ رمز تازه را وارد کن.")}
- if(event==="SIGNED_OUT"){accessToken="";currentSession=null;currentRole="";currentUserId="";currentEmail="";setLoggedIn(false)}
+ if(event==="SIGNED_OUT"){if(typeof clearSensitiveAdminState==="function")clearSensitiveAdminState();else{accessToken="";currentSession=null;currentRole="";currentUserId="";currentEmail="";setLoggedIn(false)}}
 })}
 $("forgotPasswordBtn").addEventListener("click",async()=>{const email=$("email").value.trim();if(!email){showStatus("اول ایمیل حساب مدیر را در کادر ایمیل بنویس.");$("email").focus();return}if(!recoveryClient){showStatus("بخش بازیابی بارگذاری نشد. صفحه را تازه‌سازی کن و دوباره تلاش کن.");return}showStatus("در حال ارسال لینک بازیابی...");try{const redirectTo=window.location.origin+window.location.pathname;const {error}=await recoveryClient.auth.resetPasswordForEmail(email,{redirectTo});if(error)throw error;showStatus("اگر این ایمیل حساب معتبری داشته باشد، لینک بازیابی برایش ارسال می‌شود. صندوق ورودی و پوشه هرزنامه را بررسی کن.")}catch(error){showStatus("ارسال لینک انجام نشد: "+(error.message||"خطای نامشخص")+"؛ نشانی بازگشت سایت باید در تنظیمات URLهای مجاز Supabase ثبت شده باشد.")}});
 $("recoveryForm").addEventListener("submit",async event=>{event.preventDefault();const password=$("newPassword").value,confirmPassword=$("confirmNewPassword").value;if(password.length<8){showStatus("رمز جدید باید دست‌کم ۸ کاراکتر داشته باشد.");return}if(password!==confirmPassword){showStatus("دو رمز واردشده یکسان نیستند.");return}if(!recoveryClient){showStatus("بخش بازیابی بارگذاری نشد. صفحه را تازه‌سازی کن.");return}showStatus("در حال ذخیره رمز جدید...");try{const {error}=await recoveryClient.auth.updateUser({password});if(error)throw error;await recoveryClient.auth.signOut();accessToken="";currentRole="";currentUserId="";$("recoveryForm").reset();$("recoveryPanel").hidden=true;$("loginPanel").hidden=false;showStatus("رمز جدید با موفقیت ذخیره شد. حالا با ایمیل و رمز جدید وارد شو.")}catch(error){showStatus("ذخیره رمز انجام نشد: "+(error.message||"خطای نامشخص"))}});
@@ -509,6 +509,22 @@ $("backupBtn").addEventListener("click",()=>{
  $("dashboardStatus").textContent="نسخه پشتیبان خصوصی دانلود شد. فایل شامل داده‌های حساس است؛ آن را امن نگه‌دار.";
 });
 
+
+function applyAdminTheme(){
+ let dark=false;try{dark=localStorage.getItem("noor-admin-theme")==="dark"}catch{}
+ document.body.classList.toggle("dark-mode",dark);
+ const button=$("adminThemeToggle");
+ if(button){button.textContent=dark?"حالت روشن":"حالت شب";button.setAttribute("aria-pressed",dark?"true":"false")}
+}
+$("adminThemeToggle").addEventListener("click",()=>{
+ const dark=!document.body.classList.contains("dark-mode");
+ document.body.classList.toggle("dark-mode",dark);
+ try{localStorage.setItem("noor-admin-theme",dark?"dark":"light")}catch{}
+ $("adminThemeToggle").textContent=dark?"حالت روشن":"حالت شب";
+ $("adminThemeToggle").setAttribute("aria-pressed",dark?"true":"false");
+});
+applyAdminTheme();
+
 function clearSensitiveAdminState(){
  accessToken="";currentSession=null;currentRole="";currentUserId="";currentEmail="";
  announcements=[];feedbackRows=[];settings={};adminRequests=[];adminRoles=[];
@@ -543,6 +559,7 @@ async function initializeAdminSession(){
 
 $("logout").addEventListener("click",async()=>{if(recoveryClient)await recoveryClient.auth.signOut().catch(()=>{});accessToken="";currentSession=null;announcements=[];feedbackRows=[];settings={};adminRequests=[];adminRoles=[];currentRole="";currentUserId="";currentEmail="";$("password").value="";$("accountCurrentEmail").textContent="";$("accountEmailForm").reset();$("accountPasswordForm").reset();setLoggedIn(false);updateStats();showStatus("از پنل خارج شدی.")});
 initializeAdminSession();
+
 
 </script>
 </body>
