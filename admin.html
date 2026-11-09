@@ -3,13 +3,111 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="app-icon.svg"><link rel="icon" type="image/png" href="favicon.png?v=20261108"><link rel="apple-touch-icon" href="favicon.png?v=20261108"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="نور قرآن">
+<link rel="icon" type="image/svg+xml" href="app-icon.svg"><link rel="icon" type="image/png" href="favicon.png?v=20261108"><link rel="apple-touch-icon" href="favicon.png?v=20261108">
 <meta name="theme-color" content="#123b30">
 <title>مدیریت نور قرآن</title>
 <style>
 :root{--bg:#f5f3eb;--paper:#fffef9;--green:#123b30;--green2:#1d5945;--gold:#c49a48;--ink:#1b2923;--muted:#6a756d;--line:#e5e0d2;--red:#a53c37}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 5% 0,#e9e3cc,transparent 34%),var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink);line-height:1.85}a{color:var(--green2);text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}main{width:min(1100px,94%);margin:30px auto}.brand{display:inline-flex;align-items:center;gap:11px;background:#fffdf7;border:1px solid #e4dcc5;border-radius:14px;padding:12px 17px;color:var(--green);font-weight:900;font-size:22px;box-shadow:0 12px 35px #123b3010}.brand-mark{font-size:29px;color:var(--gold)}.muted{color:var(--muted)}h1{font-size:25px;margin:0 0 8px;color:var(--green)}h2{font-size:18px;margin:0 0 14px;color:var(--green)}p{margin:5px 0}.panel{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:23px;margin:18px 0;box-shadow:0 15px 45px #173c2c0b}.panel:before{content:"";display:block;width:70px;height:3px;border-radius:3px;background:var(--gold);margin:-23px -23px 20px auto}label{display:block;font-size:13px;color:#52645a;margin:11px 0 5px}input,textarea,select{width:100%;padding:11px 13px;border:1px solid #dcd9cd;border-radius:9px;background:#fff;color:var(--ink);outline:none}input:focus,textarea:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 3px #1d59451a}textarea{min-height:115px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:0;border-radius:9px;padding:10px 16px;margin-top:12px;background:var(--green);color:white;font-weight:700}.btn:hover{filter:brightness(1.08)}.btn-soft{background:#edf1e9;color:var(--green);border:1px solid #dbe4d8}.btn-gold{background:var(--gold);color:#1f2017}.btn-danger{background:var(--red);color:white}.btn-small{padding:6px 10px;margin:0;font-size:12px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tabs button{background:#e9e8df;color:#43564b}.tabs button.active{background:var(--green);color:white}.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:15px 0}.stat{padding:16px;background:linear-gradient(145deg,#f8f5e9,#edf1e9);border:1px solid #e1dfd2;border-radius:12px}.stat strong{display:block;font-size:27px;color:var(--green)}.stat span{color:var(--muted);font-size:12px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:14px 0}.toolbar input{flex:1;min-width:180px}.toolbar button{margin:0}.item{display:flex;justify-content:space-between;align-items:flex-start;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.item p{white-space:pre-wrap}.item-actions{display:flex;gap:7px;flex-wrap:wrap}.tag{display:inline-block;border:1px solid #d8c58f;background:#f8f2df;color:#725723;border-radius:30px;padding:2px 9px;font-size:11px}.tag.unread{border-color:#e4c9a0;background:#fbf0e2;color:#8b5721}.status{color:#946c2d;white-space:pre-wrap;min-height:24px}.note{background:#f2f1e8;border:1px solid var(--line);padding:13px;border-radius:10px;color:var(--muted);font-size:12px}.preview{background:#f8f7f0;border:1px solid var(--line);border-radius:11px;padding:15px;margin-top:14px;white-space:pre-wrap}[hidden]{display:none!important}
 @media(max-width:800px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:580px){main{margin:16px auto}.panel{padding:17px}.panel:before{margin:-17px -17px 16px auto}.row{grid-template-columns:1fr}.item{flex-direction:column}.brand{font-size:19px}.brand-mark{font-size:25px}}
+
+:root{--bg:#eef2ed;--paper:#fffefa;--green:#123b30;--green2:#1d5945;--gold:#c49a48;--ink:#17271f;--muted:#69766e;--line:#e0e7df;--red:#a53c37;--shadow:0 16px 44px #123b3010;--radius:20px}
+body{background:radial-gradient(ellipse at 92% 4%,#d9e7d9 0,transparent 32%),radial-gradient(ellipse at 0 80%,#eee4cb 0,transparent 30%),linear-gradient(150deg,#f5f6ef,#eaf0e9);min-height:100vh}
+main{width:min(1360px,96%);margin:26px auto 48px}
+.brand{border-radius:16px;padding:10px 16px;background:#ffffffd9;backdrop-filter:blur(14px);box-shadow:0 10px 28px #123b3010}
+.brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#fff8df,#eee2bd);border:1px solid #ddc98d}
+main>p.muted{margin:8px 4px 18px;font-size:13px}
+.panel{border:1px solid #dbe5dc;border-radius:22px;padding:clamp(17px,2.6vw,30px);box-shadow:0 22px 65px #173c2c0d;background:#fffefbf2;backdrop-filter:blur(14px)}
+.panel:before{width:90px;height:4px;border-radius:0 8px 8px 0;background:linear-gradient(90deg,#c49a48,#ead69b);margin:calc(clamp(17px,2.6vw,30px)*-1) calc(clamp(17px,2.6vw,30px)*-1) 22px auto}
+#loginPanel,#recoveryPanel{max-width:520px;margin:clamp(45px,9vh,110px) auto;padding:30px;box-shadow:0 30px 90px #103b2a18}
+#loginPanel h1,#recoveryPanel h1{font-size:27px}
+input,textarea,select{border-color:#dbe2d9;background:#fff;border-radius:11px;padding:12px 14px;transition:border-color .18s,box-shadow .18s,background .18s}
+input:focus,textarea:focus,select:focus{border-color:#8cae94;box-shadow:0 0 0 4px #1d59451a}
+.btn{border-radius:11px;padding:10px 16px;transition:transform .18s,filter .18s,box-shadow .18s;box-shadow:0 5px 13px #123b300b}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.btn:focus-visible{outline:3px solid #c49a4877;outline-offset:2px}
+.btn-primary{background:linear-gradient(135deg,#174b38,#0f3228)}
+.btn-gold{background:linear-gradient(135deg,#e2c77d,#c49a48);color:#251e10}
+.btn-soft{background:#edf3ed;border-color:#dce7dc}
+.tabs{position:sticky;top:8px;z-index:15;display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;padding:9px;margin:18px -4px 22px;border:1px solid #dbe5db;border-radius:15px;background:#f8faf6ed;backdrop-filter:blur(18px);box-shadow:0 8px 24px #153a2a0a;scrollbar-width:thin}
+.tabs button{white-space:nowrap;flex:0 0 auto;margin:0;padding:9px 13px;border:1px solid transparent;border-radius:10px;background:transparent;color:#52645a;font-size:12px;font-weight:800}
+.tabs button:hover{background:#eaf1e9}
+.tabs button.active{background:linear-gradient(135deg,#164a37,#0d3025);color:white;box-shadow:0 7px 16px #123b3026}
+.admin-console-head{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:21px 22px;margin:6px 0 18px;border:1px solid #d9c68b;border-radius:18px;background:radial-gradient(circle at 85% 0,#e9d59b2c,transparent 36%),linear-gradient(120deg,#0d3025,#174c38 68%,#276047);color:white;box-shadow:0 16px 36px #123b3020}
+.admin-console-head .eyebrow{font-size:10px;letter-spacing:1.5px;color:#e9d28e;font-weight:900;margin:0 0 3px}
+.admin-console-head h2{font-size:clamp(20px,2.4vw,27px);margin:0;color:#fff}
+.admin-console-head p{font-size:12px;color:#d6e3d8;margin:4px 0 0}
+.admin-console-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.admin-role-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #f0d99088;background:#f5dda41b;border-radius:30px;padding:7px 12px;color:#f2dfa9;font-size:11px}
+.admin-role-chip:before{content:"";width:7px;height:7px;background:#a7dfae;border-radius:50%;box-shadow:0 0 0 4px #9fdbab22}
+.admin-global-search{display:flex;align-items:center;gap:8px;min-width:min(370px,100%);padding:5px 7px 5px 5px;border:1px solid #ffffff36;border-radius:12px;background:#ffffff12}
+.admin-global-search input{min-width:0;flex:1;border:0;background:transparent;color:white;padding:7px 9px;box-shadow:none}
+.admin-global-search input::placeholder{color:#c7d7ca}
+.admin-global-search input:focus{box-shadow:none;border:0}
+.admin-global-search button{margin:0;padding:7px 10px;background:#e7cf8d;color:#173a2b}
+.stats{grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
+.stat{position:relative;overflow:hidden;min-height:102px;padding:17px;border:1px solid #e0e7de;border-radius:15px;background:linear-gradient(145deg,#fffefa,#f1f5ee);box-shadow:0 8px 20px #163e2e08}
+.stat:after{content:"";position:absolute;left:-17px;bottom:-28px;width:88px;height:88px;border:1px solid #c9ad6540;border-radius:28px;transform:rotate(35deg)}
+.stat strong{font-size:29px;position:relative;z-index:1}
+.stat span{font-size:11px;position:relative;z-index:1}
+.dashboard-grid,.report-grid,.security-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:17px 0}
+.subpanel{padding:17px;border:1px solid #e1e8df;border-radius:15px;background:linear-gradient(145deg,#fffefa,#f7f8f2)}
+.subpanel h3{margin:0 0 9px;color:var(--green);font-size:15px}
+.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.quick-action{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid #e0e8df;border-radius:12px;background:#fff;color:#304c3c;text-align:right;font-weight:800;font-size:12px}
+.quick-action:hover{background:#eff5ec;border-color:#c8d8c7}
+.quick-action span{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:9px;background:#eaf1e8;color:#1d5945;font-size:17px}
+.recent-list{display:grid;gap:0}
+.recent-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #e8eee6;font-size:12px}
+.recent-row:last-child{border-bottom:0}
+.recent-dot{flex:0 0 9px;height:9px;margin-top:7px;border-radius:50%;background:#c49a48;box-shadow:0 0 0 4px #c49a4818}
+.recent-row strong{display:block;color:#294836}
+.recent-row small{display:block;color:var(--muted);font-size:10px}
+.report-bars{display:grid;gap:9px;margin-top:12px}
+.report-bar-row{display:grid;grid-template-columns:80px 1fr 30px;align-items:center;gap:8px;font-size:11px;color:#5e7064}
+.report-bar-track{height:11px;border-radius:20px;background:#e7ede5;overflow:hidden}
+.report-bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,#1b5a43,#c5a153);min-width:0;transition:width .25s}
+.report-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.report-kpi{padding:13px;border:1px solid #e1e8df;border-radius:12px;background:#fff}
+.report-kpi strong{display:block;font-size:22px;color:#174734}
+.report-kpi small{color:var(--muted);font-size:10px}
+.security-card{padding:16px;border:1px solid #dce7dc;border-radius:14px;background:linear-gradient(145deg,#fff,#f4f7f1)}
+.security-card strong{display:block;color:#194a36;font-size:14px}
+.security-card p{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.security-status-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #e6ece4;font-size:12px}
+.security-status-row:last-child{border-bottom:0}
+.security-good{color:#28734c;font-weight:800}
+.security-warn{color:#9b6d25;font-weight:800}
+.item{padding:15px 0;gap:16px}
+.item>div:first-child{min-width:0;flex:1}
+.item p{overflow-wrap:anywhere}
+.item-actions .btn{box-shadow:none}
+.toolbar .btn{margin:0}
+.toolbar input{flex:1 1 210px}
+.note{border-radius:12px;background:#f2f6ef}
+.preview{border-radius:13px;background:#f8faf5}
+#status{position:sticky;bottom:12px;z-index:20;width:fit-content;max-width:100%;padding:8px 13px;border:1px solid #d8e3d6;border-radius:12px;background:#fffef3ee;box-shadow:0 8px 24px #123b3018}
+#dashboardStatus{white-space:pre-wrap}
+[hidden]{display:none!important}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){main{width:95%;margin:14px auto 30px}.panel{border-radius:17px}.admin-console-head{padding:16px}.admin-console-actions{width:100%}.admin-global-search{width:100%;min-width:0}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-grid,.report-grid,.security-grid{grid-template-columns:1fr}.tabs{top:4px}.quick-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.stats{gap:8px}.stat{padding:12px;min-height:85px}.stat strong{font-size:23px}.stat span{font-size:10px}.quick-grid{grid-template-columns:1fr}.report-kpis{grid-template-columns:1fr 1fr}}
+body.dark-mode{--bg:#0c1712;--paper:#15231a;--green:#d5e6d8;--green2:#b8d6c1;--ink:#e8eee8;--muted:#a8b6ab;--line:#35463a;background:radial-gradient(ellipse at 92% 4%,#214a332c,transparent 32%),linear-gradient(150deg,#0b1510,#101d15);color:var(--ink)}
+body.dark-mode .panel,body.dark-mode #loginPanel,body.dark-mode #recoveryPanel{background:#142219f2;border-color:#304438}
+body.dark-mode h1,body.dark-mode h2,body.dark-mode .brand{color:#d5e6d8}
+body.dark-mode .brand,body.dark-mode .tabs{background:#19271e;color:#e5eee6;border-color:#34483a}
+body.dark-mode input,body.dark-mode textarea,body.dark-mode select{background:#101b14;color:#e8eee8;border-color:#405344}
+body.dark-mode .stat,body.dark-mode .subpanel,body.dark-mode .security-card,body.dark-mode .report-kpi{background:linear-gradient(145deg,#19291f,#142219);border-color:#34483a}
+body.dark-mode .stat strong,body.dark-mode .report-kpi strong,body.dark-mode .subpanel h3,body.dark-mode .security-card strong,body.dark-mode .recent-row strong{color:#d8e8d9}
+body.dark-mode .quick-action{background:#1b2b20;color:#dce9dd;border-color:#3a4c3c}
+body.dark-mode .quick-action span{background:#26392a;color:#dce9dd}
+body.dark-mode .report-bar-track{background:#304033}
+body.dark-mode .note,body.dark-mode .preview{background:#1c2b20;color:#c5d2c7;border-color:#3a4d3d}
+body.dark-mode #status{background:#19281e;color:#e8eee8;border-color:#405344}
+body.dark-mode .tabs button{color:#c0d0c3}
+body.dark-mode .tabs button.active{background:#d4e5d6;color:#163b29}
+body.dark-mode .btn-soft{background:#26392b;color:#e0ebe2;border-color:#405544}
+
 </style>
 </head>
 <body>
@@ -20,8 +118,25 @@
 <section id="recoveryPanel" class="panel" hidden><h1>ساخت رمز عبور جدید</h1><p class="muted">لینک بازیابی ایمیل را باز کرده‌ای. رمز تازه را دو بار وارد کن.</p><form id="recoveryForm"><label for="newPassword">رمز جدید (حداقل ۸ کاراکتر)</label><input id="newPassword" type="password" minlength="8" autocomplete="new-password" required><label for="confirmNewPassword">تکرار رمز جدید</label><input id="confirmNewPassword" type="password" minlength="8" autocomplete="new-password" required><button class="btn" type="submit">ذخیره رمز جدید</button></form><p class="muted">رمز را با کسی به اشتراک نگذار.</p></section>
 <section id="adminPanel" class="panel" hidden>
 <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h1>مدیریت نور قرآن</h1><button id="logout" class="btn btn-soft" type="button">خروج</button></div>
+
+<div class="admin-console-head">
+ <div>
+  <p class="eyebrow">NOOR QURAN · ADMIN CONTROL CENTER</p>
+  <h2>مرکز فرماندهی نور قرآن</h2>
+  <p id="adminIdentityLine">وضعیت حساب پس از ورود نمایش داده می‌شود.</p>
+ </div>
+ <div class="admin-console-actions">
+  <span id="adminRoleChip" class="admin-role-chip">نشست امن</span>
+  <form id="adminGlobalSearchForm" class="admin-global-search" role="search">
+   <input id="adminGlobalSearch" type="search" autocomplete="off" placeholder="جستجوی سریع در پیام‌ها، اطلاعیه‌ها و درخواست‌ها...">
+   <button class="btn btn-small" type="submit">جستجو</button>
+  </form>
+ </div>
+</div>
 <div class="tabs">
 <button type="button" class="active" data-tab="dashboardTab">نمای کلی</button>
+<button type="button" data-tab="reportsTab">گزارش‌ها و فعالیت</button>
+<button type="button" data-tab="securityTab">امنیت و نشست</button>
 <button type="button" data-tab="announcementsTab">اطلاعیه‌ها</button>
 <button type="button" data-tab="feedbackTab">صندوق ارتباط با مدیر</button>
 <button type="button" data-tab="requestsTab" data-owner-only hidden>درخواست‌های ادمینی</button>
@@ -32,7 +147,85 @@
 <div id="dashboardTab">
 <h2>خلاصه وضعیت سایت</h2><div class="stats"><div class="stat"><strong id="statAnnouncements">—</strong><span>کل اطلاعیه‌ها</span></div><div class="stat"><strong id="statPublished">—</strong><span>اطلاعیه‌های منتشرشده</span></div><div class="stat"><strong id="statFeedback">—</strong><span>کل پیام‌ها</span></div><div class="stat"><strong id="statUnread">—</strong><span>پیام‌های بررسی‌نشده</span></div><div class="stat"><strong id="statPendingRequests">—</strong><span>درخواست‌های در انتظار</span></div></div>
 <div class="toolbar"><button id="refreshAll" class="btn btn-soft" type="button">به‌روزرسانی آمار</button><button id="backupBtn" class="btn btn-gold" type="button">دانلود نسخه پشتیبان</button><button id="healthCheckBtn" class="btn btn-soft" type="button">آزمایش سلامت اتصال</button></div><p id="dashboardStatus" class="note">اطلاعات داشبورد از پایگاه داده دریافت می‌شود. نسخه پشتیبان شامل پیام‌های دریافتی نیز خواهد بود.</p><p id="healthStatus" class="status" role="status"></p>
+
+<div class="dashboard-grid">
+ <section class="subpanel">
+  <h3>دسترسی سریع</h3>
+  <div class="quick-grid">
+   <button class="quick-action" type="button" data-open-tab="announcementsTab"><span>✦</span> ساخت اطلاعیه تازه</button>
+   <button class="quick-action" type="button" data-open-tab="feedbackTab"><span>✉</span> بررسی پیام‌های کاربران</button>
+   <button class="quick-action" type="button" data-open-tab="reportsTab"><span>▥</span> مشاهده گزارش‌ها</button>
+   <button class="quick-action" type="button" data-open-tab="securityTab"><span>◈</span> بررسی امنیت حساب</button>
+   <button class="quick-action" type="button" data-owner-open="requestsTab"><span>♙</span> بررسی درخواست‌های ادمینی</button>
+   <a class="quick-action" href="./index.html" target="_blank" rel="noopener"><span>↗</span> مشاهده سایت عمومی</a>
+  </div>
+ </section>
+ <section class="subpanel">
+  <h3>آخرین رویدادهای ثبت‌شده</h3>
+  <div id="recentActivityList" class="recent-list"><p class="muted">پس از دریافت اطلاعات نمایش داده می‌شود.</p></div>
+ </section>
 </div>
+</div>
+
+<div id="reportsTab" hidden>
+ <h2>گزارش‌ها و روند فعالیت</h2>
+ <p class="muted">این گزارش از داده‌های موجود در پایگاه داده ساخته می‌شود و شمارنده بازدید یا آمار ساختگی ندارد.</p>
+ <div class="report-grid">
+  <section class="subpanel">
+   <h3>خلاصه عملکرد</h3>
+   <div class="report-kpis">
+    <div class="report-kpi"><strong id="reportPublishedRate">—</strong><small>نرخ انتشار اطلاعیه‌ها</small></div>
+    <div class="report-kpi"><strong id="reportReadRate">—</strong><small>نرخ بررسی پیام‌ها</small></div>
+    <div class="report-kpi"><strong id="reportPendingCount">—</strong><small>موارد در انتظار پیگیری</small></div>
+   </div>
+  </section>
+  <section class="subpanel">
+   <h3>فعالیت ثبت‌شده در ۷ روز اخیر</h3>
+   <div id="reportWeeklyBars" class="report-bars"><p class="muted">در انتظار دریافت داده‌ها...</p></div>
+  </section>
+ </div>
+ <section class="subpanel">
+  <h3>جریان فعالیت‌ها</h3>
+  <div id="reportActivityList" class="recent-list"><p class="muted">رویدادی برای نمایش وجود ندارد.</p></div>
+ </section>
+ <div class="toolbar">
+  <button id="exportAnnouncementsBtn" class="btn btn-soft" type="button">خروجی CSV اطلاعیه‌ها</button>
+  <button id="exportFullReportBtn" class="btn btn-gold" type="button">دانلود گزارش کامل JSON</button>
+ </div>
+ <p class="note">فایل گزارش کامل شامل داده‌های خصوصی پیام‌ها و درخواست‌های مدیریتی است. آن را فقط در محل امن نگه‌داری کن و برای دیگران ارسال نکن.</p>
+</div>
+<div id="securityTab" hidden>
+ <h2>امنیت حساب و نشست فعال</h2>
+ <p class="muted">این بخش وضعیت نشست فعلی و نقش مدیریتی ثبت‌شده در پایگاه داده را بررسی می‌کند؛ هیچ رمز عبور یا توکن ورود در این صفحه نمایش داده نمی‌شود.</p>
+ <div class="security-grid">
+  <section class="security-card">
+   <strong>هویت حساب</strong>
+   <p id="securityEmail">—</p>
+   <p id="securityUserId">شناسه حساب: —</p>
+   <button id="copyAdminUserIdBtn" class="btn btn-soft btn-small" type="button">کپی شناسه حساب</button>
+  </section>
+  <section class="security-card">
+   <strong>وضعیت نشست</strong>
+   <div class="security-status-row"><span>وضعیت ورود</span><b id="securitySessionState" class="security-good">نشست فعال</b></div>
+   <div class="security-status-row"><span>اعتبار نشست تا</span><b id="securitySessionExpiry">—</b></div>
+   <div class="security-status-row"><span>آخرین ورود ثبت‌شده</span><b id="securityLastSignIn">—</b></div>
+  </section>
+ </div>
+ <section class="subpanel">
+  <h3>بررسی دسترسی‌ها</h3>
+  <div class="security-status-row"><span>احراز هویت Supabase</span><b id="checkAuthState">در انتظار بررسی</b></div>
+  <div class="security-status-row"><span>نقش مدیریتی در پایگاه داده</span><b id="checkRoleState">در انتظار بررسی</b></div>
+  <div class="security-status-row"><span>دسترسی به اطلاعیه‌ها و پیام‌ها</span><b id="checkContentState">در انتظار بررسی</b></div>
+  <div class="security-status-row"><span>دسترسی مالک به تنظیمات و درخواست‌ها</span><b id="checkOwnerState">در انتظار بررسی</b></div>
+  <div class="toolbar">
+   <button id="securityCheckBtn" class="btn btn-gold" type="button">بازبینی نشست و دسترسی‌ها</button>
+   <button id="securityLogoutBtn" class="btn btn-danger" type="button">خروج امن از این دستگاه</button>
+  </div>
+  <p id="securityStatus" class="status" role="status"></p>
+ </section>
+ <p class="note">نکته امنیتی: دسترسی واقعی با سیاست‌های Row Level Security در Supabase کنترل می‌شود. مخفی‌بودن یک دکمه در رابط کاربری به‌تنهایی معیار امنیت نیست. برای مدیریت مدیران و تنظیمات، نقش اونر در پایگاه داده بررسی می‌شود.</p>
+</div>
+
 <div id="announcementsTab" hidden>
 <h2 id="announcementFormTitle">ثبت اطلاعیه تازه</h2>
 <form id="announcementForm"><input id="announcementId" type="hidden"><label for="announcementTitle">عنوان اطلاعیه</label><input id="announcementTitle" maxlength="160" required><label for="announcementBody">متن اطلاعیه</label><textarea id="announcementBody" maxlength="4000" required></textarea><label style="display:flex;align-items:center;gap:8px"><input id="announcementPublished" type="checkbox" checked style="width:auto"> انتشار در صفحه اصلی</label><div class="toolbar"><button class="btn btn-gold" type="button" id="previewAnnouncement">پیش‌نمایش</button><button class="btn" type="submit" id="announcementSubmit">ذخیره اطلاعیه</button><button class="btn btn-soft" type="button" id="cancelAnnouncement" hidden>لغو ویرایش</button></div></form>
@@ -42,7 +235,7 @@
 <div id="rolesTab" data-owner-panel hidden><h2>واگذاری و لغو دسترسی مدیر</h2><p class="note">اول در Supabase از بخش Authentication → Users برای فرد حساب بساز یا او را دعوت کن. سپس UUID حساب را در اینجا وارد کن. فقط اونر سایت می‌تواند دسترسی واقعی را اضافه یا لغو کند.</p><form id="roleForm"><div class="row"><div><label for="targetUserId">شناسه کاربر در Supabase (UUID)</label><input id="targetUserId" required placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off"></div><div><label for="targetLabel">نام نمایشی مدیر</label><input id="targetLabel" required maxlength="100" minlength="2" placeholder="مثلاً مدیر محتوا"></div></div><button class="btn btn-gold" type="submit">اعطای دسترسی مدیر</button><p id="roleStatus" class="status" role="status"></p></form><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h2>مدیران دارای دسترسی</h2><div id="rolesList" class="muted">در حال بارگذاری...</div></div>
 <div id="settingsTab" data-owner-panel hidden>
 <h2>تنظیمات مطالعه قرآن</h2><p class="muted">این گزینه‌ها روی انتخاب پیش‌فرض ترجمه و قاری در صفحه عمومی اثر می‌گذارند.</p>
-<form id="settingsForm"><label for="studyIntroInput">توضیح بخش ابزارهای قرآنی</label><textarea id="studyIntroInput" maxlength="500" placeholder="توضیح کوتاه ابزارهای مطالعه..."></textarea><label for="dailyGoalDefaultInput">هدف روزانه پیش‌فرض بازدیدکنندگان</label><select id="dailyGoalDefaultInput"><option value="5">۵ آیه</option><option value="10">۱۰ آیه</option><option value="20">۲۰ آیه</option><option value="30">۳۰ آیه</option></select><p class="muted">نمایش یا مخفی‌کردن ابزارهای صفحه عمومی</p><label style="display:flex;align-items:center;gap:8px"><input id="showSajdaToolsInput" type="checkbox" checked style="width:auto"> نمایش فهرست آیات سجده</label><label style="display:flex;align-items:center;gap:8px"><input id="showTajweedGuideInput" type="checkbox" checked style="width:auto"> نمایش راهنمای مقدماتی تجوید</label><label style="display:flex;align-items:center;gap:8px"><input id="showKhatmTrackerInput" type="checkbox" checked style="width:auto"> نمایش برنامه ختم ۳۰ جزء</label><label style="display:flex;align-items:center;gap:8px"><input id="showTasbihCounterInput" type="checkbox" checked style="width:auto"> نمایش تسبیح شمارنده</label><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><label for="dailyAyahRefInput">آیه منتخب صفحه اصلی (شماره سوره:شماره آیه)</label><input id="dailyAyahRefInput" maxlength="7" placeholder="مثلاً 2:255" pattern="[0-9]{1,3}:[0-9]{1,3}"><label for="dailyAyahNoteInput">عنوان آیه منتخب</label><input id="dailyAyahNoteInput" maxlength="100" placeholder="مثلاً آیه‌ای برای تأمل"><label style="display:flex;align-items:center;gap:8px"><input id="siteNoticeEnabledInput" type="checkbox" style="width:auto"> نمایش پیام اطلاعیه در بالای صفحه اصلی</label><label for="siteNoticeTextInput">متن پیام بالای صفحه</label><textarea id="siteNoticeTextInput" maxlength="500" placeholder="مثلاً به‌روزرسانی سایت در حال انجام است..."></textarea><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><label for="adminAccessPriceInput">هزینه یا روش توافق</label><input id="adminAccessPriceInput" maxlength="160" placeholder="مثلاً با هماهنگی اونر سایت"><label for="adminAccessTermsInput">شرایط درخواست</label><textarea id="adminAccessTermsInput" maxlength="1000" placeholder="توضیح شرایط و مسئولیت‌ها"></textarea><label for="defaultTranslation">ترجمه پیش‌فرض</label><select id="defaultTranslation"><option value="fa.makarem">ترجمه آیت‌الله مکارم شیرازی</option><option value="fa.ansarian">ترجمه حسین انصاریان</option></select><label for="defaultReciter">قاری پیش‌فرض</label><select id="defaultReciter"><option value="parhizgar">استاد شهریار پرهیزگار</option><option value="ar.husary">استاد محمود خلیل‌الحصری</option><option value="ar.minshawi">استاد محمد صدیق منشاوی</option></select><button class="btn" type="submit">ذخیره تنظیمات</button><p id="settingsStatus" class="status" role="status"></p></form>
+<form id="settingsForm"><label for="studyIntroInput">توضیح بخش ابزارهای قرآنی</label><textarea id="studyIntroInput" maxlength="500" placeholder="توضیح کوتاه ابزارهای مطالعه..."></textarea><label for="dailyGoalDefaultInput">هدف روزانه پیش‌فرض بازدیدکنندگان</label><select id="dailyGoalDefaultInput"><option value="5">۵ آیه</option><option value="10">۱۰ آیه</option><option value="15">۱۵ آیه</option><option value="20">۲۰ آیه</option><option value="25">۲۵ آیه</option><option value="30">۳۰ آیه</option><option value="35">۳۵ آیه</option><option value="40">۴۰ آیه</option><option value="45">۴۵ آیه</option><option value="50">۵۰ آیه</option><option value="55">۵۵ آیه</option><option value="100">۱۰۰ آیه</option><option value="200">۲۰۰ آیه</option></select><p class="muted">نمایش یا مخفی‌کردن ابزارهای صفحه عمومی</p><label style="display:flex;align-items:center;gap:8px"><input id="showSajdaToolsInput" type="checkbox" checked style="width:auto"> نمایش فهرست آیات سجده</label><label style="display:flex;align-items:center;gap:8px"><input id="showTajweedGuideInput" type="checkbox" checked style="width:auto"> نمایش راهنمای مقدماتی تجوید</label><label style="display:flex;align-items:center;gap:8px"><input id="showKhatmTrackerInput" type="checkbox" checked style="width:auto"> نمایش برنامه ختم ۳۰ جزء</label><label style="display:flex;align-items:center;gap:8px"><input id="showTasbihCounterInput" type="checkbox" checked style="width:auto"> نمایش تسبیح شمارنده</label><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><label for="dailyAyahRefInput">آیه منتخب صفحه اصلی (شماره سوره:شماره آیه)</label><input id="dailyAyahRefInput" maxlength="7" placeholder="مثلاً 2:255" pattern="[0-9]{1,3}:[0-9]{1,3}"><label for="dailyAyahNoteInput">عنوان آیه منتخب</label><input id="dailyAyahNoteInput" maxlength="100" placeholder="مثلاً آیه‌ای برای تأمل"><label style="display:flex;align-items:center;gap:8px"><input id="siteNoticeEnabledInput" type="checkbox" style="width:auto"> نمایش پیام اطلاعیه در بالای صفحه اصلی</label><label for="siteNoticeTextInput">متن پیام بالای صفحه</label><textarea id="siteNoticeTextInput" maxlength="500" placeholder="مثلاً به‌روزرسانی سایت در حال انجام است..."></textarea><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><label for="adminAccessPriceInput">هزینه یا روش توافق</label><input id="adminAccessPriceInput" maxlength="160" placeholder="مثلاً با هماهنگی اونر سایت"><label for="adminAccessTermsInput">شرایط درخواست</label><textarea id="adminAccessTermsInput" maxlength="1000" placeholder="توضیح شرایط و مسئولیت‌ها"></textarea><label for="defaultTranslation">ترجمه پیش‌فرض</label><select id="defaultTranslation"><option value="fa.makarem">ترجمه آیت‌الله مکارم شیرازی</option><option value="fa.ansarian">ترجمه حسین انصاریان</option></select><label for="defaultReciter">قاری پیش‌فرض</label><select id="defaultReciter"><option value="parhizgar">استاد شهریار پرهیزگار</option><option value="ar.husary">استاد محمود خلیل‌الحصری</option><option value="ar.minshawi">استاد محمد صدیق منشاوی</option></select><button class="btn" type="submit">ذخیره تنظیمات</button><p id="settingsStatus" class="status" role="status"></p></form>
 <div class="note">متن عربی و ترجمه از سرویس Al Quran Cloud دریافت می‌شود. صوت استاد شهریار پرهیزگار به‌صورت آیه‌به‌آیه از EveryAyah.com پخش می‌شود؛ برای پخش کامل سوره، آیه‌ها پشت سر هم اجرا می‌شوند. نام EveryAyah.com در سایت به‌عنوان منبع صوت ذکر شده است.</div>
 </div>
 <div id="accountTab" data-owner-panel hidden>
@@ -82,22 +275,211 @@
 const SUPABASE_URL="https://wizwuaptaypzabmvrwiq.supabase.co";
 const SUPABASE_KEY="sb_publishable_6X8vkKyo0lIOt1LK5HDSWg_eq3qG3Ds";
 const recoveryClient=window.supabase?.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{flowType:"pkce",detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
-let accessToken="",announcements=[],feedbackRows=[],settings={},adminRequests=[],adminRoles=[],currentRole="",currentUserId="",currentEmail="";
+let accessToken="",announcements=[],feedbackRows=[],settings={},adminRequests=[],adminRoles=[],currentRole="",currentUserId="",currentEmail="",currentSession=null,authRecoveryActive=false;
+const API_TIMEOUT_MS=20000;
 const $=id=>document.getElementById(id);
 function showStatus(message){$("status").textContent=message}
-if(recoveryClient){recoveryClient.auth.onAuthStateChange((event,session)=>{if(event==="PASSWORD_RECOVERY"&&session){accessToken=session.access_token;$("loginPanel").hidden=true;$("adminPanel").hidden=true;$("recoveryPanel").hidden=false;showStatus("لینک بازیابی تأیید شد؛ رمز تازه را وارد کن.")}})}
+if(recoveryClient){recoveryClient.auth.onAuthStateChange((event,session)=>{
+ if(session){accessToken=session.access_token;currentSession=session}
+ if(event==="PASSWORD_RECOVERY"&&session){authRecoveryActive=true;$("loginPanel").hidden=true;$("adminPanel").hidden=true;$("recoveryPanel").hidden=false;showStatus("لینک بازیابی تأیید شد؛ رمز تازه را وارد کن.")}
+ if(event==="SIGNED_OUT"){accessToken="";currentSession=null;currentRole="";currentUserId="";currentEmail="";setLoggedIn(false)}
+})}
 $("forgotPasswordBtn").addEventListener("click",async()=>{const email=$("email").value.trim();if(!email){showStatus("اول ایمیل حساب مدیر را در کادر ایمیل بنویس.");$("email").focus();return}if(!recoveryClient){showStatus("بخش بازیابی بارگذاری نشد. صفحه را تازه‌سازی کن و دوباره تلاش کن.");return}showStatus("در حال ارسال لینک بازیابی...");try{const redirectTo=window.location.origin+window.location.pathname;const {error}=await recoveryClient.auth.resetPasswordForEmail(email,{redirectTo});if(error)throw error;showStatus("اگر این ایمیل حساب معتبری داشته باشد، لینک بازیابی برایش ارسال می‌شود. صندوق ورودی و پوشه هرزنامه را بررسی کن.")}catch(error){showStatus("ارسال لینک انجام نشد: "+(error.message||"خطای نامشخص")+"؛ نشانی بازگشت سایت باید در تنظیمات URLهای مجاز Supabase ثبت شده باشد.")}});
 $("recoveryForm").addEventListener("submit",async event=>{event.preventDefault();const password=$("newPassword").value,confirmPassword=$("confirmNewPassword").value;if(password.length<8){showStatus("رمز جدید باید دست‌کم ۸ کاراکتر داشته باشد.");return}if(password!==confirmPassword){showStatus("دو رمز واردشده یکسان نیستند.");return}if(!recoveryClient){showStatus("بخش بازیابی بارگذاری نشد. صفحه را تازه‌سازی کن.");return}showStatus("در حال ذخیره رمز جدید...");try{const {error}=await recoveryClient.auth.updateUser({password});if(error)throw error;await recoveryClient.auth.signOut();accessToken="";currentRole="";currentUserId="";$("recoveryForm").reset();$("recoveryPanel").hidden=true;$("loginPanel").hidden=false;showStatus("رمز جدید با موفقیت ذخیره شد. حالا با ایمیل و رمز جدید وارد شو.")}catch(error){showStatus("ذخیره رمز انجام نشد: "+(error.message||"خطای نامشخص"))}});
-async function api(path,options){options=options||{};if(recoveryClient){const {data}=await recoveryClient.auth.getSession();if(data.session?.access_token)accessToken=data.session.access_token}const headers={apikey:SUPABASE_KEY,Authorization:"Bearer "+(accessToken||SUPABASE_KEY),...(options.headers||{})};const response=await fetch(SUPABASE_URL+path,{...options,headers});const raw=await response.text();let data=null;try{data=raw?JSON.parse(raw):null}catch{}if(!response.ok)throw new Error((data&&(data.message||data.msg||data.error_description))||raw||("HTTP "+response.status));return data}
-function setLoggedIn(value){$("loginPanel").hidden=value;$("adminPanel").hidden=!value;document.querySelectorAll("[data-owner-only]").forEach(el=>{el.hidden=!value||currentRole!=="owner"});document.querySelectorAll("[data-owner-panel]").forEach(el=>{el.hidden=true})}
+async function api(path,options){
+ options=options||{};
+ if(!recoveryClient)throw new Error("اتصال امن به سامانه ورود برقرار نیست؛ صفحه را تازه‌سازی کن.");
+ const {data:sessionData,error:sessionError}=await recoveryClient.auth.getSession();
+ if(sessionError)throw sessionError;
+ const activeSession=sessionData.session;
+ if(!activeSession?.access_token)throw new Error("نشست ورود معتبر نیست؛ دوباره وارد پنل شو.");
+ accessToken=activeSession.access_token;currentSession=activeSession;
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),API_TIMEOUT_MS);
+ const headers={apikey:SUPABASE_KEY,Authorization:"Bearer "+accessToken,...(options.headers||{})};
+ try{
+  const response=await fetch(SUPABASE_URL+path,{...options,headers,signal:controller.signal});
+  const raw=await response.text();let data=null;
+  try{data=raw?JSON.parse(raw):null}catch{}
+  if(!response.ok){
+   const message=(data&&(data.message||data.msg||data.error_description))||raw||("HTTP "+response.status);
+   throw new Error(response.status===401?"نشست ورود منقضی شده؛ دوباره وارد شو.":response.status===403?"این عملیات برای نقش فعلی مجاز نیست.":message);
+  }
+  return data;
+ }catch(error){
+  if(error.name==="AbortError")throw new Error("پاسخ پایگاه داده بیش از ۲۰ ثانیه طول کشید؛ اتصال را بررسی کن.");
+  throw error;
+ }finally{clearTimeout(timer)}
+}
+function setLoggedIn(value){
+ $("loginPanel").hidden=value;$("adminPanel").hidden=!value;
+ document.querySelectorAll("[data-owner-only]").forEach(el=>{el.hidden=!value||currentRole!=="owner"});
+ document.querySelectorAll("[data-owner-panel]").forEach(el=>{el.hidden=true});
+ if(value){
+  $("adminIdentityLine").textContent=(currentEmail||"حساب مدیر")+" · "+(currentRole==="owner"?"دسترسی اونر اصلی":"دسترسی مدیر سایت");
+  $("adminRoleChip").textContent=currentRole==="owner"?"اونر اصلی":"مدیر سایت";
+ }
+}
 async function loadAll(){await Promise.all([loadAnnouncements(),loadFeedback()]);if(currentRole==="owner"){await Promise.all([loadSettings(),loadRequests(),loadRoles()])}updateStats()}
-$("loginForm").addEventListener("submit",async event=>{event.preventDefault();showStatus("در حال ورود...");try{if(!recoveryClient)throw new Error("سرویس ورود بارگذاری نشد. صفحه را تازه‌سازی کن.");const {data,error}=await recoveryClient.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)throw error;accessToken=data.session?.access_token||"";currentUserId=data.user?.id||data.session?.user?.id||"";if(!accessToken||!currentUserId)throw new Error("نشست ورود یا شناسه حساب دریافت نشد.");const roles=await api("/rest/v1/quran_admin_roles?select=role&user_id=eq."+encodeURIComponent(currentUserId));if(!roles.length)throw new Error("این حساب هنوز دسترسی مدیریتی ندارد. برای تأیید باید با اونر سایت هماهنگ کنی.");currentRole=roles[0].role;setLoggedIn(true);showStatus(currentRole==="owner"?"ورود اونر موفق بود.":"ورود مدیر موفق بود.");await loadAll();if(currentRole==="owner")await refreshOwnerAccountInfo()}catch(error){if(recoveryClient)await recoveryClient.auth.signOut().catch(()=>{});accessToken="";currentRole="";currentUserId="";currentEmail="";setLoggedIn(false);showStatus("خطا در ورود: "+(error.message||"خطای نامشخص"))}});
+$("loginForm").addEventListener("submit",async event=>{event.preventDefault();showStatus("در حال ورود...");try{if(!recoveryClient)throw new Error("سرویس ورود بارگذاری نشد. صفحه را تازه‌سازی کن.");const {data,error}=await recoveryClient.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)throw error;accessToken=data.session?.access_token||"";currentSession=data.session||null;currentUserId=data.user?.id||data.session?.user?.id||"";if(!accessToken||!currentUserId)throw new Error("نشست ورود یا شناسه حساب دریافت نشد.");const roles=await api("/rest/v1/quran_admin_roles?select=role&user_id=eq."+encodeURIComponent(currentUserId));if(!roles.length)throw new Error("این حساب هنوز دسترسی مدیریتی ندارد. برای تأیید باید با اونر سایت هماهنگ کنی.");currentRole=roles[0].role;setLoggedIn(true);showStatus(currentRole==="owner"?"ورود اونر موفق بود.":"ورود مدیر موفق بود.");await loadAll();if(currentRole==="owner")await refreshOwnerAccountInfo();updateSessionSummary(currentSession);await runSecurityCheck(false)}catch(error){if(recoveryClient)await recoveryClient.auth.signOut().catch(()=>{});accessToken="";currentSession=null;currentRole="";currentUserId="";currentEmail="";setLoggedIn(false);showStatus("خطا در ورود: "+(error.message||"خطای نامشخص"))}});
 
 async function refreshOwnerAccountInfo(){if(currentRole!=="owner"||!recoveryClient)return;const {data,error}=await recoveryClient.auth.getUser();if(error)throw error;if(!data.user||data.user.id!==currentUserId)throw new Error("حساب ورودشده با حساب اونر مطابقت ندارد.");currentEmail=data.user.email||"";$("accountCurrentEmail").textContent="ایمیل فعلی حساب: "+(currentEmail||"نامشخص");}
 $("accountEmailForm").addEventListener("submit",async event=>{event.preventDefault();if(currentRole!=="owner"||!recoveryClient){$("accountEmailStatus").textContent="فقط اونر می‌تواند اطلاعات حساب را تغییر دهد.";return}const newEmail=$("accountNewEmail").value.trim().toLowerCase();if(!newEmail){$("accountEmailStatus").textContent="ایمیل جدید را وارد کن.";return}if(newEmail===currentEmail.toLowerCase()){$("accountEmailStatus").textContent="ایمیل جدید با ایمیل فعلی یکسان است.";return}$("accountEmailStatus").textContent="در حال ارسال درخواست تغییر ایمیل...";try{const {data,error}=await recoveryClient.auth.updateUser({email:newEmail},{emailRedirectTo:window.location.origin+window.location.pathname});if(error)throw error;$("accountEmailStatus").textContent="درخواست تغییر ایمیل ثبت شد. برای نهایی‌شدن، لینک تأیید ارسال‌شده را باز کن؛ ممکن است تأیید ایمیل فعلی و جدید لازم باشد. تا قبل از تأیید، با ایمیل فعلی وارد شو.";$("accountNewEmail").value="";if(data.user?.email)currentEmail=data.user.email;$("accountCurrentEmail").textContent="ایمیل فعلی حساب: "+currentEmail}catch(error){$("accountEmailStatus").textContent="تغییر ایمیل انجام نشد: "+(error.message||"خطای نامشخص")}}); 
 $("accountReauthBtn").addEventListener("click",async()=>{if(currentRole!=="owner"||!recoveryClient){$("accountPasswordStatus").textContent="فقط اونر می‌تواند این عملیات را انجام دهد.";return}$("accountPasswordStatus").textContent="در حال ارسال کد تأیید به ایمیل حساب...";try{const {error}=await recoveryClient.auth.reauthenticate();if(error)throw error;$("accountPasswordStatus").textContent="کد بازتأیید به ایمیل تأییدشدهٔ حساب ارسال شد. کد را در کادر مربوط وارد کن."}catch(error){$("accountPasswordStatus").textContent="ارسال کد انجام نشد: "+(error.message||"خطای نامشخص")}});$("accountPasswordForm").addEventListener("submit",async event=>{event.preventDefault();if(currentRole!=="owner"||!recoveryClient){$("accountPasswordStatus").textContent="فقط اونر می‌تواند رمز حساب را تغییر دهد.";return}const password=$("accountNewPassword").value,confirmation=$("accountConfirmPassword").value,currentPassword=$("accountCurrentPassword").value,nonce=$("accountPasswordNonce").value.trim();if(password.length<8){$("accountPasswordStatus").textContent="رمز جدید باید دست‌کم ۸ کاراکتر داشته باشد.";return}if(password!==confirmation){$("accountPasswordStatus").textContent="دو رمز واردشده یکسان نیستند.";return}$("accountPasswordStatus").textContent="در حال تغییر رمز عبور...";try{const attributes={password};if(currentPassword)attributes.current_password=currentPassword;if(nonce)attributes.nonce=nonce;const {error}=await recoveryClient.auth.updateUser(attributes);if(error)throw error;$("accountPasswordForm").reset();$("accountPasswordStatus").textContent="رمز عبور حساب اونر با موفقیت تغییر کرد. از این پس با رمز جدید وارد شو."}catch(error){const message=error.message||"خطای نامشخص";$("accountPasswordStatus").textContent="تغییر رمز انجام نشد: "+message+( /reauth|nonce/i.test(message)?" — ابتدا کد تأیید را با دکمه بالا بگیر و وارد کن.":/current password/i.test(message)?" — رمز فعلی را هم وارد کن.":"")}}); 
-document.querySelectorAll("[data-tab]").forEach(button=>button.addEventListener("click",()=>{if(button.hasAttribute("data-owner-only")&&currentRole!=="owner")return;document.querySelectorAll("[data-tab]").forEach(item=>item.classList.toggle("active",item===button)); ["dashboardTab","announcementsTab","feedbackTab","requestsTab","rolesTab","settingsTab","accountTab"].forEach(id=>$(id).hidden=id!==button.dataset.tab)}));
-function updateStats(){$("statAnnouncements").textContent=announcements.length;$("statPublished").textContent=announcements.filter(item=>item.is_published).length;$("statFeedback").textContent=feedbackRows.length;$("statUnread").textContent=feedbackRows.filter(item=>item.status==="new").length;$("statPendingRequests").textContent=currentRole==="owner"?adminRequests.filter(item=>item.status==="pending").length:"—"}
+document.querySelectorAll("[data-tab]").forEach(button=>button.addEventListener("click",()=>activateAdminTab(button.dataset.tab)));
+document.querySelectorAll("[data-open-tab]").forEach(button=>button.addEventListener("click",()=>activateAdminTab(button.dataset.openTab)));
+document.querySelectorAll("[data-owner-open]").forEach(button=>button.addEventListener("click",()=>activateAdminTab(button.dataset.ownerOpen)));
+$("adminGlobalSearchForm").addEventListener("submit",event=>{event.preventDefault();handleGlobalAdminSearch($("adminGlobalSearch").value)});
+$("securityCheckBtn").addEventListener("click",()=>runSecurityCheck(true));
+$("securityLogoutBtn").addEventListener("click",async()=>{if(!confirm("از حساب مدیریتی در این دستگاه خارج شوی؟"))return;if(recoveryClient)await recoveryClient.auth.signOut({scope:"local"}).catch(()=>{});clearSensitiveAdminState();showStatus("خروج امن از این دستگاه انجام شد.")});
+$("copyAdminUserIdBtn").addEventListener("click",async()=>{if(!currentUserId)return;try{await navigator.clipboard.writeText(currentUserId);$("securityStatus").textContent="شناسه حساب کپی شد."}catch{$("securityStatus").textContent="کپی خودکار ممکن نیست؛ شناسه را از بخش هویت حساب انتخاب کن."}});
+$("exportAnnouncementsBtn").addEventListener("click",()=>{
+ const cell=value=>'"'+String(value??"").replace(/"/g,'""')+'"';
+ const csv="\uFEFF"+[["عنوان","متن","وضعیت","تاریخ"],...announcements.map(x=>[x.title,x.body,x.is_published?"منتشرشده":"پیش‌نویس",x.created_at])].map(row=>row.map(cell).join(",")).join("\r\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download="noor-quran-announcements-"+new Date().toISOString().slice(0,10)+".csv";document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ showStatus("خروجی اطلاعیه‌ها دانلود شد.");
+});
+$("exportFullReportBtn").addEventListener("click",()=>{
+ const report={created_at:new Date().toISOString(),role:currentRole,summary:{announcements:announcements.length,published:announcements.filter(x=>x.is_published).length,messages:feedbackRows.length,unread:feedbackRows.filter(x=>x.status==="new").length,pending_requests:currentRole==="owner"?adminRequests.filter(x=>x.status==="pending").length:null},recent_activity:getAdminActivities()};
+ const blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download="noor-quran-admin-report-"+new Date().toISOString().slice(0,10)+".json";document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
+function formatAdminDate(value){
+ if(!value)return"تاریخ نامشخص";
+ const date=new Date(value);return Number.isNaN(date.getTime())?"تاریخ نامشخص":date.toLocaleString("fa-IR",{dateStyle:"medium",timeStyle:"short"});
+}
+function getAdminActivities(){
+ const rows=[];
+ for(const item of announcements)rows.push({date:item.created_at,type:"اطلاعیه",title:item.title||"اطلاعیه بدون عنوان",detail:item.is_published?"منتشرشده":"پیش‌نویس"});
+ for(const item of feedbackRows)rows.push({date:item.created_at,type:"پیام کاربر",title:item.name||"بازدیدکننده",detail:item.status==="new"?"بررسی‌نشده":"بررسی‌شده"});
+ if(currentRole==="owner")for(const item of adminRequests)rows.push({date:item.created_at,type:"درخواست دسترسی",title:item.display_name||"درخواست ناشناس",detail:item.status==="pending"?"در انتظار بررسی":item.status==="approved"?"تأیید اولیه":"رد شده"});
+ return rows.filter(row=>row.date&&Number.isFinite(new Date(row.date).getTime())).sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+function appendActivityRows(container,rows,emptyText){
+ container.replaceChildren();
+ if(!rows.length){const empty=document.createElement("p");empty.className="muted";empty.textContent=emptyText;container.append(empty);return}
+ for(const row of rows.slice(0,8)){
+  const line=document.createElement("div");line.className="recent-row";
+  const dot=document.createElement("span");dot.className="recent-dot";
+  const text=document.createElement("div"),title=document.createElement("strong"),meta=document.createElement("small");
+  title.textContent=row.type+" · "+row.title;meta.textContent=row.detail+" · "+formatAdminDate(row.date);
+  text.append(title,meta);line.append(dot,text);container.append(line);
+ }
+}
+function renderActivity(){
+ const rows=getAdminActivities();
+ appendActivityRows($("recentActivityList"),rows,"هنوز رویدادی برای نمایش وجود ندارد.");
+ appendActivityRows($("reportActivityList"),rows,"هنوز رویدادی برای نمایش وجود ندارد.");
+}
+function renderReports(){
+ const published=announcements.filter(item=>item.is_published).length;
+ const read=feedbackRows.filter(item=>item.status==="read").length;
+ const pending=feedbackRows.filter(item=>item.status==="new").length+(currentRole==="owner"?adminRequests.filter(item=>item.status==="pending").length:0);
+ $("reportPublishedRate").textContent=announcements.length?Math.round(published/announcements.length*100).toLocaleString("fa-IR")+"٪":"—";
+ $("reportReadRate").textContent=feedbackRows.length?Math.round(read/feedbackRows.length*100).toLocaleString("fa-IR")+"٪":"—";
+ $("reportPendingCount").textContent=pending.toLocaleString("fa-IR");
+ const box=$("reportWeeklyBars");box.replaceChildren();
+ const days=[];
+ for(let i=6;i>=0;i--){const date=new Date();date.setHours(0,0,0,0);date.setDate(date.getDate()-i);const next=new Date(date);next.setDate(next.getDate()+1);
+  const count=getAdminActivities().filter(row=>{const d=new Date(row.date);return d>=date&&d<next}).length;
+  days.push({label:date.toLocaleDateString("fa-IR",{weekday:"short"}),count});
+ }
+ const maximum=Math.max(1,...days.map(x=>x.count));
+ for(const day of days){
+  const row=document.createElement("div");row.className="report-bar-row";
+  const label=document.createElement("span");label.textContent=day.label;
+  const track=document.createElement("div");track.className="report-bar-track";
+  const fill=document.createElement("div");fill.className="report-bar-fill";fill.style.width=(day.count/maximum*100)+"%";track.append(fill);
+  const count=document.createElement("b");count.textContent=day.count.toLocaleString("fa-IR");
+  row.append(label,track,count);box.append(row);
+ }
+}
+function updateSessionSummary(session){
+ if(!session)return;
+ const expires=session.expires_at?new Date(session.expires_at*1000):null;
+ $("securityEmail").textContent=currentEmail||"ایمیل حساب در دسترس نیست";
+ $("securityUserId").textContent="شناسه حساب: "+(currentUserId||"نامشخص");
+ $("securitySessionState").textContent="فعال";
+ $("securitySessionExpiry").textContent=expires&&!Number.isNaN(expires.getTime())?expires.toLocaleString("fa-IR"):"در دسترس نیست";
+ $("securityLastSignIn").textContent=session.user?.last_sign_in_at?formatAdminDate(session.user.last_sign_in_at):"در دسترس نیست";
+ $("checkAuthState").textContent="در انتظار بررسی";
+ $("checkRoleState").textContent="در انتظار بررسی";
+ $("checkContentState").textContent="در انتظار بررسی";
+ $("checkOwnerState").textContent=currentRole==="owner"?"در انتظار بررسی":"فقط اونر";
+}
+async function runSecurityCheck(showMessage=true){
+ if(!recoveryClient||!currentUserId||!currentRole){
+  if(showMessage)$("securityStatus").textContent="برای بررسی امنیت ابتدا وارد پنل شو.";
+  return;
+ }
+ $("securityStatus").textContent="در حال بررسی نشست و دسترسی‌های واقعی در Supabase...";
+ const mark=(id,ok,label)=>{const el=$(id);el.textContent=label;el.className=ok?"security-good":"security-warn"};
+ try{
+  const {data:sessionData,error:sessionError}=await recoveryClient.auth.getSession();
+  if(sessionError)throw sessionError;
+  const session=sessionData.session;
+  if(!session?.access_token)throw new Error("نشست ورود فعال نیست.");
+  const {data:userData,error:userError}=await recoveryClient.auth.getUser();
+  if(userError)throw userError;
+  if(!userData.user||userData.user.id!==currentUserId)throw new Error("هویت حساب با نشست فعلی تطبیق ندارد.");
+  accessToken=session.access_token;currentSession=session;
+  mark("checkAuthState",true,"تأیید شد");
+  const roles=await api("/rest/v1/quran_admin_roles?select=role&user_id=eq."+encodeURIComponent(currentUserId));
+  const role=roles?.[0]?.role;
+  if(role!==currentRole||!["owner","admin"].includes(role))throw new Error("نقش حساب در پایگاه داده تغییر کرده یا دسترسی آن لغو شده است.");
+  mark("checkRoleState",true,role==="owner"?"اونر تأیید شد":"مدیر تأیید شد");
+  await api("/rest/v1/quran_announcements?select=id&limit=1");
+  await api("/rest/v1/quran_feedback?select=id&limit=1");
+  mark("checkContentState",true,"دسترسی مجاز");
+  if(currentRole==="owner"){
+   await api("/rest/v1/quran_site_settings?select=key&limit=1");
+   await api("/rest/v1/quran_admin_requests?select=id&limit=1");
+   mark("checkOwnerState",true,"دسترسی اونر تأیید شد");
+  }else mark("checkOwnerState",true,"محدود به اونر");
+  updateSessionSummary(session);
+  $("securityStatus").textContent="بازبینی موفق بود؛ نشست، نقش و سیاست‌های دسترسی بررسی شدند.";
+  return true;
+ }catch(error){
+  mark("checkAuthState",false,"نیازمند بررسی");
+  mark("checkRoleState",false,"نیازمند بررسی");
+  mark("checkContentState",false,"نیازمند بررسی");
+  mark("checkOwnerState",false,currentRole==="owner"?"خطا":"محدود به اونر");
+  $("securitySessionState").textContent="نیازمند ورود دوباره";
+  $("securitySessionState").className="security-warn";
+  $("securityStatus").textContent="بازبینی کامل نشد: "+(error.message||"خطای نامشخص");
+  if(/نشست|هویت حساب|نقش حساب/.test(error.message||"")){
+   clearSensitiveAdminState();
+   if(recoveryClient)await recoveryClient.auth.signOut({scope:"local"}).catch(()=>{});
+  }
+  return false;
+ }
+}
+function activateAdminTab(tabId){
+ const button=document.querySelector('[data-tab="'+tabId+'"]');
+ if(!button||button.hidden||(button.hasAttribute("data-owner-only")&&currentRole!=="owner"))return;
+ document.querySelectorAll("[data-tab]").forEach(item=>item.classList.toggle("active",item===button));
+ ["dashboardTab","announcementsTab","feedbackTab","requestsTab","rolesTab","settingsTab","accountTab","reportsTab","securityTab"].forEach(id=>{const panel=$(id);if(panel)panel.hidden=id!==tabId});
+ if(tabId==="reportsTab")renderReports();
+ if(tabId==="securityTab")updateSessionSummary(currentSession);
+}
+function handleGlobalAdminSearch(query){
+ const q=String(query||"").trim().toLocaleLowerCase();
+ if(!q){showStatus("عبارت جستجو را وارد کن.");return}
+ const announcement=announcements.find(x=>(x.title+" "+x.body).toLocaleLowerCase().includes(q));
+ if(announcement){$("announcementSearch").value=query;renderAnnouncements();activateAdminTab("announcementsTab");showStatus("نتیجه در اطلاعیه‌ها پیدا شد.");return}
+ const feedback=feedbackRows.find(x=>(x.name+" "+x.message).toLocaleLowerCase().includes(q));
+ if(feedback){$("feedbackSearch").value=query;renderFeedback();activateAdminTab("feedbackTab");showStatus("نتیجه در صندوق پیام‌ها پیدا شد.");return}
+ if(currentRole==="owner"){
+  const request=adminRequests.find(x=>(x.display_name+" "+x.contact+" "+x.reason).toLocaleLowerCase().includes(q));
+  if(request){$("requestSearch").value=query;renderRequests();activateAdminTab("requestsTab");showStatus("نتیجه در درخواست‌های ادمینی پیدا شد.");return}
+  const role=adminRoles.find(x=>(x.label+" "+x.user_id).toLocaleLowerCase().includes(q));
+  if(role){activateAdminTab("rolesTab");showStatus("حساب موردنظر در فهرست مدیران پیدا شد.");return}
+ }
+ showStatus("موردی با این عبارت در داده‌های بارگذاری‌شده پیدا نشد.");
+}
+
+function updateStats(){$("statAnnouncements").textContent=announcements.length;$("statPublished").textContent=announcements.filter(item=>item.is_published).length;$("statFeedback").textContent=feedbackRows.length;$("statUnread").textContent=feedbackRows.filter(item=>item.status==="new").length;$("statPendingRequests").textContent=currentRole==="owner"?adminRequests.filter(item=>item.status==="pending").length:"—";renderActivity();renderReports()}
 function resetAnnouncementForm(){$("announcementForm").reset();$("announcementId").value="";$("announcementPublished").checked=true;$("announcementFormTitle").textContent="ثبت اطلاعیه تازه";$("announcementSubmit").textContent="ذخیره اطلاعیه";$("cancelAnnouncement").hidden=true;$("announcementPreview").hidden=true}
 $("cancelAnnouncement").addEventListener("click",resetAnnouncementForm);
 $("previewAnnouncement").addEventListener("click",()=>{const title=$("announcementTitle").value.trim(),body=$("announcementBody").value.trim();if(!title||!body){showStatus("عنوان و متن را برای پیش‌نمایش وارد کن.");return}$("announcementPreview").textContent=title+"\n\n"+body;$("announcementPreview").hidden=false});
@@ -112,15 +494,56 @@ async function loadRoles(){try{adminRoles=await api("/rest/v1/quran_admin_roles?
 function renderRoles(){const box=$("rolesList");box.replaceChildren();if(!adminRoles.length){box.textContent="فهرست مدیران خالی است.";return}for(const role of adminRoles){const row=document.createElement("article");row.className="item";const info=document.createElement("div");const name=document.createElement("strong");name.textContent=role.label;const tag=document.createElement("span");tag.className="tag";tag.textContent=role.role==="owner"?"اونر اصلی":"مدیر سایت";const id=document.createElement("p");id.className="muted";id.textContent=role.user_id;info.append(name,document.createTextNode(" "),tag,id);row.append(info);if(role.role==="admin"){const remove=document.createElement("button");remove.className="btn btn-danger btn-small";remove.textContent="لغو دسترسی";remove.addEventListener("click",async()=>{if(!confirm("دسترسی مدیریتی این حساب لغو شود؟"))return;try{await api("/rest/v1/quran_admin_roles?user_id=eq."+encodeURIComponent(role.user_id)+"&role=eq.admin",{method:"DELETE",headers:{Prefer:"return=minimal"}});await loadRoles();showStatus("دسترسی مدیر لغو شد.")}catch(error){showStatus("خطا در لغو دسترسی: "+error.message)}});row.append(remove)}box.append(row)}}
 $("roleForm").addEventListener("submit",async event=>{event.preventDefault();const userId=$("targetUserId").value.trim(),label=$("targetLabel").value.trim();const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;if(!uuid.test(userId)){$("roleStatus").textContent="شناسه کاربر باید UUID معتبر باشد.";return}$("roleStatus").textContent="در حال ثبت دسترسی...";try{await api("/rest/v1/quran_admin_roles?on_conflict=user_id",{method:"POST",headers:{"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"},body:JSON.stringify({user_id:userId,role:"admin",label,granted_by:currentUserId})});$("roleForm").reset();$("roleStatus").textContent="دسترسی مدیر اضافه شد.";await loadRoles()}catch(error){$("roleStatus").textContent="خطا در واگذاری دسترسی: "+error.message+" — فقط اونر می‌تواند این کار را انجام دهد."}});
 $("requestSearch").addEventListener("input",renderRequests);$("clearRequestSearch").addEventListener("click",()=>{$("requestSearch").value="";renderRequests()});
-async function loadSettings(){try{const rows=await api("/rest/v1/quran_site_settings?select=key,value");settings=Object.fromEntries((rows||[]).map(item=>[item.key,item.value]));$("defaultTranslation").value=settings.translation_edition||"fa.makarem";$("defaultReciter").value=["parhizgar","ar.husary","ar.minshawi"].includes(settings.reciter_edition)?settings.reciter_edition:"parhizgar";$("studyIntroInput").value=settings.study_intro||"خواندن قرآن را بر اساس جزء و صفحه ادامه بده، آیه جستجو کن و برنامه شخصی مطالعه بساز.";$("dailyGoalDefaultInput").value=["5","10","20","30"].includes(settings.daily_goal_default)?settings.daily_goal_default:"10";$("showSajdaToolsInput").checked=settings.show_sajda_tools!=="false";$("showTajweedGuideInput").checked=settings.show_tajweed_guide!=="false";$("showKhatmTrackerInput").checked=settings.show_khatm_tracker!=="false";$("showTasbihCounterInput").checked=settings.show_tasbih_counter!=="false";$("dailyAyahRefInput").value=settings.daily_ayah_ref||"2:255";$("dailyAyahNoteInput").value=settings.daily_ayah_note||"آیه‌ای برای تأمل و یادآوری";$("siteNoticeEnabledInput").checked=settings.site_notice_enabled==="true";$("siteNoticeTextInput").value=settings.site_notice_text||"";$("adminAccessPriceInput").value=settings.admin_access_price||"با هماهنگی اونر سایت";$("adminAccessTermsInput").value=settings.admin_access_terms||"درخواست شما پس از بررسی و هماهنگی با اونر تعیین تکلیف می‌شود."}catch(error){$("settingsStatus").textContent="دریافت تنظیمات ممکن نشد: "+error.message}}
+async function loadSettings(){try{const rows=await api("/rest/v1/quran_site_settings?select=key,value");settings=Object.fromEntries((rows||[]).map(item=>[item.key,item.value]));$("defaultTranslation").value=settings.translation_edition||"fa.makarem";$("defaultReciter").value=["parhizgar","ar.husary","ar.minshawi"].includes(settings.reciter_edition)?settings.reciter_edition:"parhizgar";$("studyIntroInput").value=settings.study_intro||"خواندن قرآن را بر اساس جزء و صفحه ادامه بده، آیه جستجو کن و برنامه شخصی مطالعه بساز.";$("dailyGoalDefaultInput").value=["5","10","15","20","25","30","35","40","45","50","55","100","200"].includes(settings.daily_goal_default)?settings.daily_goal_default:"10";$("showSajdaToolsInput").checked=settings.show_sajda_tools!=="false";$("showTajweedGuideInput").checked=settings.show_tajweed_guide!=="false";$("showKhatmTrackerInput").checked=settings.show_khatm_tracker!=="false";$("showTasbihCounterInput").checked=settings.show_tasbih_counter!=="false";$("dailyAyahRefInput").value=settings.daily_ayah_ref||"2:255";$("dailyAyahNoteInput").value=settings.daily_ayah_note||"آیه‌ای برای تأمل و یادآوری";$("siteNoticeEnabledInput").checked=settings.site_notice_enabled==="true";$("siteNoticeTextInput").value=settings.site_notice_text||"";$("adminAccessPriceInput").value=settings.admin_access_price||"با هماهنگی اونر سایت";$("adminAccessTermsInput").value=settings.admin_access_terms||"درخواست شما پس از بررسی و هماهنگی با اونر تعیین تکلیف می‌شود."}catch(error){$("settingsStatus").textContent="دریافت تنظیمات ممکن نشد: "+error.message}}
 $("settingsForm").addEventListener("submit",async event=>{event.preventDefault();const ref=$("dailyAyahRefInput").value.trim()||"2:255";if(!/^[0-9]{1,3}:[0-9]{1,3}$/.test(ref)){$("settingsStatus").textContent="نشانی آیه باید مانند 2:255 باشد.";return}const values=[{key:"translation_edition",value:$("defaultTranslation").value},{key:"reciter_edition",value:$("defaultReciter").value},{key:"study_intro",value:$("studyIntroInput").value.trim()},{key:"daily_goal_default",value:$("dailyGoalDefaultInput").value},{key:"show_sajda_tools",value:$("showSajdaToolsInput").checked?"true":"false"},{key:"show_tajweed_guide",value:$("showTajweedGuideInput").checked?"true":"false"},{key:"show_khatm_tracker",value:$("showKhatmTrackerInput").checked?"true":"false"},{key:"show_tasbih_counter",value:$("showTasbihCounterInput").checked?"true":"false"},{key:"daily_ayah_ref",value:ref},{key:"daily_ayah_note",value:$("dailyAyahNoteInput").value.trim()||"آیه منتخب"},{key:"site_notice_enabled",value:$("siteNoticeEnabledInput").checked?"true":"false"},{key:"site_notice_text",value:$("siteNoticeTextInput").value.trim()},{key:"admin_access_price",value:$("adminAccessPriceInput").value.trim()||"با هماهنگی اونر سایت"},{key:"admin_access_terms",value:$("adminAccessTermsInput").value.trim()||"درخواست شما پس از بررسی اونر بررسی می‌شود."}];$("settingsStatus").textContent="در حال ذخیره...";try{for(const item of values){await api("/rest/v1/quran_site_settings?on_conflict=key",{method:"POST",headers:{"Content-Type":"application/json",Prefer:"resolution=merge-duplicates,return=minimal"},body:JSON.stringify(item)})}$("settingsStatus").textContent="تنظیمات ذخیره شد. صفحه عمومی از این پس این انتخاب‌ها را به‌صورت پیش‌فرض می‌خواند."}catch(error){$("settingsStatus").textContent="خطا در ذخیره تنظیمات: "+error.message}});
 $("announcementSearch").addEventListener("input",renderAnnouncements);$("announcementStatusFilter").addEventListener("change",renderAnnouncements);$("announcementSortOrder").addEventListener("change",renderAnnouncements);$("clearAnnouncementSearch").addEventListener("click",()=>{$("announcementSearch").value="";$("announcementStatusFilter").value="all";renderAnnouncements()});$("feedbackSearch").addEventListener("input",renderFeedback);$("feedbackStatusFilter").addEventListener("change",renderFeedback);$("clearFeedbackSearch").addEventListener("click",()=>{$("feedbackSearch").value="";$("feedbackStatusFilter").value="all";renderFeedback()});
 $("refreshAll").addEventListener("click",async()=>{$("dashboardStatus").textContent="در حال دریافت دوباره اطلاعات...";await loadAll();$("dashboardStatus").textContent="اطلاعات پنل به‌روزرسانی شد."});
 $("healthCheckBtn").addEventListener("click",async()=>{$("healthStatus").textContent="در حال آزمایش اتصال به پایگاه داده و سرویس قرآن...";const results=await Promise.allSettled([api("/rest/v1/quran_site_settings?select=key&limit=1"),fetch("https://api.alquran.cloud/v1/surah/1").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()})]);const labels=[results[0].status==="fulfilled"?"پایگاه داده: سالم":"پایگاه داده: خطا",results[1].status==="fulfilled"&&results[1].value.code===200?"سرویس قرآن: سالم":"سرویس قرآن: خطا"];$("healthStatus").textContent=labels.join(" · ");});
 $("markAllReadBtn").addEventListener("click",async()=>{const unread=feedbackRows.filter(item=>item.status==="new");if(!unread.length){showStatus("پیام بررسی‌نشده‌ای وجود ندارد.");return}if(!confirm("همه "+unread.length+" پیام بررسی‌نشده به‌عنوان بررسی‌شده علامت‌گذاری شوند؟"))return;try{await api("/rest/v1/quran_feedback?status=eq.new",{method:"PATCH",headers:{"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({status:"read"})});await loadFeedback();updateStats();showStatus("همه پیام‌ها بررسی‌شده علامت‌گذاری شدند.")}catch(error){showStatus("به‌روزرسانی پیام‌ها انجام نشد: "+error.message)}});
 $("exportFeedbackBtn").addEventListener("click",()=>{const q=$("feedbackSearch").value.trim().toLocaleLowerCase(),state=$("feedbackStatusFilter").value;const rows=feedbackRows.filter(item=>(item.name+" "+item.message).toLocaleLowerCase().includes(q)&&(state==="all"||item.status===state));if(!rows.length){showStatus("پیامی برای خروجی گرفتن وجود ندارد.");return}const cell=value=>'"'+String(value??"").replace(/"/g,'""')+'"';const csv="\uFEFF"+[["نام","پیام","وضعیت","تاریخ"],...rows.map(item=>[item.name,item.message,item.status,item.created_at])].map(row=>row.map(cell).join(",")).join("\r\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const link=document.createElement("a");link.href=url;link.download="noor-quran-messages-"+new Date().toISOString().slice(0,10)+".csv";document.body.append(link);link.click();link.remove();URL.revokeObjectURL(url);showStatus("خروجی پیام‌ها دانلود شد.")});
-$("backupBtn").addEventListener("click",()=>{const backup={exported_at:new Date().toISOString(),announcements:announcements,settings:settings,feedback:feedbackRows};const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json;charset=utf-8"});const url=URL.createObjectURL(blob);const link=document.createElement("a");link.href=url;link.download="noor-quran-backup-"+new Date().toISOString().slice(0,10)+".json";document.body.append(link);link.click();link.remove();URL.revokeObjectURL(url);$("dashboardStatus").textContent="نسخه پشتیبان دانلود شد."});
-$("logout").addEventListener("click",async()=>{if(recoveryClient)await recoveryClient.auth.signOut().catch(()=>{});accessToken="";announcements=[];feedbackRows=[];settings={};adminRequests=[];adminRoles=[];currentRole="";currentUserId="";currentEmail="";$("password").value="";$("accountCurrentEmail").textContent="";$("accountEmailForm").reset();$("accountPasswordForm").reset();setLoggedIn(false);updateStats();showStatus("از پنل خارج شدی.")});
+$("backupBtn").addEventListener("click",()=>{
+ if(!confirm("نسخه پشتیبان شامل پیام‌های خصوصی کاربران و داده‌های مدیریتی قابل مشاهده برای حساب تو است. فایل را فقط در جای امن ذخیره کن. ادامه می‌دهی؟"))return;
+ const backup={schema_version:2,exported_at:new Date().toISOString(),exported_by:{email:currentEmail,role:currentRole,user_id:currentUserId},announcements,settings,feedback:feedbackRows,admin_requests:currentRole==="owner"?adminRequests:undefined,admin_roles:currentRole==="owner"?adminRoles:undefined};
+ const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download="noor-quran-secure-backup-"+new Date().toISOString().slice(0,10)+".json";document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ $("dashboardStatus").textContent="نسخه پشتیبان خصوصی دانلود شد. فایل شامل داده‌های حساس است؛ آن را امن نگه‌دار.";
+});
+
+function clearSensitiveAdminState(){
+ accessToken="";currentSession=null;currentRole="";currentUserId="";currentEmail="";
+ announcements=[];feedbackRows=[];settings={};adminRequests=[];adminRoles=[];
+ setLoggedIn(false);updateStats();
+}
+async function initializeAdminSession(){
+ if(!recoveryClient||authRecoveryActive)return;
+ try{
+  const {data,error}=await recoveryClient.auth.getSession();
+  if(error)throw error;
+  if(!data.session)return;
+  const session=data.session;
+  const {data:userData,error:userError}=await recoveryClient.auth.getUser();
+  if(userError)throw userError;
+  const user=userData.user;
+  if(!user?.id||user.id!==session.user?.id)throw new Error("هویت نشست قابل تأیید نبود.");
+  const token=session.access_token;
+  accessToken=token;currentSession=session;currentUserId=user.id;currentEmail=user.email||"";
+  const roleRows=await api("/rest/v1/quran_admin_roles?select=role&user_id=eq."+encodeURIComponent(currentUserId));
+  const role=roleRows?.[0]?.role;
+  if(!["owner","admin"].includes(role))throw new Error("این حساب دسترسی مدیریتی فعال ندارد.");
+  currentRole=role;setLoggedIn(true);await loadAll();
+  if(currentRole==="owner")await refreshOwnerAccountInfo();
+  updateSessionSummary(currentSession);await runSecurityCheck(false);
+  showStatus("نشست قبلی با موفقیت بازیابی و دسترسی‌ها دوباره بررسی شد.");
+ }catch(error){
+  clearSensitiveAdminState();
+  if(recoveryClient)await recoveryClient.auth.signOut({scope:"local"}).catch(()=>{});
+  showStatus("بازیابی نشست انجام نشد؛ برای امنیت دوباره وارد شو. "+(error.message||""));
+ }
+}
+
+$("logout").addEventListener("click",async()=>{if(recoveryClient)await recoveryClient.auth.signOut().catch(()=>{});accessToken="";currentSession=null;announcements=[];feedbackRows=[];settings={};adminRequests=[];adminRoles=[];currentRole="";currentUserId="";currentEmail="";$("password").value="";$("accountCurrentEmail").textContent="";$("accountEmailForm").reset();$("accountPasswordForm").reset();setLoggedIn(false);updateStats();showStatus("از پنل خارج شدی.")});
+initializeAdminSession();
+
 </script>
 </body>
 </html>
