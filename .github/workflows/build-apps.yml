@@ -37,11 +37,25 @@ jobs:
 
       - name: Install app dependencies
         working-directory: apps
-        run: npm install --no-audit --no-fund
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            echo "Dependency install attempt ${attempt}/3"
+            if npm install --no-audit --no-fund; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 15)); fi
+          done
+          exit 1
 
       - name: Build Windows installer and portable app
         working-directory: apps
-        run: npm run build:windows
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            echo "Windows build attempt ${attempt}/3"
+            if npm run build:windows; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 20)); fi
+          done
+          exit 1
 
       - name: Upload Windows packages
         uses: actions/upload-artifact@v4
@@ -71,7 +85,16 @@ jobs:
 
       - name: Install app dependencies
         working-directory: apps
-        run: npm install --no-audit --no-fund
+        shell: bash
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+        run: |
+          for attempt in 1 2 3; do
+            echo "Dependency install attempt ${attempt}/3"
+            if npm install --no-audit --no-fund; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 15)); fi
+          done
+          exit 1
 
       - name: Prepare bundled Quran app
         working-directory: apps
@@ -89,7 +112,12 @@ jobs:
         working-directory: apps/android
         run: |
           chmod +x ./gradlew
-          ./gradlew --no-daemon assembleDebug
+          for attempt in 1 2 3; do
+            echo "Android Gradle build attempt ${attempt}/3"
+            if ./gradlew --no-daemon assembleDebug; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 20)); fi
+          done
+          exit 1
 
       - name: Stage APK
         run: |
@@ -118,11 +146,25 @@ jobs:
 
       - name: Install app dependencies
         working-directory: apps
-        run: npm install --no-audit --no-fund
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            echo "Dependency install attempt ${attempt}/3"
+            if npm install --no-audit --no-fund; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 15)); fi
+          done
+          exit 1
 
       - name: Build universal macOS app
         working-directory: apps
-        run: npm run build:mac
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            echo "macOS build attempt ${attempt}/3"
+            if npm run build:mac; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 20)); fi
+          done
+          exit 1
 
       - name: Upload macOS packages
         uses: actions/upload-artifact@v4
@@ -148,7 +190,15 @@ jobs:
 
       - name: Install app dependencies
         working-directory: apps
-        run: npm install --no-audit --no-fund
+        shell: bash
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+        run: | in 1 2 3; do
+            echo "Dependency install attempt ${attempt}/3"
+            if npm install --no-audit --no-fund; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 15)); fi
+          done
+          exit 1
 
       - name: Prepare bundled Quran app
         working-directory: apps
