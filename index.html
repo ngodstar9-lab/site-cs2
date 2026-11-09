@@ -33,9 +33,52 @@ body.dark-mode{--bg:#101713;--paper:#18231d;--paper2:#202d25;--ink:#e8eee8;--mut
 @media(max-width:900px){nav{gap:13px}.surah-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tajweed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.nav{height:auto;min-height:74px;flex-wrap:wrap;padding:10px 0}.brand{flex:1}.brand-name{font-size:21px}nav{order:3;flex-basis:100%;justify-content:space-between;padding:7px 0 3px;overflow-x:auto}nav a{font-size:12px;white-space:nowrap}.nav-actions{gap:6px}.nav-actions .btn{padding:8px 10px;font-size:12px}.hero{padding:55px 0}.hero p{font-size:15px}.surah-grid{grid-template-columns:1fr}.tartil-grid{grid-template-columns:1fr}.study-grid{grid-template-columns:1fr}.tajweed-grid{grid-template-columns:1fr}.juz-checks{grid-template-columns:repeat(3,minmax(0,1fr))}.notice-list{grid-template-columns:1fr}.feedback form{grid-template-columns:1fr}.reader{padding:14px}.reader-controls select{max-width:none;flex:1}.section-head h2{font-size:19px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* صفحه خوش‌آمدگویی قرآنی */
+#welcomeScreen{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 35%,#285b43 0,#123b30 48%,#09251d 100%);color:#fff;overflow:auto}
+#welcomeScreen[hidden]{display:none}
+#welcomeScreen:before,#welcomeScreen:after{content:"";position:absolute;width:min(78vw,650px);aspect-ratio:1;border:1px solid #e5c77a55;transform:rotate(45deg);border-radius:34%;pointer-events:none}
+#welcomeScreen:before{box-shadow:0 0 0 16px #e5c77a12,0 0 0 34px #e5c77a0c,0 0 0 54px #e5c77a08}
+#welcomeScreen:after{width:min(60vw,470px);border-radius:50%;transform:rotate(0);border-style:dashed;opacity:.55}
+.welcome-card{position:relative;z-index:1;width:min(650px,100%);text-align:center;padding:clamp(26px,6vw,54px) clamp(18px,5vw,42px);border:1px solid #d8bd795e;border-radius:28px;background:linear-gradient(145deg,#ffffff12,#ffffff08);box-shadow:0 28px 90px #0005;backdrop-filter:blur(10px)}
+.welcome-emblem{width:82px;height:82px;margin:0 auto 17px;border:1px solid #e8ce8d;border-radius:50%;display:grid;place-items:center;color:#f0d99e;font-size:48px;box-shadow:0 0 0 8px #e8ce8d12,0 0 35px #e8ce8d22}
+.welcome-bismillah{font-family:"Traditional Arabic","Noto Naskh Arabic",serif;color:#f2dca4;font-size:clamp(27px,5vw,39px);margin:0 0 12px}
+.welcome-card h1{font-size:clamp(32px,7vw,54px);line-height:1.35;margin:0;color:#fff;font-weight:900}
+.welcome-subtitle{color:#e0e9df;font-size:15px;margin:8px auto 23px;max-width:470px}
+.welcome-quote{font-family:"Traditional Arabic","Noto Naskh Arabic",serif;font-size:clamp(21px,4vw,29px);line-height:2;color:#f3e5c1;margin:14px 0 5px}
+.welcome-translation{font-size:12px;color:#d7e2d8;margin:0 0 24px}
+.welcome-settings{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 22px;color:#e9e7d8;font-size:13px}
+.welcome-settings select{border:1px solid #e1cb91;border-radius:10px;padding:9px 13px;background:#fdfbf3;color:#173c2e;min-width:150px}
+#welcomeEnterBtn{min-width:min(290px,100%);padding:14px 25px;border:1px solid #f3dc9f;border-radius:13px;background:linear-gradient(135deg,#e9ce8d,#c49a48);color:#183629;font-size:17px;font-weight:900;box-shadow:0 10px 28px #0003}
+#welcomeEnterBtn:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.welcome-foot{font-size:11px;color:#c8d7cb;margin:17px 0 0}
+body.welcome-open{overflow:hidden}
+@media(max-width:480px){.welcome-card{border-radius:20px}.welcome-emblem{width:68px;height:68px;font-size:40px}}
+
 </style>
 </head>
-<body>
+<body class="welcome-open">
+
+<div id="welcomeScreen" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+ <section class="welcome-card">
+  <div class="welcome-emblem" aria-hidden="true">۞</div>
+  <p class="welcome-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+  <h1 id="welcomeTitle">به نور قرآن خوش آمدی</h1>
+  <p class="welcome-subtitle">آرامشی برای دل، نوری برای مسیر؛ قرآن کریم را بخوان، بشنو و با آن همراه شو.</p>
+  <div class="welcome-quote">وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ</div>
+  <p class="welcome-translation">و از قرآن آنچه مایه درمان و رحمت برای مؤمنان است نازل می‌کنیم.</p>
+  <div class="welcome-settings">
+   <label for="welcomeThemeSelect">نمای ظاهری سایت:</label>
+   <select id="welcomeThemeSelect">
+    <option value="light">زمردی و روشن</option>
+    <option value="dark">شبانه و آرام</option>
+   </select>
+  </div>
+  <button id="welcomeEnterBtn" type="button">ورود به نور قرآن ←</button>
+  <p class="welcome-foot">مطالعه، تلاوت و تدبّر در قرآن کریم</p>
+ </section>
+</div>
+
 <div class="topbar"><div class="wrap"><span>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span>قرآن کریم · تلاوت · ترجمه · تدبّر</span></div></div>
 <header><div class="wrap nav">
 <a class="brand" href="#" aria-label="نور قرآن، صفحه اصلی"><span class="brand-mark">۞</span><span><span class="brand-name">نور قرآن</span><small>همراهی برای خواندن و شنیدن قرآن</small></span></a>
@@ -506,6 +549,24 @@ function applyReaderPreferences(){let dark=false,size=34;try{dark=localStorage.g
 applyReaderPreferences();
 themeToggle.addEventListener("click",()=>{const dark=!document.body.classList.contains("dark-mode");document.body.classList.toggle("dark-mode",dark);try{localStorage.setItem("noor-quran-theme",dark?"dark":"light")}catch{}themeToggle.textContent=dark?"حالت روشن":"حالت شب";themeToggle.setAttribute("aria-pressed",dark?"true":"false")});
 fontSizeControl.addEventListener("input",()=>{const size=Number(fontSizeControl.value);document.documentElement.style.setProperty("--reader-font-size",size+"px");try{localStorage.setItem("noor-quran-font-size",String(size))}catch{}});
+
+// صفحه ورود و انتخاب ظاهر اولیه
+const welcomeScreen=document.getElementById("welcomeScreen");
+const welcomeThemeSelect=document.getElementById("welcomeThemeSelect");
+const welcomeEnterBtn=document.getElementById("welcomeEnterBtn");
+try{welcomeThemeSelect.value=localStorage.getItem("noor-quran-theme")==="dark"?"dark":"light"}catch{}
+welcomeThemeSelect.addEventListener("change",()=>{
+ const dark=welcomeThemeSelect.value==="dark";
+ document.body.classList.toggle("dark-mode",dark);
+ try{localStorage.setItem("noor-quran-theme",dark?"dark":"light")}catch{}
+ if(themeToggle){themeToggle.textContent=dark?"حالت روشن":"حالت شب";themeToggle.setAttribute("aria-pressed",dark?"true":"false")}
+});
+welcomeEnterBtn.addEventListener("click",()=>{
+ welcomeScreen.hidden=true;
+ document.body.classList.remove("welcome-open");
+ window.scrollTo({top:0,behavior:"smooth"});
+});
+
 Promise.all([loadSurahs(),loadDaily(),loadAnnouncements(),loadSettings()]).finally(()=>{renderSavedAyahs();renderKhatm();renderDailyGoal();renderTasbih()});
 
 // نصب نسخه وب‌اپ نور قرآن روی ویندوز، مک، اندروید و iOS
