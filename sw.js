@@ -5,7 +5,6 @@ const CORE_FILES = [
   "./",
   "./index.html",
   "./admin.html",
-  "./manifest.webmanifest",
   "./app-icon.svg",
   "./favicon.png",
   "./offline.html"
@@ -78,7 +77,7 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  const isAppAsset = ["manifest.webmanifest", "app-icon.svg", "favicon.png", "offline.html"].some(name => url.pathname.endsWith("/" + name));
+  const isAppAsset = ["app-icon.svg", "favicon.png", "offline.html"].some(name => url.pathname.endsWith("/" + name));
   if (!isAppAsset) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
