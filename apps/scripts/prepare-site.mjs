@@ -12,7 +12,6 @@ const requiredFiles = [
   "admin.html",
   "app-icon.svg",
   "favicon.png",
-  "manifest.webmanifest",
   "sw.js",
   "offline.html"
 ];
