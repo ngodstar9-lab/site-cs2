@@ -240,7 +240,7 @@ body.welcome-open{overflow:hidden}
 <article class="tool-card" id="tasbihCard"><h3>صلوات‌شمار</h3><p>برای شمارش صلوات؛ تعداد فقط روی همین دستگاه ذخیره می‌شود.</p><div id="tasbihCount" class="tasbih-number">۰</div><div class="tool-row"><select id="tasbihTarget" aria-label="انتخاب هدف صلوات"><option value="33">هدف ۳۳</option><option value="15">هدف ۱۵</option><option value="20">هدف ۲۰</option><option value="25">هدف ۲۵</option><option value="30">هدف ۳۰</option><option value="35">هدف ۳۵</option><option value="40">هدف ۴۰</option><option value="45">هدف ۴۵</option><option value="50">هدف ۵۰</option><option value="55">هدف ۵۵</option><option value="100">هدف ۱۰۰</option><option value="200">هدف ۲۰۰</option><option value="custom">هدف دلخواه…</option><option value="0">بدون هدف</option></select><input id="tasbihCustomTarget" type="number" min="1" max="1000000" step="1" inputmode="numeric" placeholder="تعداد دلخواه" aria-label="تعداد دلخواه صلوات" hidden style="max-width:150px"></div><div class="tasbih-actions"><button class="btn btn-primary" id="tasbihAdd" type="button">+ یک صلوات</button><button class="btn btn-soft" id="tasbihReset" type="button">شروع دوباره</button></div><p id="tasbihStatus" class="study-note" role="status"></p></article>
 <article class="tool-card" id="ayahNotesCard"><h3>دفترچه یادداشت آیات</h3><p>برای هر آیه یادداشت شخصی بساز و بعداً همان آیه را باز کن.</p><div class="tool-row"><input id="noteRef" placeholder="شماره سوره:شماره آیه، مثل 2:255" aria-label="نشانی آیه"><input id="noteTitle" placeholder="عنوان یادداشت" maxlength="70" aria-label="عنوان یادداشت"></div><textarea id="noteBody" rows="3" maxlength="1200" placeholder="برداشت یا نکته‌ای که می‌خواهی نگه داری..." style="width:100%;margin-top:8px;border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--paper);color:var(--ink)"></textarea><button class="btn btn-primary" id="saveNoteBtn" type="button" style="margin-top:8px">ذخیره یادداشت</button><div id="notesList" class="tool-results" aria-live="polite"></div></article>
 <article class="tool-card" id="quizCard"><h3>آزمون اطلاعات سوره‌ها</h3><p>سؤال‌های آموزشی بر اساس اطلاعات معتبر فهرست سوره‌ها؛ بدون امتیازدهی به باور یا برداشت شخصی.</p><div id="quizQuestion" class="tool-result">برای شروع آزمون دکمه زیر را بزن.</div><div id="quizChoices" class="tool-row" style="margin-top:8px"></div><p id="quizFeedback" class="study-note" role="status"></p><button class="btn btn-primary" id="startQuizBtn" type="button">شروع / سؤال بعدی</button><strong id="quizScore" style="display:block;margin-top:8px">امتیاز: ۰</strong></article>
-<article class="tool-card" id="readingStatsCard"><h3>آمار مطالعه من</h3><p>آمار روی همین مرورگر ذخیره می‌شود و به حساب کاربری یا دستگاه دیگر منتقل نمی‌شود.</p><div class="study-grid"><div><strong id="statsSessions">۰</strong><small style="display:block">جلسه مطالعه</small></div><div><strong id="statsAyahs">۰</strong><small style="display:block">آیه ثبت‌شده</small></div><div><strong id="statsDays">۰</strong><small style="display:block">روز فعال</small></div></div><p id="statsLastRead" class="study-note">هنوز مطالعه‌ای ثبت نشده است.</p><button class="btn btn-soft" id="resetStatsBtn" type="button">پاک‌کردن آمار این دستگاه</button></article>
+<article class="tool-card" id="readingStatsCard"><h3>آمار مطالعه من</h3><p>آمار روی همین مرورگر ذخیره می‌شود و به حساب کاربری یا دستگاه دیگر منتقل نمی‌شود.</p><div class="study-grid"><div><strong id="statsSessions">۰</strong><small style="display:block">جلسه مطالعه</small></div><div><strong id="statsAyahs">۰</strong><small style="display:block">آیه بارگذاری‌شده</small></div><div><strong id="statsDays">۰</strong><small style="display:block">روز فعال</small></div></div><p id="statsLastRead" class="study-note">هنوز مطالعه‌ای ثبت نشده است.</p><button class="btn btn-soft" id="resetStatsBtn" type="button">پاک‌کردن آمار این دستگاه</button></article>
 <article class="tool-card" id="qnaCard"><h3>پرسش قرآنی از مدیر</h3><p>سؤالت را خصوصی برای مدیر بفرست؛ پس از بررسی می‌تواند از راه پاسخ‌گویی‌ای که خودت وارد می‌کنی با تو تماس بگیرد.</p><button class="btn btn-primary" id="askQuranQuestionBtn" type="button">ثبت پرسش قرآنی</button><p class="study-note">این نسخه، انجمن عمومی پرسش‌وپاسخ نیست؛ پیام در صندوق خصوصی مدیر ثبت می‌شود.</p></article>
 </div>
 </section>
@@ -369,8 +369,10 @@ function handleAudioFailure(state,error){
  }
  showAudioError("این فایل صوتی از منبع فعلی دریافت نشد. اتصال اینترنت یا دسترسی به سرویس صوت را بررسی کن و «تلاش دوباره» را بزن.");
 }
+let audioRepeatRemaining=1;
 function playAyah(index,keepSequence){
  const item=currentAyahs[index];if(!item||!currentSurah)return;
+ audioRepeatRemaining=Number($("audioRepeatCount")?.value)||1;
  if(!keepSequence){playingSequence=false;sequenceIndex=index}
  else sequenceIndex=index;
  lastAudioIndex=index;lastAudioWasSequence=!!keepSequence||playingSequence;
@@ -389,6 +391,7 @@ $("surahAudio").addEventListener("playing",()=>{if(activeAudioState)$("readerSta
 $("surahAudio").addEventListener("waiting",()=>{if(activeAudioState)$("readerStatus").textContent="در حال دریافت ادامه صوت...";});
 $("surahAudio").addEventListener("ended",()=>{
  if(repeatCurrentAudio&&activeAudioState){const replayIndex=activeAudioState.index;playAyah(replayIndex,playingSequence);return}
+ if(audioRepeatRemaining>1){audioRepeatRemaining--;const player=$("surahAudio");player.currentTime=0;const replay=player.play();if(replay?.catch)replay.catch(()=>showAudioError("تکرار صوت شروع نشد؛ دوباره پخش را امتحان کن."));return}
  if(!playingSequence)return;
  const next=sequenceIndex+1;
  if(next<currentAyahs.length){sequenceIndex=next;playAyah(next,true)}
@@ -698,9 +701,6 @@ $("startQuizBtn").addEventListener("click",nextSurahQuiz);
 $("askQuranQuestionBtn").addEventListener("click",()=>{$("feedbackSubject").value="سؤال درباره قرآن";$("feedbackMessage").value="پرسش قرآنی:\n";$("contactAdmin").scrollIntoView({behavior:"smooth",block:"start"});$("feedbackMessage").focus()});
 // کنترل سرعت و تعداد تکرار صوت
 $("audioSpeed").addEventListener("change",()=>{$("surahAudio").playbackRate=Number($("audioSpeed").value)||1});
-let audioRepeatRemaining=1;
-$("audioRepeatCount").addEventListener("change",()=>{audioRepeatRemaining=Number($("audioRepeatCount").value)||1});
-$("surahAudio").addEventListener("ended",()=>{if(audioRepeatRemaining>1&&activeAudioState){audioRepeatRemaining--;playAyah(activeAudioState.index,playingSequence)}else audioRepeatRemaining=Number($("audioRepeatCount").value)||1});
 </script>
 </body>
 </html>
