@@ -26,6 +26,8 @@ jobs:
   windows:
     name: Build Windows EXE
     runs-on: windows-latest
+    env:
+      ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -135,6 +137,8 @@ jobs:
   macos:
     name: Build macOS DMG and ZIP
     runs-on: macos-latest
+    env:
+      ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
     steps:
       - name: Checkout
         uses: actions/checkout@v4
