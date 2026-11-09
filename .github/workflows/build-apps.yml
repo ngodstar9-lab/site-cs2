@@ -5,12 +5,12 @@ on:
     branches: [main]
     paths:
       - "apps/**"
+      - "apps/scripts/**"
       - ".github/workflows/build-apps.yml"
       - "index.html"
       - "admin.html"
       - "app-icon.svg"
       - "favicon.png"
-      - "manifest.webmanifest"
       - "sw.js"
       - "offline.html"
   workflow_dispatch:
