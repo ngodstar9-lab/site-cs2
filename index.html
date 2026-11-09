@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="app-icon.svg"><link rel="icon" type="image/png" href="favicon.png?v=20261108"><link rel="apple-touch-icon" href="favicon.png?v=20261108"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="نور قرآن"><meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" type="image/svg+xml" href="app-icon.svg"><link rel="icon" type="image/png" href="favicon.png?v=20261108"><link rel="apple-touch-icon" href="favicon.png?v=20261108">
 <meta name="theme-color" content="#123b30">
 <meta name="description" content="نور قرآن؛ متن کامل ۱۱۴ سوره قرآن کریم همراه ترجمه فارسی، تلاوت صوتی سه قاری، جستجوی آیات، نشانک، برنامه ختم و ابزارهای مطالعه. نسخه‌های ویندوز، مک و اندروید نیز برای دانلود در دسترس‌اند.">
 <meta name="keywords" content="قرآن کریم, قرآن با ترجمه فارسی, تلاوت قرآن, ترتیل قرآن, دانلود قرآن, قرآن آفلاین, ختم قرآن, جستجوی آیات, نور قرآن">
@@ -34,63 +34,157 @@ body.dark-mode{--bg:#101713;--paper:#18231d;--paper2:#202d25;--ink:#e8eee8;--mut
 @media(max-width:680px){.nav{height:auto;min-height:74px;flex-wrap:wrap;padding:10px 0}.brand{flex:1}.brand-name{font-size:21px}nav{order:3;flex-basis:100%;justify-content:space-between;padding:7px 0 3px;overflow-x:auto}nav a{font-size:12px;white-space:nowrap}.nav-actions{gap:6px}.nav-actions .btn{padding:8px 10px;font-size:12px}.hero{padding:55px 0}.hero p{font-size:15px}.surah-grid{grid-template-columns:1fr}.tartil-grid{grid-template-columns:1fr}.study-grid{grid-template-columns:1fr}.tajweed-grid{grid-template-columns:1fr}.juz-checks{grid-template-columns:repeat(3,minmax(0,1fr))}.notice-list{grid-template-columns:1fr}.feedback form{grid-template-columns:1fr}.reader{padding:14px}.reader-controls select{max-width:none;flex:1}.section-head h2{font-size:19px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 
-/* صفحه خوش‌آمدگویی قرآنی */
-#welcomeScreen{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 35%,#285b43 0,#123b30 48%,#09251d 100%);color:#fff;overflow:auto}
+
+/* صفحه آغازین ویژه نور قرآن */
+#welcomeScreen{position:fixed;inset:0;z-index:1000;overflow:auto;padding:clamp(14px,3vw,34px);color:#fff;background:radial-gradient(ellipse at 78% 32%,#256345 0%,transparent 38%),radial-gradient(ellipse at 8% 92%,#1c4b37 0%,transparent 34%),linear-gradient(135deg,#061a13 0%,#0b2a1f 48%,#102f23 100%);isolation:isolate}
 #welcomeScreen[hidden]{display:none}
-#welcomeScreen:before,#welcomeScreen:after{content:"";position:absolute;width:min(78vw,650px);aspect-ratio:1;border:1px solid #e5c77a55;transform:rotate(45deg);border-radius:34%;pointer-events:none}
-#welcomeScreen:before{box-shadow:0 0 0 16px #e5c77a12,0 0 0 34px #e5c77a0c,0 0 0 54px #e5c77a08}
-#welcomeScreen:after{width:min(60vw,470px);border-radius:50%;transform:rotate(0);border-style:dashed;opacity:.55}
-.welcome-card{position:relative;z-index:1;width:min(650px,100%);text-align:center;padding:clamp(26px,6vw,54px) clamp(18px,5vw,42px);border:1px solid #d8bd795e;border-radius:28px;background:linear-gradient(145deg,#ffffff12,#ffffff08);box-shadow:0 28px 90px #0005;backdrop-filter:blur(10px)}
-.welcome-emblem{width:82px;height:82px;margin:0 auto 17px;border:1px solid #e8ce8d;border-radius:50%;display:grid;place-items:center;color:#f0d99e;font-size:48px;box-shadow:0 0 0 8px #e8ce8d12,0 0 35px #e8ce8d22}
-.welcome-bismillah{font-family:"Traditional Arabic","Noto Naskh Arabic",serif;color:#f2dca4;font-size:clamp(27px,5vw,39px);margin:0 0 12px}
-.welcome-card h1{font-size:clamp(32px,7vw,54px);line-height:1.35;margin:0;color:#fff;font-weight:900}
-.welcome-subtitle{color:#e0e9df;font-size:15px;margin:8px auto 23px;max-width:470px}
-.welcome-quote{font-family:"Traditional Arabic","Noto Naskh Arabic",serif;font-size:clamp(21px,4vw,29px);line-height:2;color:#f3e5c1;margin:14px 0 5px}
-.welcome-translation{font-size:12px;color:#d7e2d8;margin:0 0 24px}
-.welcome-settings{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 22px;color:#e9e7d8;font-size:13px}
-.welcome-settings select{border:1px solid #e1cb91;border-radius:10px;padding:9px 13px;background:#fdfbf3;color:#173c2e;min-width:150px}
-#welcomeEnterBtn{min-width:min(290px,100%);padding:14px 25px;border:1px solid #f3dc9f;border-radius:13px;background:linear-gradient(135deg,#e9ce8d,#c49a48);color:#183629;font-size:17px;font-weight:900;box-shadow:0 10px 28px #0003}
-#welcomeEnterBtn:hover{filter:brightness(1.08);transform:translateY(-2px)}
-.welcome-foot{font-size:11px;color:#c8d7cb;margin:17px 0 0}
+#welcomeScreen:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.16;background-image:repeating-linear-gradient(45deg,transparent 0 44px,#d8bc7350 45px,#d8bc7350 46px,transparent 47px 90px),repeating-linear-gradient(-45deg,transparent 0 44px,#d8bc7330 45px,#d8bc7330 46px,transparent 47px 90px);mask-image:linear-gradient(90deg,#000,transparent 85%)}
+#welcomeScreen:after{content:"";position:absolute;z-index:-1;inset:18px;border:1px solid #e6ca8050;border-radius:24px;pointer-events:none}
+.welcome-shell{width:min(1280px,100%);min-height:calc(100vh - 68px);margin:auto;display:flex;flex-direction:column;position:relative}
+.welcome-top{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:4px 10px 22px;border-bottom:1px solid #e7d29a25}
+.welcome-brand{display:flex;align-items:center;gap:12px}
+.welcome-brand-mark{width:45px;height:45px;border:1px solid #e5c77b;border-radius:15px;display:grid;place-items:center;color:#f0d899;font-size:27px;box-shadow:0 0 25px #dfbd6540;background:#ffffff0b}
+.welcome-brand strong{display:block;font-size:18px;letter-spacing:.2px}
+.welcome-brand small{display:block;font-size:10px;color:#b7c8ba}
+.welcome-top-note{border:1px solid #e3cc8744;background:#ffffff09;color:#e8d7a6;border-radius:30px;padding:7px 13px;font-size:11px}
+.welcome-main{flex:1;display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:clamp(22px,5vw,70px);padding:clamp(25px,4vw,52px) 12px}
+.welcome-copy{position:relative;z-index:2;max-width:650px;animation:welcomeRise .75s ease both}
+.welcome-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid #e4c87955;background:#f2d99612;border-radius:40px;padding:7px 13px;color:#f0d89c;font-size:12px;margin-bottom:17px}
+.welcome-tag span{font-size:16px}
+.welcome-bismillah{font-family:"Traditional Arabic","Noto Naskh Arabic",serif;font-size:clamp(26px,3.2vw,37px);line-height:1.7;color:#f0d99f;margin:0 0 6px}
+.welcome-copy h1{font-size:clamp(36px,5.3vw,65px);font-weight:900;line-height:1.45;letter-spacing:-1.4px;margin:0 0 12px;color:#fff}
+.welcome-copy h1 span{display:block;color:#e8cb80;text-shadow:0 5px 30px #d8b96b35}
+.welcome-subtitle{max-width:580px;color:#d5e2d7;font-size:clamp(14px,1.5vw,17px);line-height:2.15;margin:0 0 17px}
+.welcome-verse{max-width:570px;margin:20px 0;padding:15px 18px;border-right:3px solid #dfc17a;border-radius:12px 3px 3px 12px;background:linear-gradient(90deg,#ffffff07,#ffffff12);box-shadow:inset 0 0 22px #ffffff05}
+.welcome-quote{font-family:"Traditional Arabic","Noto Naskh Arabic",serif;font-size:clamp(22px,3vw,30px);line-height:1.9;color:#f6e8c6;margin:0}
+.welcome-translation{font-size:11px;color:#c8d9cc;margin:4px 0 0}
+.welcome-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0 20px}
+#welcomeEnterBtn{min-width:235px;padding:13px 22px;border:1px solid #f3dfa8;border-radius:13px;background:linear-gradient(135deg,#f0d99b,#c69c4b);color:#163729;font-size:16px;font-weight:900;box-shadow:0 12px 32px #0004;transition:transform .2s,box-shadow .2s,filter .2s}
+#welcomeEnterBtn:hover{filter:brightness(1.06);transform:translateY(-3px);box-shadow:0 17px 38px #0005}
+#welcomeExploreBtn{padding:12px 17px;border:1px solid #d7e5d766;border-radius:12px;background:#ffffff0a;color:#edf3e9;font-size:13px;font-weight:700}
+#welcomeExploreBtn:hover{background:#ffffff18}
+.welcome-settings{display:flex;align-items:center;gap:9px;flex-wrap:wrap;color:#c8d8cc;font-size:11px}
+.welcome-settings select{border:1px solid #dac17d88;border-radius:9px;padding:7px 11px;background:#112d22;color:#fff;font-size:12px}
+.welcome-art{position:relative;min-height:445px;display:grid;place-items:center;animation:welcomeRise .9s .08s ease both}
+.welcome-art-glow{position:absolute;width:min(78%,450px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#d7b66d30 0%,#d7b66d0c 48%,transparent 72%);filter:blur(6px)}
+.welcome-art-orbit{position:absolute;width:min(94%,510px);aspect-ratio:1;border:1px solid #d9bc734c;border-radius:50%;box-shadow:0 0 0 14px #d9bc7309,0 0 0 38px #d9bc7306}
+.welcome-art-orbit:before,.welcome-art-orbit:after{content:"";position:absolute;inset:9%;border:1px dashed #dfc47d42;border-radius:35%;transform:rotate(45deg)}
+.welcome-art-orbit:after{inset:18%;border-radius:50%;transform:rotate(-22deg)}
+.welcome-book-frame{position:relative;width:min(92%,470px);aspect-ratio:1/1.03;display:grid;place-items:center;border:1px solid #e4ca8655;border-radius:48% 48% 25px 25px;background:linear-gradient(150deg,#ffffff14,#ffffff04 65%);box-shadow:0 35px 90px #0005,inset 0 0 55px #e4c8790a;backdrop-filter:blur(4px);overflow:hidden}
+.welcome-book-frame:before{content:"";position:absolute;inset:13px;border:1px solid #e4ca8628;border-radius:48% 48% 17px 17px}
+.welcome-book-svg{width:94%;height:94%;filter:drop-shadow(0 22px 20px #0005);position:relative;z-index:1}
+.welcome-art-caption{position:absolute;bottom:9%;left:50%;transform:translateX(-50%);white-space:nowrap;padding:8px 18px;border:1px solid #e7ce8b70;border-radius:30px;background:#102c21e8;color:#f0d99e;font-size:12px;box-shadow:0 10px 24px #0004}
+.welcome-float{position:absolute;z-index:3;display:flex;align-items:center;gap:9px;padding:10px 14px;border:1px solid #e6cc8a70;border-radius:13px;background:#123426e8;box-shadow:0 13px 28px #0004;backdrop-filter:blur(10px);color:#f6edda;font-size:12px}
+.welcome-float b{font-size:18px;color:#e7c879}
+.welcome-float small{display:block;color:#c0d0c3;font-size:10px}
+.welcome-float.one{top:16%;right:0;animation:welcomeFloat 5.5s ease-in-out infinite}
+.welcome-float.two{bottom:18%;left:-1%;animation:welcomeFloat 6s .5s ease-in-out infinite}
+.welcome-float.three{top:49%;left:-5%;animation:welcomeFloat 6.5s 1s ease-in-out infinite}
+.welcome-features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:18px 10px 4px;border-top:1px solid #e7d29a25}
+.welcome-feature{display:flex;align-items:center;gap:10px;min-width:0;padding:11px 12px;border:1px solid #e8d18e24;border-radius:12px;background:#ffffff08}
+.welcome-feature-icon{width:35px;height:35px;flex:0 0 35px;display:grid;place-items:center;border-radius:10px;background:#e6c77919;color:#e7ca83;font-size:19px}
+.welcome-feature strong{display:block;color:#f3e5c3;font-size:11px}
+.welcome-feature small{display:block;color:#b9cabe;font-size:10px;line-height:1.6}
 body.welcome-open{overflow:hidden}
-@media(max-width:480px){.welcome-card{border-radius:20px}.welcome-emblem{width:68px;height:68px;font-size:40px}}
+@keyframes welcomeRise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes welcomeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(max-width:920px){.welcome-main{grid-template-columns:1fr;gap:12px;padding-top:28px}.welcome-copy{text-align:center;margin:auto}.welcome-subtitle,.welcome-verse{margin-left:auto;margin-right:auto}.welcome-actions,.welcome-settings{justify-content:center}.welcome-art{min-height:340px;grid-row:1}.welcome-book-frame{width:min(70%,360px)}.welcome-art-orbit{width:min(78%,400px)}.welcome-float.one{right:8%}.welcome-float.two{left:8%}.welcome-float.three{left:2%}}
+@media(max-width:600px){#welcomeScreen{padding:10px}#welcomeScreen:after{inset:7px;border-radius:17px}.welcome-shell{min-height:calc(100vh - 20px)}.welcome-top{padding:9px 8px 14px}.welcome-top-note{font-size:9px;padding:6px 9px}.welcome-brand-mark{width:38px;height:38px;font-size:23px}.welcome-brand strong{font-size:15px}.welcome-brand small{font-size:9px}.welcome-main{padding:17px 5px 19px;gap:2px}.welcome-art{min-height:260px}.welcome-book-frame{width:min(68%,260px)}.welcome-art-orbit{width:min(83%,310px)}.welcome-float{padding:7px 9px;font-size:10px}.welcome-float b{font-size:15px}.welcome-float small{font-size:8px}.welcome-float.one{top:11%;right:1%}.welcome-float.two{bottom:14%;left:0}.welcome-float.three{top:48%;left:-2%}.welcome-art-caption{font-size:10px;bottom:6%;padding:6px 12px}.welcome-bismillah{font-size:25px}.welcome-copy h1{font-size:clamp(31px,8vw,42px);line-height:1.42}.welcome-subtitle{font-size:12px;margin-bottom:8px}.welcome-verse{margin:13px auto;padding:10px 12px}.welcome-quote{font-size:22px}.welcome-translation{font-size:9px}.welcome-actions{margin:14px 0;gap:8px}#welcomeEnterBtn{min-width:100%;font-size:14px;padding:11px}.welcome-features{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:12px 4px 2px}.welcome-feature{padding:8px;gap:7px}.welcome-feature-icon{width:29px;height:29px;flex-basis:29px;font-size:15px}.welcome-feature strong{font-size:10px}.welcome-feature small{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.welcome-copy,.welcome-art,.welcome-float{animation:none!important}#welcomeEnterBtn{transition:none}}
+
+
+/* تکمیل ظاهر بخش اصلی پس از ورود */
+.hero{padding:clamp(58px,7vw,92px) 0;background:radial-gradient(circle at 82% 20%,#4c8b642c,transparent 28%),linear-gradient(125deg,#08281e,#124532 55%,#236044);border-bottom:1px solid #d5b96c55}
+.hero:before{width:560px;height:560px;right:-175px;top:-310px;border-color:#e3c47b45;box-shadow:0 0 0 22px #e3c47b0d,0 0 0 48px #e3c47b08}
+.hero:after{width:380px;height:380px;left:-140px;bottom:-250px;border-color:#e3c47b3b}
+.hero-content{max-width:870px}
+.hero-content .eyebrow{display:inline-block;border:1px solid #e8d08b55;border-radius:40px;padding:5px 13px;background:#ffffff0c}
+.hero h1{max-width:820px;text-shadow:0 8px 28px #0003}
+.hero-stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:25px}
+.hero-stats span{padding:8px 13px;border:1px solid #e4ce9050;border-radius:30px;background:#ffffff0b;color:#e7eade;font-size:11px}
+.hero-stats b{color:#f0d28a;margin-left:4px}
+@media(max-width:680px){.hero{padding:49px 0 54px}.hero-stats{gap:6px}.hero-stats span{font-size:10px;padding:7px 10px}}
 
 </style>
 </head>
 <body class="welcome-open">
 
+
 <div id="welcomeScreen" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
- <section class="welcome-card">
-  <div class="welcome-emblem" aria-hidden="true">۞</div>
-  <p class="welcome-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-  <h1 id="welcomeTitle">به نور قرآن خوش آمدی</h1>
-  <p class="welcome-subtitle">آرامشی برای دل، نوری برای مسیر؛ قرآن کریم را بخوان، بشنو و با آن همراه شو.</p>
-  <div class="welcome-quote">وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ</div>
-  <p class="welcome-translation">و از قرآن آنچه مایه درمان و رحمت برای مؤمنان است نازل می‌کنیم.</p>
-  <div class="welcome-settings">
-   <label for="welcomeThemeSelect">نمای ظاهری سایت:</label>
-   <select id="welcomeThemeSelect">
-    <option value="light">زمردی و روشن</option>
-    <option value="dark">شبانه و آرام</option>
-   </select>
+ <div class="welcome-shell">
+  <header class="welcome-top">
+   <div class="welcome-brand"><span class="welcome-brand-mark">۞</span><span><strong>نور قرآن</strong><small>همراه تو در مسیر خواندن و شنیدن</small></span></div>
+   <span class="welcome-top-note">قرآن کریم · ترجمه · تلاوت · تدبّر</span>
+  </header>
+  <div class="welcome-main">
+   <section class="welcome-copy">
+    <div class="welcome-tag"><span>✦</span> یک تجربه آرام، زیبا و منظم برای همراهی با قرآن</div>
+    <p class="welcome-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <h1 id="welcomeTitle">هر روز، یک قدم <span>نزدیک‌تر به نور قرآن</span></h1>
+    <p class="welcome-subtitle">قرآن را با ترجمه فارسی بخوان، با صدای قاریان گوش بده و مسیر مطالعه‌ات را با نشانک‌ها و برنامه ختم دنبال کن؛ همه در یک فضای آرام و چشم‌نواز.</p>
+    <div class="welcome-verse">
+     <p class="welcome-quote" lang="ar" dir="rtl">إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ</p>
+     <p class="welcome-translation">به‌راستی این قرآن به راهی که استوارتر است هدایت می‌کند. · اسراء، آیه ۹</p>
+    </div>
+    <div class="welcome-actions">
+     <button id="welcomeEnterBtn" type="button">شروع مطالعه در نور قرآن <span aria-hidden="true">←</span></button>
+     <button id="welcomeExploreBtn" type="button">آشنایی با امکانات</button>
+    </div>
+    <div class="welcome-settings">
+     <label for="welcomeThemeSelect">انتخاب ظاهر:</label>
+     <select id="welcomeThemeSelect"><option value="light">زمردی و روشن</option><option value="dark">شبانه و آرام</option></select>
+     <span>تنظیم دلخواهت ذخیره می‌شود</span>
+    </div>
+   </section>
+   <div class="welcome-art" aria-label="تصویر هنری یک قرآن گشوده">
+    <div class="welcome-art-glow"></div><div class="welcome-art-orbit"></div>
+    <div class="welcome-book-frame">
+     <svg class="welcome-book-svg" viewBox="0 0 560 560" role="img" aria-hidden="true">
+      <defs>
+       <linearGradient id="bookGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5df9e"/><stop offset=".52" stop-color="#bc9145"/><stop offset="1" stop-color="#f2d58a"/></linearGradient>
+       <linearGradient id="bookPage" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff7e1"/><stop offset="1" stop-color="#d9c79f"/></linearGradient>
+       <linearGradient id="bookCover" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#26704d"/><stop offset="1" stop-color="#092a20"/></linearGradient>
+       <filter id="bookGlow"><feGaussianBlur stdDeviation="7"/></filter>
+      </defs>
+      <circle cx="280" cy="278" r="226" fill="none" stroke="#e8ce8b" stroke-opacity=".35" stroke-width="2"/>
+      <circle cx="280" cy="278" r="208" fill="none" stroke="#e8ce8b" stroke-opacity=".22" stroke-dasharray="4 10" stroke-width="2"/>
+      <path d="M280 153 C218 111 144 105 84 131 L84 381 C156 357 220 371 280 424 C340 371 404 357 476 381 L476 131 C416 105 342 111 280 153Z" fill="url(#bookCover)" stroke="url(#bookGold)" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M280 172 C222 133 154 131 111 151 L111 347 C171 333 228 350 280 393Z" fill="url(#bookPage)" stroke="url(#bookGold)" stroke-width="4"/>
+      <path d="M280 172 C338 133 406 131 449 151 L449 347 C389 333 332 350 280 393Z" fill="url(#bookPage)" stroke="url(#bookGold)" stroke-width="4"/>
+      <path d="M280 171 L280 397" stroke="#a77c3c" stroke-width="5" opacity=".8"/>
+      <path d="M130 185 Q197 164 254 195 M130 207 Q197 186 254 217 M130 229 Q197 208 254 239 M130 251 Q197 230 254 261 M130 273 Q197 252 254 283 M130 295 Q197 274 254 305" fill="none" stroke="#9d7e4b" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+      <path d="M306 195 Q363 164 430 185 M306 217 Q363 186 430 207 M306 239 Q363 208 430 229 M306 261 Q363 230 430 251 M306 283 Q363 252 430 273 M306 305 Q363 274 430 295" fill="none" stroke="#9d7e4b" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+      <path d="M280 108 L291 132 L316 143 L291 154 L280 179 L269 154 L244 143 L269 132Z" fill="url(#bookGold)"/>
+      <path d="M280 430 L291 454 L316 465 L291 476 L280 501 L269 476 L244 465 L269 454Z" fill="url(#bookGold)" opacity=".8"/>
+      <circle cx="280" cy="280" r="10" fill="#f4dda0"/>
+     </svg>
+    </div>
+    <div class="welcome-float one"><b>۱۱۴</b><span><strong>سوره قرآن</strong><small>متن کامل و قابل جستجو</small></span></div>
+    <div class="welcome-float two"><b>۳</b><span><strong>قاری برجسته</strong><small>انتخاب صدای دلخواه</small></span></div>
+    <div class="welcome-float three"><b>۞</b><span><strong>همراه مطالعه</strong><small>نشانک و برنامه ختم</small></span></div>
+    <div class="welcome-art-caption">کلام الهی، همراه لحظه‌های تو</div>
+   </div>
   </div>
-  <button id="welcomeEnterBtn" type="button">ورود به نور قرآن ←</button>
-  <p class="welcome-foot">مطالعه، تلاوت و تدبّر در قرآن کریم</p>
- </section>
+  <div class="welcome-features">
+   <div class="welcome-feature"><span class="welcome-feature-icon">۞</span><span><strong>قرآن و ترجمه فارسی</strong><small>مطالعه آیه به آیه</small></span></div>
+   <div class="welcome-feature"><span class="welcome-feature-icon">♫</span><span><strong>تلاوت سه قاری</strong><small>پخش سوره و آیه</small></span></div>
+   <div class="welcome-feature"><span class="welcome-feature-icon">◉</span><span><strong>نشانک هوشمند</strong><small>ادامه از محل مطالعه</small></span></div>
+   <div class="welcome-feature"><span class="welcome-feature-icon">✧</span><span><strong>برنامه ختم و هدف روزانه</strong><small>پیگیری آرام و منظم</small></span></div>
+  </div>
+ </div>
 </div>
 
 <div class="topbar"><div class="wrap"><span>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span>قرآن کریم · تلاوت · ترجمه · تدبّر</span></div></div>
 <header><div class="wrap nav">
 <a class="brand" href="#" aria-label="نور قرآن، صفحه اصلی"><span class="brand-mark">۞</span><span><span class="brand-name">نور قرآن</span><small>همراهی برای خواندن و شنیدن قرآن</small></span></a>
 <nav aria-label="منوی اصلی"><a href="#surahs">سوره‌ها</a><a href="#tartil">ترتیل</a><a href="#studyTools">ابزار مطالعه</a><a href="#learning">آموزش تجوید</a><a href="#announcements">اطلاعیه‌ها</a><a href="#contactAdmin">ارتباط</a><a href="./download.html">دانلود برنامه</a></nav>
-<div class="nav-actions"><button id="resumeBtn" class="btn btn-soft" type="button">ادامه مطالعه</button><button id="installAppBtn" class="btn btn-gold install-button" type="button">نصب اپ</button><a class="btn btn-primary" href="admin.html">مدیریت</a></div>
+<div class="nav-actions"><button id="resumeBtn" class="btn btn-soft" type="button">ادامه مطالعه</button><a class="btn btn-gold" href="./download.html">دریافت اپ اصلی</a><a class="btn btn-primary" href="admin.html">مدیریت</a></div>
 </div></header>
-<aside id="installHelp" class="install-help" hidden><h3>نصب اپلیکیشن نور قرآن</h3><p id="installInstructions">برای نصب، از منوی مرورگر گزینه نصب برنامه یا افزودن به صفحه اصلی را انتخاب کن.</p><p>برای دریافت متن قرآن، ترجمه و صوت ترتیل، اتصال اینترنت لازم است. پوسته اصلی برنامه پس از اولین بازدید قابل دسترسی آفلاین خواهد بود.</p><button id="closeInstallHelp" type="button" class="btn btn-soft">متوجه شدم</button></aside>
 <div id="siteNoticeBanner" class="site-notice" role="status" hidden></div>
 <section class="hero"><div class="wrap hero-content">
 <p class="eyebrow">یک مکث کوتاه؛ چند آیه نور</p><div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-<h1>با قرآن، آرام‌تر بخوانیم</h1><p>متن عربی قرآن کریم را همراه ترجمه فارسی بخوان، به تلاوت گوش بده و هر بار از همان آیه‌ای که مانده‌ای ادامه بده.</p>
-<div class="hero-actions"><a href="#surahs" class="btn btn-gold">انتخاب سوره <span>←</span></a><button id="randomBtn" class="btn btn-soft" type="button">رفتن به یک سوره</button></div>
+<h1>هر روز، فرصتی تازه برای همراهی با قرآن</h1><p>متن عربی و ترجمه فارسی را کنار هم بخوان، تلاوت قاریان را بشنو و مسیر مطالعه‌ات را با ابزارهای ساده و کاربردی ادامه بده.</p>
+<div class="hero-actions"><a href="#surahs" class="btn btn-gold">انتخاب سوره <span>←</span></a><button id="randomBtn" class="btn btn-soft" type="button">رفتن به یک سوره</button></div><div class="hero-stats"><span><b>۱۱۴</b> سوره کامل</span><span><b>۳</b> قاری برای تلاوت</span><span><b>فارسی</b> ترجمه و جستجو</span></div>
 </div></section>
 <main class="wrap">
 <section id="daily" class="section">
@@ -550,10 +644,8 @@ applyReaderPreferences();
 themeToggle.addEventListener("click",()=>{const dark=!document.body.classList.contains("dark-mode");document.body.classList.toggle("dark-mode",dark);try{localStorage.setItem("noor-quran-theme",dark?"dark":"light")}catch{}themeToggle.textContent=dark?"حالت روشن":"حالت شب";themeToggle.setAttribute("aria-pressed",dark?"true":"false")});
 fontSizeControl.addEventListener("input",()=>{const size=Number(fontSizeControl.value);document.documentElement.style.setProperty("--reader-font-size",size+"px");try{localStorage.setItem("noor-quran-font-size",String(size))}catch{}});
 
-// صفحه ورود و انتخاب ظاهر اولیه
-const welcomeScreen=document.getElementById("welcomeScreen");
-const welcomeThemeSelect=document.getElementById("welcomeThemeSelect");
-const welcomeEnterBtn=document.getElementById("welcomeEnterBtn");
+// کنترل صفحه آغازین و تنظیم ظاهر
+const welcomeScreen=$("welcomeScreen"),welcomeThemeSelect=$("welcomeThemeSelect"),welcomeEnterBtn=$("welcomeEnterBtn"),welcomeExploreBtn=$("welcomeExploreBtn");
 try{welcomeThemeSelect.value=localStorage.getItem("noor-quran-theme")==="dark"?"dark":"light"}catch{}
 welcomeThemeSelect.addEventListener("change",()=>{
  const dark=welcomeThemeSelect.value==="dark";
@@ -561,54 +653,17 @@ welcomeThemeSelect.addEventListener("change",()=>{
  try{localStorage.setItem("noor-quran-theme",dark?"dark":"light")}catch{}
  if(themeToggle){themeToggle.textContent=dark?"حالت روشن":"حالت شب";themeToggle.setAttribute("aria-pressed",dark?"true":"false")}
 });
-welcomeEnterBtn.addEventListener("click",()=>{
+function closeWelcome(targetId){
  welcomeScreen.hidden=true;
  document.body.classList.remove("welcome-open");
- window.scrollTo({top:0,behavior:"smooth"});
-});
+ if(targetId){const target=$(targetId);if(target)target.scrollIntoView({behavior:"smooth",block:"start"})}
+ else window.scrollTo({top:0,behavior:"smooth"});
+}
+welcomeEnterBtn.addEventListener("click",()=>closeWelcome(null));
+welcomeExploreBtn.addEventListener("click",()=>closeWelcome("studyTools"));
 
 Promise.all([loadSurahs(),loadDaily(),loadAnnouncements(),loadSettings()]).finally(()=>{renderSavedAyahs();renderKhatm();renderDailyGoal();renderTasbih()});
 
-// نصب نسخه وب‌اپ نور قرآن روی ویندوز، مک، اندروید و iOS
-let deferredInstallPrompt=null;
-const installButton=$("installAppBtn"),installHelp=$("installHelp"),installInstructions=$("installInstructions");
-const isStandalone=window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;
-if(isStandalone)installButton.hidden=true;
-window.addEventListener("beforeinstallprompt",event=>{
- event.preventDefault();deferredInstallPrompt=event;installButton.hidden=false;installButton.textContent="نصب اپ";
-});
-window.addEventListener("appinstalled",()=>{
- deferredInstallPrompt=null;installButton.hidden=true;installHelp.hidden=true;toast("نور قرآن با موفقیت نصب شد.");
-});
-function showInstallInstructions(){
- const ua=navigator.userAgent||"";
- const isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
- const isMac=/Macintosh|Mac OS X/i.test(ua)&&!isIOS;
- const isWindows=/Windows/i.test(ua);
- const isAndroid=/Android/i.test(ua);
- if(isIOS){
-  installInstructions.textContent="در آیفون یا آیپد، سایت را با Safari باز کن؛ دکمه Share (مربع با فلش رو به بالا) را بزن، سپس «Add to Home Screen / افزودن به صفحه اصلی» را انتخاب و Add را بزن.";
- }else if(isMac){
-  installInstructions.textContent="در مک، با Chrome یا Edge از آیکون Install در نوار آدرس استفاده کن. در Safari جدید مک هم از منوی File گزینه Add to Dock را انتخاب کن.";
- }else if(isWindows){
-  installInstructions.textContent="در ویندوز، با Edge یا Chrome سایت را باز کن و روی دکمه نصب کنار نوار آدرس بزن؛ یا از منوی مرورگر گزینه Apps / Install this site as an app را انتخاب کن.";
- }else if(isAndroid){
-  installInstructions.textContent="در اندروید، سایت را با Chrome باز کن؛ منوی سه‌نقطه را بزن و «Install app / نصب برنامه» یا «Add to Home screen» را انتخاب کن.";
- }else{
-  installInstructions.textContent="از منوی مرورگرت گزینه Install app یا Add to Home Screen را انتخاب کن.";
- }
- installHelp.hidden=false;
-}
-installButton.addEventListener("click",async()=>{
- if(deferredInstallPrompt){
-  deferredInstallPrompt.prompt();
-  const result=await deferredInstallPrompt.userChoice;
-  deferredInstallPrompt=null;
-  if(result?.outcome==="accepted"){installHelp.hidden=true;toast("درخواست نصب پذیرفته شد.")}
-  else showInstallInstructions();
- }else showInstallInstructions();
-});
-$("closeInstallHelp").addEventListener("click",()=>installHelp.hidden=true);
 if("serviceWorker" in navigator){
  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js",{scope:"./"}).catch(error=>console.warn("PWA service worker registration failed:",error)));
 }
