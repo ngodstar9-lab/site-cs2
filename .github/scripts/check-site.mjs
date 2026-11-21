@@ -17,7 +17,7 @@ function read(relativePath) {
 }
 
 function idsIn(html) {
-  return [...html.matchAll(/\\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
+  return [...html.matchAll(/\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
 }
 
 function validateHtml(relativePath, html) {
@@ -26,14 +26,14 @@ function validateHtml(relativePath, html) {
   check(`${relativePath}: no duplicate IDs`, duplicates.length === 0, duplicates.join(", "));
 
   const idSet = new Set(ids);
-  const localAnchors = [...html.matchAll(/\\bhref=["']#([^"']+)["']/gi)]
+  const localAnchors = [...html.matchAll(/\bhref=["']#([^"']+)["']/gi)]
     .map((match) => match[1])
     .filter((id) => id.length > 0);
   const missingAnchors = [...new Set(localAnchors.filter((id) => !idSet.has(id)))];
   check(`${relativePath}: local anchors resolve`, missingAnchors.length === 0, missingAnchors.join(", "));
 
-  const inlineScripts = [...html.matchAll(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script>/gi)]
-    .filter((match) => !/\\bsrc\\s*=/.test(match[1]) && match[2].trim());
+  const inlineScripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
+    .filter((match) => !/\bsrc\s*=/.test(match[1]) && match[2].trim());
   let scriptsParse = true;
   for (let index = 0; index < inlineScripts.length; index += 1) {
     try {
@@ -45,19 +45,19 @@ function validateHtml(relativePath, html) {
   }
   check(`${relativePath}: inline JavaScript parses`, scriptsParse);
 
-  const scripts = inlineScripts.map((match) => match[2]).join("\\n");
+  const scripts = inlineScripts.map((match) => match[2]).join("\n");
   const referencedIds = [
-    ...scripts.matchAll(/\\$\\(["']([^"']+)["']\\)/g),
-    ...scripts.matchAll(/getElementById\\(["']([^"']+)["']\\)/g)
+    ...scripts.matchAll(/\$\(["']([^"']+)["']\)/g),
+    ...scripts.matchAll(/getElementById\(["']([^"']+)["']\)/g)
   ].map((match) => match[1]);
   const missingReferences = [...new Set(referencedIds.filter((id) => !idSet.has(id)))];
   check(`${relativePath}: literal script DOM IDs exist`, missingReferences.length === 0, missingReferences.join(", "));
 
-  const externalBlankLinks = [...html.matchAll(/<a\\b([^>]*target=["']_blank["'][^>]*)>/gi)];
-  const unsafeBlankLinks = externalBlankLinks.filter((match) => !/\\brel=["'][^"']*noopener[^"']*["']/i.test(match[1]));
+  const externalBlankLinks = [...html.matchAll(/<a\b([^>]*target=["']_blank["'][^>]*)>/gi)];
+  const unsafeBlankLinks = externalBlankLinks.filter((match) => !/\brel=["'][^"']*noopener[^"']*["']/i.test(match[1]));
   check(`${relativePath}: new-tab links use noopener`, unsafeBlankLinks.length === 0);
 
-  const localResources = [...html.matchAll(/\\b(?:href|src)=["']([^"']+)["']/gi)]
+  const localResources = [...html.matchAll(/\b(?:href|src)=["']([^"']+)["']/gi)]
     .map((match) => match[1])
     .filter((value) => value && !/^(?:#|https?:|mailto:|tel:|data:|blob:|javascript:)/i.test(value));
   const missingResources = [];
@@ -73,8 +73,8 @@ function validateHtml(relativePath, html) {
   }
   check(`${relativePath}: local href/src targets exist`, missingResources.length === 0, missingResources.join(", "));
 
-  const buttonTags = [...html.matchAll(/<button\\b([^>]*)>/gi)];
-  const buttonsWithoutType = buttonTags.filter((match) => !/\\btype=["'](?:button|submit|reset)["']/i.test(match[1]));
+  const buttonTags = [...html.matchAll(/<button\b([^>]*)>/gi)];
+  const buttonsWithoutType = buttonTags.filter((match) => !/\btype=["'](?:button|submit|reset)["']/i.test(match[1]));
   check(`${relativePath}: buttons declare a type`, buttonsWithoutType.length === 0);
 
   return { ids: ids.length, inlineScripts: inlineScripts.length };
@@ -94,23 +94,23 @@ const prepareScript = read("apps/scripts/prepare-site.mjs");
 const electronMain = read("apps/desktop/main.cjs");
 const buildWorkflow = read(".github/workflows/build-apps.yml");
 
-const css = home.match(/<style>([\\s\\S]*?)<\\/style>/i)?.[1] || "";
+const css = home.match(/<style>([\s\S]*?)<\/style>/i)?.[1] || "";
 check("Homepage CSS braces are balanced", (css.match(/{/g) || []).length === (css.match(/}/g) || []).length);
 
-const coreFilesBlock = serviceWorker.match(/const CORE_FILES = \\[([\\s\\S]*?)\\];/)?.[1] || "";
+const coreFilesBlock = serviceWorker.match(/const CORE_FILES = \[([\s\S]*?)\];/)?.[1] || "";
 for (const required of ["./index.html", "./admin.html", "./privacy.html", "./download.html", "./offline.html"]) {
   check(`Service worker precaches ${required}`, coreFilesBlock.includes(`"${required}"`));
 }
 
-const packagedFilesBlock = prepareScript.match(/const requiredFiles = \\[([\\s\\S]*?)\\];/)?.[1] || "";
+const packagedFilesBlock = prepareScript.match(/const requiredFiles = \[([\s\S]*?)\];/)?.[1] || "";
 for (const required of ["index.html", "admin.html", "privacy.html", "download.html", "sw.js", "offline.html"]) {
   check(`Native app bundles ${required}`, packagedFilesBlock.includes(`"${required}"`));
 }
 
 check("Desktop app binds to the same IPv4 loopback address it serves", electronMain.includes("127.0.0.1") && electronMain.includes("new URL(url).origin === localOrigin"));
-check("Desktop app disables Node integration", /nodeIntegration:\\s*false/.test(electronMain));
-check("Desktop app enables context isolation", /contextIsolation:\\s*true/.test(electronMain));
-check("Desktop app enables sandbox", /sandbox:\\s*true/.test(electronMain));
+check("Desktop app disables Node integration", /nodeIntegration:\s*false/.test(electronMain));
+check("Desktop app enables context isolation", /contextIsolation:\s*true/.test(electronMain));
+check("Desktop app enables sandbox", /sandbox:\s*true/.test(electronMain));
 check("Public admin code does not contain a service-role secret", !/(?:service_role|sb_secret_)/i.test(admin + home));
 
 const expectedPaths = ["privacy.html", "download.html", "apps/desktop/main.cjs"];
