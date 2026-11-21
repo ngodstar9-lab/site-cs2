@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="app-icon.svg"><link rel="icon" type="image/png" href="favicon.png?v=20261108"><link rel="apple-touch-icon" href="favicon.png?v=20261108">
 <meta name="theme-color" content="#123b30">
+<link rel="preconnect" href="https://api.alquran.cloud" crossorigin>
+<link rel="preconnect" href="https://cdn.islamic.network" crossorigin>
+<link rel="preconnect" href="https://everyayah.com" crossorigin>
+<link rel="preconnect" href="https://wizwuaptaypzabmvrwiq.supabase.co" crossorigin>
+<link rel="dns-prefetch" href="//huggingface.co">
 <meta name="description" content="نور قرآن؛ متن کامل ۱۱۴ سوره قرآن کریم همراه ترجمه فارسی، تلاوت صوتی سه قاری، جستجوی آیات، نشانک، برنامه ختم و ابزارهای مطالعه. نسخه‌های ویندوز، مک و اندروید نیز برای دانلود در دسترس‌اند.">
 <meta name="keywords" content="قرآن کریم, قرآن با ترجمه فارسی, تلاوت قرآن, ترتیل قرآن, دانلود قرآن, قرآن آفلاین, ختم قرآن, جستجوی آیات, نور قرآن">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -105,6 +110,37 @@ body.welcome-open{overflow:hidden}
 .hero-stats b{color:#f0d28a;margin-left:4px}
 @media(max-width:680px){.hero{padding:49px 0 54px}.hero-stats{gap:6px}.hero-stats span{font-size:10px;padding:7px 10px}}
 
+
+/* Quality pass: keyboard access, contrast and progressive disclosure */
+.skip-link{position:absolute;top:8px;right:8px;z-index:1200;transform:translateY(-160%);padding:10px 15px;border-radius:9px;background:#fff;color:#123b30;border:2px solid #8b641f;font-weight:800}
+.skip-link:focus{transform:translateY(0)}
+:where(summary):focus-visible{outline:3px solid #8b641f;outline-offset:3px;border-radius:7px}
+main:focus{outline:none}
+.section-label{color:#805b1e}
+.advanced-study-tools{border:1px solid var(--line);border-radius:14px;background:var(--paper);overflow:hidden}
+.study-grid>.advanced-study-tools{grid-column:1/-1}
+.advanced-study-tools>summary{display:flex;align-items:center;gap:10px;min-height:54px;padding:13px 16px;cursor:pointer;color:var(--green);font-weight:800;list-style-position:inside}
+.advanced-study-tools>summary::marker{color:#805b1e}
+.advanced-study-tools[open]>summary{background:#f4f0e3;border-bottom:1px solid var(--line)}
+.advanced-study-tools .study-grid{padding:14px;margin:0}
+.learning-tools{margin-top:12px}
+.learning-details{padding:14px}
+.personal-data-card{grid-column:1/-1}
+.data-privacy-note{margin:10px 0;padding:11px 13px;border:1px solid #d8c58e;border-radius:10px;background:#fff8e5;color:#51421f;font-size:12px;line-height:1.9}
+.data-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.data-actions .btn{margin:0}
+.data-actions input[type=file]{max-width:100%}
+.btn-danger-soft{background:#fff0ed;color:#81372e;border:1px solid #e5c1b8}
+#personalDataStatus{min-height:24px;margin-bottom:0}
+body.dark-mode .section-label{color:#e3c47b}
+body.dark-mode .advanced-study-tools{background:var(--paper);border-color:var(--line)}
+body.dark-mode .advanced-study-tools>summary{color:var(--green)}
+body.dark-mode .advanced-study-tools[open]>summary{background:#26372c;border-color:var(--line)}
+body.dark-mode .data-privacy-note{background:#2d2a1d;color:#f0e2bd;border-color:#665735}
+body.dark-mode .btn-danger-soft{background:#3b2523;color:#ffd7d0;border-color:#78423b}
+@media(max-width:680px){.advanced-study-tools>summary{font-size:13px;padding:12px}.advanced-study-tools .study-grid,.learning-details{padding:10px}.data-actions{display:grid;grid-template-columns:1fr}.data-actions .btn,.data-actions label{width:100%;justify-content:center}}
+@media(forced-colors:active){.skip-link,.advanced-study-tools,.data-privacy-note,.btn{border:1px solid ButtonText}.skip-link:focus, :where(summary):focus-visible{outline:2px solid Highlight}}
+
 </style>
 </head>
 <body class="welcome-open">
@@ -173,6 +209,7 @@ body.welcome-open{overflow:hidden}
   </div>
  </div>
 </div>
+<a class="skip-link" href="#mainContent">پرش به محتوای اصلی</a>
 
 <div class="topbar"><div class="wrap"><span>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span>قرآن کریم · تلاوت · ترجمه · تدبّر</span></div></div>
 <header><div class="wrap nav">
@@ -186,7 +223,7 @@ body.welcome-open{overflow:hidden}
 <h1>هر روز، فرصتی تازه برای همراهی با قرآن</h1><p>متن عربی و ترجمه فارسی را کنار هم بخوان، تلاوت قاریان را بشنو و مسیر مطالعه‌ات را با ابزارهای ساده و کاربردی ادامه بده.</p>
 <div class="hero-actions"><a href="#surahs" class="btn btn-gold">انتخاب سوره <span>←</span></a><button id="randomBtn" class="btn btn-soft" type="button">رفتن به یک سوره</button></div><div class="hero-stats"><span><b>۱۱۴</b> سوره کامل</span><span><b>۳</b> قاری برای تلاوت</span><span><b>فارسی</b> ترجمه و جستجو</span></div>
 </div></section>
-<main class="wrap">
+<main id="mainContent" class="wrap" tabindex="-1" aria-label="محتوای اصلی نور قرآن">
 <section id="daily" class="section">
 <div class="section-head"><div><span class="section-label">برای امروز</span><h2>آیه‌ای برای تأمل</h2><p>آیةالکرسی · سوره بقره، آیه ۲۵۵</p></div><button id="readDaily" class="btn btn-soft" type="button">خواندن در سوره</button></div>
 <div class="featured"><div id="dailyArabic" class="arabic" lang="ar" dir="rtl">در حال دریافت متن آیه...</div><div id="dailyTranslation" class="translation"></div><div class="ref"><span id="dailyRefText">آیه منتخب</span> · <span id="dailyTranslator">ترجمه فارسی</span></div></div>
@@ -213,7 +250,7 @@ body.welcome-open{overflow:hidden}
 <section id="reader" class="reader" hidden>
 <div class="reader-top"><div><h2 id="readerTitle">در حال آماده‌سازی...</h2><div class="reader-meta" id="readerMeta"></div></div><div class="reader-controls"><select id="translationSelect" aria-label="انتخاب ترجمه"><option value="fa.makarem">ترجمه آیت‌الله مکارم شیرازی</option><option value="fa.ansarian">ترجمه حسین انصاریان</option></select><select id="reciterSelect" aria-label="انتخاب قاری"><option value="parhizgar">استاد شهریار پرهیزگار</option><option value="ar.husary">استاد محمود خلیل‌الحصری</option><option value="ar.minshawi">استاد محمد صدیق منشاوی</option></select><button id="themeToggle" class="btn btn-soft" type="button" aria-pressed="false">حالت شب</button><label class="reader-size-control" for="readerFontSize">اندازه متن <input id="readerFontSize" type="range" min="24" max="48" step="2" value="34"></label></div></div>
 <div class="reader-actions"><button class="btn btn-primary" id="playSurah" type="button">پخش کامل بخش</button><button class="btn btn-soft" id="bookmarkSurah" type="button">ذخیره محل مطالعه</button><button class="btn btn-soft" id="repeatAyahBtn" type="button" aria-pressed="false">تکرار آیه: خاموش</button><label class="btn btn-soft" style="display:flex;align-items:center;gap:7px;margin:0"><input id="memorizeMode" type="checkbox" style="width:auto"> حالت حفظ (پنهان‌کردن ترجمه)</label><button class="btn btn-soft" id="closeReader" type="button">بستن خواندن</button></div>
-<audio id="surahAudio" class="audio-player" controls preload="metadata" playsinline hidden></audio>
+<audio id="surahAudio" class="audio-player" controls preload="none" playsinline aria-label="پخش تلاوت قرآن" hidden></audio>
 <div class="reader-actions" id="advancedAudioControls"><label class="reader-size-control">سرعت پخش <select id="audioSpeed" aria-label="سرعت پخش"><option value="0.75">۰٫۷۵×</option><option value="0.9">۰٫۹×</option><option value="1" selected>۱×</option><option value="1.1">۱٫۱×</option><option value="1.25">۱٫۲۵×</option><option value="1.5">۱٫۵×</option></select></label><label class="reader-size-control">تکرار هر آیه <select id="audioRepeatCount" aria-label="تعداد تکرار آیه"><option value="1">۱ بار</option><option value="2">۲ بار</option><option value="3">۳ بار</option><option value="5">۵ بار</option></select></label></div>
 <div class="reader-actions"><button class="btn btn-soft" id="retryAudioBtn" type="button" hidden>تلاش دوباره برای پخش</button></div>
 <p id="readerStatus" class="muted" role="status" aria-live="polite">در حال دریافت آیات...</p><div id="ayahList"></div>
@@ -234,6 +271,9 @@ body.welcome-open{overflow:hidden}
 <form id="quranSearchForm" class="tool-row"><input id="quranSearchInput" type="search" maxlength="60" required placeholder="مثلاً صبر، رحمت، نماز..."><button class="btn btn-primary" type="submit">جستجو</button></form>
 <div id="quranSearchResults" class="tool-results" aria-live="polite"></div>
 </article>
+<details class="advanced-study-tools">
+<summary>نمایش ابزارهای تکمیلی مطالعه: نشانک‌ها، ختم، یادداشت و آمار</summary>
+<div class="study-grid">
 <article class="tool-card"><h3>نشانک‌های آیات من</h3><p>آیه‌هایی را که می‌خواهی دوباره بخوانی ذخیره کن؛ نشانک‌ها در همین مرورگر می‌مانند.</p><div id="savedAyahList" class="tool-results"><span class="muted">هنوز آیه‌ای ذخیره نکرده‌ای.</span></div></article>
 <article class="tool-card" id="khatmCard"><h3>برنامه ختم قرآن</h3><p>هر جزء را پس از مطالعه علامت بزن تا میزان پیشرفتت مشخص شود.</p><strong id="khatmProgressText">۰ از ۳۰ جزء</strong><div class="mini-progress"><span id="khatmProgressBar"></span></div><div id="khatmChecks" class="juz-checks"></div><button class="btn btn-soft" id="resetKhatmBtn" type="button">شروع دوباره برنامه ختم</button></article>
 <article class="tool-card" id="dailyGoalCard"><h3>هدف روزانه مطالعه</h3><p>یک هدف ساده برای تعداد آیه‌هایی که امروز می‌خواهی بخوانی انتخاب کن.</p><div class="tool-row"><select id="dailyGoalSelect" aria-label="انتخاب هدف روزانه"><option value="5">۵ آیه</option><option value="10" selected>۱۰ آیه</option><option value="15">۱۵ آیه</option><option value="20">۲۰ آیه</option><option value="25">۲۵ آیه</option><option value="30">۳۰ آیه</option><option value="35">۳۵ آیه</option><option value="40">۴۰ آیه</option><option value="45">۴۵ آیه</option><option value="50">۵۰ آیه</option><option value="55">۵۵ آیه</option><option value="100">۱۰۰ آیه</option><option value="200">۲۰۰ آیه</option><option value="custom">عدد دلخواه…</option></select><input id="dailyGoalCustom" type="number" min="1" max="6236" step="1" inputmode="numeric" placeholder="تعداد آیه دلخواه" aria-label="تعداد آیه دلخواه" hidden style="max-width:150px"><button class="btn btn-primary" id="addDailyProgress" type="button">ثبت مطالعه</button><button class="btn btn-soft" id="resetDailyProgress" type="button">صفرکردن امروز</button></div><strong id="dailyGoalText">۰ از ۱۰ آیه</strong><div class="mini-progress"><span id="dailyGoalBar"></span></div></article>
@@ -243,9 +283,27 @@ body.welcome-open{overflow:hidden}
 <article class="tool-card" id="readingStatsCard"><h3>آمار مطالعه من</h3><p>آمار روی همین مرورگر ذخیره می‌شود و به حساب کاربری یا دستگاه دیگر منتقل نمی‌شود.</p><div class="study-grid"><div><strong id="statsSessions">۰</strong><small style="display:block">جلسه مطالعه</small></div><div><strong id="statsAyahs">۰</strong><small style="display:block">آیه بارگذاری‌شده</small></div><div><strong id="statsDays">۰</strong><small style="display:block">روز فعال</small></div></div><p id="statsLastRead" class="study-note">هنوز مطالعه‌ای ثبت نشده است.</p><button class="btn btn-soft" id="resetStatsBtn" type="button">پاک‌کردن آمار این دستگاه</button></article>
 <article class="tool-card" id="qnaCard"><h3>پرسش قرآنی از مدیر</h3><p>سؤالت را خصوصی برای مدیر بفرست؛ پس از بررسی می‌تواند از راه پاسخ‌گویی‌ای که خودت وارد می‌کنی با تو تماس بگیرد.</p><button class="btn btn-primary" id="askQuranQuestionBtn" type="button">ثبت پرسش قرآنی</button><p class="study-note">این نسخه، انجمن عمومی پرسش‌وپاسخ نیست؛ پیام در صندوق خصوصی مدیر ثبت می‌شود.</p></article>
 </div>
+</details>
+<article class="tool-card personal-data-card" id="personalDataCard">
+<h3>پشتیبان‌گیری و کنترل اطلاعات شخصی</h3>
+<p>نشانک‌ها، یادداشت‌ها، برنامه ختم، آمار مطالعه و تنظیمات در همین مرورگر نگهداری می‌شوند؛ برای انتقال به دستگاه دیگر، از آن‌ها فایل پشتیبان بگیر و روی دستگاه مقصد بازیابی کن.</p>
+<div class="data-privacy-note">این اطلاعات شخصی به‌طور خودکار به سرور ارسال نمی‌شوند. فایل پشتیبان ممکن است شامل یادداشت‌های خصوصی تو باشد؛ آن را در جای امن نگه دار و برای دیگران نفرست.</div>
+<div class="data-actions">
+<button class="btn btn-primary" id="exportPersonalDataBtn" type="button">دریافت فایل پشتیبان</button>
+<label class="btn btn-soft" for="personalDataImport">بازیابی از فایل پشتیبان</label>
+<input id="personalDataImport" type="file" accept=".json,application/json" hidden>
+<button class="btn btn-danger-soft" id="clearPersonalDataBtn" type="button">پاک‌کردن اطلاعات همین دستگاه</button>
+<a class="btn btn-soft" href="./privacy.html">راهنمای حریم خصوصی</a>
+</div>
+<p id="personalDataStatus" class="feedback-status" role="status" aria-live="polite">می‌توانی هر زمان نسخه‌ای از اطلاعات شخصی‌ات دریافت کنی.</p>
+</article>
+</div>
 </section>
 <section id="learning" class="section study-section">
 <div class="section-head"><div><span class="section-label">یادگیری قرائت</span><h2>آموزش مقدماتی تجوید و آیات سجده</h2><p>آشنایی کوتاه با چند نشانه و قاعده قرائت؛ تمرین دقیق را با معلم قرآن انجام بده.</p></div></div>
+<details class="advanced-study-tools learning-tools">
+<summary>نمایش درس‌های مقدماتی تجوید و فهرست آیات سجده</summary>
+<div class="learning-details">
 <div class="tajweed-grid" id="tajweedLessonGrid">
 <article class="tajweed-card"><strong>مدّ طبیعی</strong><p>کشیده‌خواندن معمولی حرف مد؛ در حالت پایه به اندازه دو حرکت.</p></article>
 <article class="tajweed-card"><strong>قلقله</strong><p>طنین کوتاه در حروف «ق، ط، ب، ج، د» هنگام ساکن بودن.</p></article>
@@ -256,6 +314,8 @@ body.welcome-open{overflow:hidden}
 </div>
 <p class="study-note">این توضیح‌ها فقط آشنایی مقدماتی‌اند و جای آموزش استاد تجوید را نمی‌گیرند. <a href="https://alquran.cloud/tajweed-guide" target="_blank" rel="noopener noreferrer">راهنمای تجوید و نشانه‌های رنگی</a></p>
 <div class="tool-card" id="sajdaToolCard" style="margin-top:14px"><div class="section-head"><div><h3>آیات سجده</h3><p>فهرست آیه‌هایی که در نشانه‌گذاری این سرویس برای سجده معرفی شده‌اند. تعداد و حکم سجده ممکن است بر اساس مذهب فقهی تفاوت داشته باشد.</p></div><button id="loadSajdaBtn" class="btn btn-soft" type="button">نمایش آیات سجده</button></div><div id="sajdaList" class="tool-results"></div></div>
+</div>
+</details>
 </section>
 <section id="announcements" class="section">
 <div class="section-head"><div><span class="section-label">از طرف مدیر سایت</span><h2>اطلاعیه‌ها</h2><p>خبرها و پیام‌های مربوط به این وب‌سایت.</p></div></div>
@@ -273,7 +333,7 @@ body.welcome-open{overflow:hidden}
 <p class="access-note" style="margin-top:14px">این فرم فقط درخواست همکاری می‌فرستد؛ رمز عبور، کد تأیید، اطلاعات بانکی یا مبلغ پرداختی را وارد نکن. تأیید نهایی و اعطای دسترسی فقط با تصمیم اونر انجام می‌شود.</p>
 </section>
 </main>
-<footer><div class="wrap"><div class="footer-row"><span>نور قرآن · همراه مطالعه و تلاوت قرآن کریم</span><span>متن و ترجمه: Al Quran Cloud · تلاوت پرهیزگار: <a href="https://everyayah.com/" target="_blank" rel="noopener noreferrer">EveryAyah.com</a></span><a href="admin.html">ورود مدیر سایت</a></div><div class="footer-row" style="margin-top:14px;padding-top:12px;border-top:1px solid #ffffff20"><span>نور قرآن را به دوستانت معرفی کن:</span><span><a href="https://t.me/share/url?url=https%3A%2F%2Fngodstar9-lab.github.io%2Fsite-cs2%2F&text=%D9%86%D9%88%D8%B1%20%D9%82%D8%B1%D8%A2%D9%86%20%7C%20%D9%82%D8%B1%D8%A2%D9%86%20%DA%A9%D8%B1%DB%8C%D9%85%20%D8%A8%D8%A7%20%D8%AA%D8%B1%D8%AC%D9%85%D9%87%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C%20%D9%88%20%D8%AA%D9%84%D8%A7%D9%88%D8%AA" target="_blank" rel="noopener noreferrer">اشتراک در تلگرام</a> · <a href="https://wa.me/?text=%D9%86%D9%88%D8%B1%20%D9%82%D8%B1%D8%A2%D9%86%20-%20%D9%82%D8%B1%D8%A2%D9%86%20%DA%A9%D8%B1%DB%8C%D9%85%20%D8%A8%D8%A7%20%D8%AA%D8%B1%D8%AC%D9%85%D9%87%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C%20%D9%88%20%D8%AA%D9%84%D8%A7%D9%88%D8%AA%3A%20https%3A%2F%2Fngodstar9-lab.github.io%2Fsite-cs2%2F" target="_blank" rel="noopener noreferrer">اشتراک در واتساپ</a> · <a href="./download.html">دریافت اپلیکیشن</a></span></div></div></footer>
+<footer><div class="wrap"><div class="footer-row"><span>نور قرآن · همراه مطالعه و تلاوت قرآن کریم</span><span>متن و ترجمه: Al Quran Cloud · تلاوت پرهیزگار: <a href="https://everyayah.com/" target="_blank" rel="noopener noreferrer">EveryAyah.com</a></span><span><a href="./privacy.html">حریم خصوصی و اطلاعات</a> · <a href="admin.html">ورود مدیر سایت</a></span></div><div class="footer-row" style="margin-top:14px;padding-top:12px;border-top:1px solid #ffffff20"><span>نور قرآن را به دوستانت معرفی کن:</span><span><a href="https://t.me/share/url?url=https%3A%2F%2Fngodstar9-lab.github.io%2Fsite-cs2%2F&text=%D9%86%D9%88%D8%B1%20%D9%82%D8%B1%D8%A2%D9%86%20%7C%20%D9%82%D8%B1%D8%A2%D9%86%20%DA%A9%D8%B1%DB%8C%D9%85%20%D8%A8%D8%A7%20%D8%AA%D8%B1%D8%AC%D9%85%D9%87%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C%20%D9%88%20%D8%AA%D9%84%D8%A7%D9%88%D8%AA" target="_blank" rel="noopener noreferrer">اشتراک در تلگرام</a> · <a href="https://wa.me/?text=%D9%86%D9%88%D8%B1%20%D9%82%D8%B1%D8%A2%D9%86%20-%20%D9%82%D8%B1%D8%A2%D9%86%20%DA%A9%D8%B1%DB%8C%D9%85%20%D8%A8%D8%A7%20%D8%AA%D8%B1%D8%AC%D9%85%D9%87%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C%20%D9%88%20%D8%AA%D9%84%D8%A7%D9%88%D8%AA%3A%20https%3A%2F%2Fngodstar9-lab.github.io%2Fsite-cs2%2F" target="_blank" rel="noopener noreferrer">اشتراک در واتساپ</a> · <a href="./download.html">دریافت اپلیکیشن</a></span></div></div></footer>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
 const QURAN_API="https://api.alquran.cloud/v1";
@@ -655,6 +715,22 @@ fontSizeControl.addEventListener("input",()=>{const size=Number(fontSizeControl.
 
 // کنترل صفحه آغازین و تنظیم ظاهر
 const welcomeScreen=$("welcomeScreen"),welcomeThemeSelect=$("welcomeThemeSelect"),welcomeEnterBtn=$("welcomeEnterBtn"),welcomeExploreBtn=$("welcomeExploreBtn");
+const welcomeBackgroundNodes=[...document.querySelectorAll(".topbar, body > header, #siteNoticeBanner, .hero, #mainContent, body > footer, #toast")];
+function setWelcomeBackgroundDisabled(disabled){
+ welcomeBackgroundNodes.forEach(node=>{
+  if(disabled){node.setAttribute("inert","");node.setAttribute("aria-hidden","true")}
+  else{node.removeAttribute("inert");node.removeAttribute("aria-hidden")}
+ });
+}
+if(!welcomeScreen.hidden){setWelcomeBackgroundDisabled(true);welcomeEnterBtn.focus({preventScroll:true})}
+welcomeScreen.addEventListener("keydown",event=>{
+ if(event.key!=="Tab")return;
+ const focusable=[...welcomeScreen.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el=>!el.hidden);
+ if(!focusable.length)return;
+ const first=focusable[0],last=focusable[focusable.length-1];
+ if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+});
 try{welcomeThemeSelect.value=localStorage.getItem("noor-quran-theme")==="dark"?"dark":"light"}catch{}
 welcomeThemeSelect.addEventListener("change",()=>{
  const dark=welcomeThemeSelect.value==="dark";
@@ -665,8 +741,13 @@ welcomeThemeSelect.addEventListener("change",()=>{
 function closeWelcome(targetId){
  welcomeScreen.hidden=true;
  document.body.classList.remove("welcome-open");
- if(targetId){const target=$(targetId);if(target)target.scrollIntoView({behavior:"smooth",block:"start"})}
- else window.scrollTo({top:0,behavior:"smooth"});
+ setWelcomeBackgroundDisabled(false);
+ const target=targetId?$(targetId):$("mainContent");
+ if(target){
+  if(!target.hasAttribute("tabindex"))target.setAttribute("tabindex","-1");
+  target.focus({preventScroll:true});
+  target.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+ }
 }
 welcomeEnterBtn.addEventListener("click",()=>closeWelcome(null));
 welcomeExploreBtn.addEventListener("click",()=>closeWelcome("studyTools"));
@@ -701,6 +782,77 @@ $("startQuizBtn").addEventListener("click",nextSurahQuiz);
 $("askQuranQuestionBtn").addEventListener("click",()=>{$("feedbackSubject").value="سؤال درباره قرآن";$("feedbackMessage").value="پرسش قرآنی:\n";$("contactAdmin").scrollIntoView({behavior:"smooth",block:"start"});$("feedbackMessage").focus()});
 // کنترل سرعت و تعداد تکرار صوت
 $("audioSpeed").addEventListener("change",()=>{$("surahAudio").playbackRate=Number($("audioSpeed").value)||1});
+
+/* پشتیبان‌گیری و بازیابی داده‌های شخصی؛ داده‌ها بدون اجازه به فضای ابری ارسال نمی‌شوند. */
+const PERSONAL_DATA_KEYS=[
+ "noor-quran-saved-ayahs","noor-quran-khatm","noor-quran-daily-progress",
+ "noor-quran-tasbih","noor-quran-tasbih-target","noor-quran-tasbih-custom",
+ "noor-quran-bookmark","noor-quran-theme","noor-quran-font-size",
+ "noor-quran-ayah-notes","noor-quran-reading-stats"
+];
+const PERSONAL_DATA_JSON_KEYS=new Set([
+ "noor-quran-saved-ayahs","noor-quran-khatm","noor-quran-daily-progress",
+ "noor-quran-bookmark","noor-quran-ayah-notes","noor-quran-reading-stats"
+]);
+function personalDataStatus(message){safeText($("personalDataStatus"),message)}
+function validatePersonalBackupEntry(key,value){
+ if(!PERSONAL_DATA_KEYS.includes(key)||typeof value!=="string"||value.length>500000)throw new Error("فایل پشتیبان شامل داده‌ای نامعتبر است.");
+ if(key==="noor-quran-theme"&&!["light","dark"].includes(value))throw new Error("تنظیم پوسته در فایل معتبر نیست.");
+ if(key==="noor-quran-font-size"&&(!/^\d{1,2}$/.test(value)||Number(value)<24||Number(value)>48))throw new Error("اندازه متن در فایل معتبر نیست.");
+ if(key==="noor-quran-tasbih"&&(!/^\d{1,7}$/.test(value)||Number(value)>1000000))throw new Error("شمارنده صلوات در فایل معتبر نیست.");
+ if(key==="noor-quran-tasbih-target"&&!["15","20","25","30","33","35","40","45","50","55","100","200","0","custom"].includes(value))throw new Error("هدف صلوات در فایل معتبر نیست.");
+ if(key==="noor-quran-tasbih-custom"&&value!==""&&(!/^\d{1,7}$/.test(value)||Number(value)>1000000))throw new Error("هدف دلخواه صلوات در فایل معتبر نیست.");
+ if(!PERSONAL_DATA_JSON_KEYS.has(key))return;
+ let parsed;try{parsed=JSON.parse(value)}catch{throw new Error("ساختار یکی از بخش‌های فایل پشتیبان قابل خواندن نیست.")}
+ if(key==="noor-quran-khatm"&&(!Array.isArray(parsed)||parsed.length>30||parsed.some(n=>!Number.isInteger(n)||n<1||n>30)))throw new Error("فهرست ختم قرآن در فایل معتبر نیست.");
+ if(key==="noor-quran-saved-ayahs"&&(!Array.isArray(parsed)||parsed.length>100||parsed.some(x=>!x||typeof x!=="object"||!/^\d{1,3}:\d{1,3}$/.test(String(x.ref||"")))))throw new Error("نشانک‌های آیات در فایل معتبر نیستند.");
+ if(key==="noor-quran-daily-progress"&&(!parsed||typeof parsed!=="object"||Array.isArray(parsed)||!/^\d{4}-\d{1,2}-\d{1,2}$/.test(String(parsed.day||""))||!Number.isFinite(Number(parsed.count))||Number(parsed.count)<0||Number(parsed.count)>1000000))throw new Error("هدف روزانه در فایل معتبر نیست.");
+ if(key==="noor-quran-bookmark"&&(!parsed||typeof parsed!=="object"||!Number.isInteger(Number(parsed.surah))||Number(parsed.surah)<1||Number(parsed.surah)>114||!Number.isInteger(Number(parsed.ayah))||Number(parsed.ayah)<1||Number(parsed.ayah)>286))throw new Error("محل مطالعه در فایل معتبر نیست.");
+ if(key==="noor-quran-ayah-notes"&&(!Array.isArray(parsed)||parsed.length>300||parsed.some(x=>!x||typeof x!=="object"||!/^\d{1,3}:\d{1,3}$/.test(String(x.ref||""))||typeof x.body!=="string"||x.body.length>1200)))throw new Error("یادداشت‌های آیات در فایل معتبر نیستند.");
+ if(key==="noor-quran-reading-stats"&&(!parsed||typeof parsed!=="object"||!Number.isFinite(Number(parsed.sessions))||!Number.isFinite(Number(parsed.ayahs))||!Array.isArray(parsed.days)||parsed.days.length>365))throw new Error("آمار مطالعه در فایل معتبر نیست.");
+}
+function exportPersonalData(){
+ try{
+  const data={};
+  for(const key of PERSONAL_DATA_KEYS){const value=localStorage.getItem(key);if(value!==null)data[key]=value}
+  const backup={format:"noor-quran-personal-backup",schemaVersion:1,exportedAt:new Date().toISOString(),data};
+  const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob),link=document.createElement("a");
+  link.href=url;link.download="noor-quran-backup-"+new Date().toISOString().slice(0,10)+".json";
+  document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  personalDataStatus("فایل پشتیبان آماده شد. آن را در جای امن نگه دار؛ فایل شامل یادداشت‌ها و اطلاعات شخصی مطالعه توست.");
+ }catch(error){personalDataStatus("ساخت فایل پشتیبان انجام نشد: "+error.message)}
+}
+async function importPersonalData(file){
+ if(!file)return;
+ if(file.size>2*1024*1024){personalDataStatus("حجم فایل بیشتر از ۲ مگابایت است و پذیرفته نمی‌شود.");return}
+ try{
+  const backup=JSON.parse(await file.text());
+  if(!backup||backup.format!=="noor-quran-personal-backup"||backup.schemaVersion!==1||!backup.data||typeof backup.data!=="object"||Array.isArray(backup.data))throw new Error("این فایل، پشتیبان معتبر نور قرآن نیست.");
+  const entries=Object.entries(backup.data);
+  if(entries.length>PERSONAL_DATA_KEYS.length)throw new Error("تعداد بخش‌های فایل پشتیبان معتبر نیست.");
+  for(const [key,value] of entries)validatePersonalBackupEntry(key,value);
+  if(!confirm("اطلاعاتی که در این فایل وجود دارد جایگزین داده‌های هم‌نام در همین مرورگر شود؟ داده‌های دیگر حذف نمی‌شوند."))return;
+  for(const [key,value] of entries)localStorage.setItem(key,value);
+  applyReaderPreferences();
+  if(welcomeThemeSelect)welcomeThemeSelect.value=localStorage.getItem("noor-quran-theme")==="dark"?"dark":"light";
+  renderSavedAyahs();renderKhatm();renderDailyGoal();renderTasbih();renderAyahNotes();renderReadingStats();
+  personalDataStatus("بازیابی انجام شد؛ "+numberFa(entries.length)+" بخش از فایل وارد شد.");
+  toast("اطلاعات پشتیبان با موفقیت بازیابی شد.");
+ }catch(error){personalDataStatus("بازیابی انجام نشد: "+error.message)}
+}
+function clearPersonalData(){
+ if(!confirm("نشانک‌ها، یادداشت‌ها، برنامه ختم، هدف روزانه، آمار مطالعه و تنظیمات ذخیره‌شده در همین مرورگر پاک شوند؟ فایل‌های صوتی آفلاین جداگانه مدیریت می‌شوند."))return;
+ for(const key of PERSONAL_DATA_KEYS)localStorage.removeItem(key);
+ applyReaderPreferences();
+ if(welcomeThemeSelect)welcomeThemeSelect.value="light";
+ renderSavedAyahs();renderKhatm();renderDailyGoal();renderTasbih();renderAyahNotes();renderReadingStats();
+ personalDataStatus("اطلاعات شخصی این مرورگر پاک شد. فایل‌های صوتی دانلودشده دست‌نخورده باقی ماندند.");
+}
+$("exportPersonalDataBtn").addEventListener("click",exportPersonalData);
+$("personalDataImport").addEventListener("change",event=>{const file=event.target.files?.[0];importPersonalData(file).finally(()=>{event.target.value=""})});
+$("clearPersonalDataBtn").addEventListener("click",clearPersonalData);
+
 </script>
 </body>
 </html>
