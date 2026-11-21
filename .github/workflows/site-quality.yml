@@ -1,0 +1,38 @@
+name: Noor Quran site quality checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - "**.html"
+      - "sw.js"
+      - "apps/scripts/prepare-site.mjs"
+      - "apps/desktop/main.cjs"
+      - ".github/scripts/**"
+      - ".github/workflows/site-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: noor-quran-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate pages, scripts, links and app bundle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run static quality checks
+        run: node .github/scripts/check-site.mjs
