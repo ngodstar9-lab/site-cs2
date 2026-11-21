@@ -1,4 +1,4 @@
-const CACHE_NAME = "noor-quran-shell-v3";
+const CACHE_NAME = "noor-quran-shell-v4";
 const QURAN_DATA_CACHE_NAME = "noor-quran-data-v1";
 const QURAN_API_ORIGIN = "https://api.alquran.cloud";
 const MAX_QURAN_DATA_ENTRIES = 60;
@@ -11,7 +11,8 @@ const CORE_FILES = [
   "./app-icon.svg",
   "./favicon.png",
   "./offline.html",
-  "./privacy.html"
+  "./privacy.html",
+  "./download.html"
 ];
 
 self.addEventListener("install", event => {
