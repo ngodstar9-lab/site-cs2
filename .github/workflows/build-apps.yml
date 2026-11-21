@@ -13,6 +13,11 @@ on:
       - "favicon.png"
       - "sw.js"
       - "offline.html"
+      - "privacy.html"
+      - "download.html"
+      - "apps/desktop/main.cjs"
+      - ".github/scripts/**"
+      - ".github/workflows/site-quality.yml"
   workflow_dispatch:
 
 permissions:
