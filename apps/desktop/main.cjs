@@ -62,7 +62,7 @@ function startLocalServer() {
         reject(new Error("Could not start the local app server"));
         return;
       }
-      localOrigin = `http://localhost:${address.port}`;
+      localOrigin = `http://127.0.0.1:${address.port}`;
       resolve();
     });
   });
@@ -85,17 +85,34 @@ async function createWindow() {
   });
 
   window.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith("https://") || url.startsWith("mailto:")) {
-      shell.openExternal(url).catch(() => {});
+    try {
+      const target = new URL(url);
+      if (target.protocol === "https:" || target.protocol === "mailto:") {
+        shell.openExternal(target.href).catch(() => {});
+      }
+    } catch {
+      // Invalid or unsupported destinations are denied.
     }
     return { action: "deny" };
   });
 
   window.webContents.on("will-navigate", (event, url) => {
-    if (!url.startsWith(localOrigin)) {
+    let isLocalOrigin = false;
+    try {
+      isLocalOrigin = new URL(url).origin === localOrigin;
+    } catch {
+      isLocalOrigin = false;
+    }
+
+    if (!isLocalOrigin) {
       event.preventDefault();
-      if (url.startsWith("https://") || url.startsWith("mailto:")) {
-        shell.openExternal(url).catch(() => {});
+      try {
+        const target = new URL(url);
+        if (target.protocol === "https:" || target.protocol === "mailto:") {
+          shell.openExternal(target.href).catch(() => {});
+        }
+      } catch {
+        // Invalid or unsupported destinations are denied.
       }
     }
   });
