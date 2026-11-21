@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123b30">
+<meta name="description" content="سیاست حریم خصوصی نور قرآن؛ توضیح شفاف درباره اطلاعات ذخیره‌شده در دستگاه، پشتیبان‌گیری، سرویس‌های بیرونی و فرم‌های ارتباطی.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://ngodstar9-lab.github.io/site-cs2/privacy.html">
+<title>حریم خصوصی | نور قرآن</title>
+<style>
+:root{--bg:#f7f5ed;--paper:#fffef9;--green:#123b30;--gold:#8b641f;--ink:#1b2923;--muted:#59675e;--line:#e5e0d2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/2 Tahoma,Arial,sans-serif}
+a{color:#17573f;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid #8b641f;outline-offset:3px}
+.wrap{width:min(900px,92%);margin:auto}
+.skip{position:absolute;top:8px;right:8px;transform:translateY(-160%);z-index:10;background:#fff;color:var(--green);padding:8px 13px;border:2px solid var(--gold);border-radius:9px}
+.skip:focus{transform:translateY(0)}
+header{background:var(--green);color:#fff;padding:17px 0}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:900;color:#fff;text-decoration:none}
+header a:last-child{color:#f4d995}
+main{padding:30px 0 55px}
+h1,h2,h3{color:var(--green);line-height:1.6}
+h1{font-size:clamp(26px,4vw,38px);margin:0 0 8px}
+.lead{color:var(--muted);margin:0 0 22px}
+.updated{font-size:12px;color:var(--muted);margin:0 0 18px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:20px;margin:14px 0}
+.panel h2{font-size:19px;margin:0 0 8px}
+.panel p,.panel li{font-size:14px;color:#34443a}
+.panel ul{padding-right:22px;margin:8px 0}
+.note{background:#fff8e5;border:1px solid #d8c58e;color:#51421f;border-radius:12px;padding:14px;font-size:13px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.btn{display:inline-block;background:var(--green);color:#fff;padding:9px 15px;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none}
+.btn.soft{background:#edf1e9;color:var(--green);border:1px solid #dbe4d8}
+footer{background:var(--green);color:#e2e8e1;padding:22px 0;font-size:12px}
+footer a{color:#f2d48b}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media(forced-colors:active){.panel,.note,.btn{border:1px solid ButtonText}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">پرش به محتوای اصلی</a>
+<header><div class="wrap"><a class="brand" href="./index.html">۞ نور قرآن</a><a href="./index.html">بازگشت به صفحه اصلی ←</a></div></header>
+<main id="main" class="wrap" tabindex="-1">
+<p class="updated">آخرین بازبینی: ۳۰ آبان ۱۴۰۵</p>
+<h1>سیاست حریم خصوصی نور قرآن</h1>
+<p class="lead">این صفحه توضیح می‌دهد چه اطلاعاتی در دستگاه تو می‌ماند، چه داده‌هایی هنگام استفاده از فرم‌ها ارسال می‌شود و چطور می‌توانی از اطلاعات مطالعه‌ات نسخه پشتیبان بگیری.</p>
+
+<section class="panel" aria-labelledby="local-title">
+<h2 id="local-title">۱. اطلاعاتی که روی دستگاهت ذخیره می‌شود</h2>
+<p>برای کارکرد ابزارهای شخصی، نسخه وب از حافظه محلی مرورگر استفاده می‌کند. این موارد شامل نشانک آیات، محل آخرین مطالعه، برنامه ختم، هدف روزانه، شمارنده صلوات، یادداشت‌های آیات، آمار مطالعه، پوسته و اندازه متن است.</p>
+<p>این اطلاعات در استفاده عادی صفحه اصلی به حساب کاربری یا پایگاه داده سایت فرستاده نمی‌شوند و به‌طور خودکار بین دستگاه‌ها همگام‌سازی نمی‌شوند.</p>
+</section>
+
+<section class="panel" aria-labelledby="backup-title">
+<h2 id="backup-title">۲. پشتیبان‌گیری، بازیابی و پاک‌کردن</h2>
+<ul>
+<li>از بخش «پشتیبان‌گیری و کنترل اطلاعات شخصی» در صفحه اصلی می‌توانی یک فایل JSON از داده‌های شخصی همین مرورگر دریافت کنی.</li>
+<li>در دستگاه دیگر، همان فایل را از گزینه بازیابی وارد کن. فقط بخش‌هایی که در فایل پشتیبان وجود دارند جایگزین می‌شوند.</li>
+<li>دکمه پاک‌کردن اطلاعات شخصی، نشانک‌ها، یادداشت‌ها، برنامه مطالعه و تنظیمات فهرست‌شده را از مرورگر فعلی پاک می‌کند.</li>
+<li>فایل‌های صوتی آفلاین جدا از این داده‌ها ذخیره می‌شوند و از بخش دانلود صوت قابل حذف‌اند.</li>
+</ul>
+<div class="note">فایل پشتیبان می‌تواند شامل یادداشت‌های خصوصی تو باشد. آن را در فضای امن نگه دار و در اختیار افراد دیگر قرار نده.</div>
+</section>
+
+<section class="panel" aria-labelledby="services-title">
+<h2 id="services-title">۳. سرویس‌های بیرونی مورد استفاده</h2>
+<ul>
+<li><strong>Al Quran Cloud:</strong> برای دریافت اطلاعات سوره‌ها، متن عربی و ترجمه انتخاب‌شده استفاده می‌شود.</li>
+<li><strong>EveryAyah و Islamic Network CDN:</strong> برای پخش تلاوت صوتی به کار می‌روند. در برخی فایل‌های صوتی پرهیزگار، یک نشانی جایگزین از مجموعه EveryAyah در Hugging Face نیز امتحان می‌شود.</li>
+<li><strong>Supabase:</strong> برای دریافت اطلاعیه‌ها و تنظیمات منتشرشده، ارسال پیام و درخواست همکاری مدیریتی و احراز هویت پنل مدیریت استفاده می‌شود.</li>
+</ul>
+<p>هنگام دریافت متن یا پخش صوت، مرورگر مستقیماً به سرویس مربوط متصل می‌شود. آن سرویس‌ها ممکن است اطلاعات فنی معمول درخواست شبکه، مانند نشانی IP و نشانی منبع درخواستی، را طبق سیاست خود پردازش کنند.</p>
+</section>
+
+<section class="panel" aria-labelledby="forms-title">
+<h2 id="forms-title">۴. اطلاعاتی که با ارسال فرم‌ها به سایت می‌فرستی</h2>
+<p>اگر فرم «ارسال پیام به مدیر» را بفرستی، نام نمایشی، موضوع، متن پیام و راه پاسخ‌گویی اختیاری به Supabase ارسال می‌شود. اگر فرم درخواست همکاری مدیریتی را بفرستی، نام نمایشی، راه ارتباطی و دلیل درخواست ثبت می‌شود. این پیام‌ها برای بررسی در پنل مدیریت نمایش داده می‌شوند.</p>
+<p>برای این فرم‌ها رمز عبور، کد یک‌بارمصرف، اطلاعات بانکی یا اطلاعات حساس وارد نکن. هیچ پرداخت یا واگذاری خودکاری از طریق فرم درخواست مدیریت انجام نمی‌شود.</p>
+<p>دسترسی مدیریتی و نشست ورود پنل از طریق Supabase Auth و سیاست‌های دسترسی پایگاه داده کنترل می‌شود. کلید عمومی قابل استفاده در مرورگر، کلید محرمانه یا کلید سرویس‌نقش نیست.</p>
+</section>
+
+<section class="panel" aria-labelledby="cache-title">
+<h2 id="cache-title">۵. حافظه آفلاین و نگه‌داری داده</h2>
+<p>سرویس‌ورکر سایت، پوسته اصلی صفحه را برای بازشدن دوباره ذخیره می‌کند. پاسخ‌های عمومی متن و ترجمه قرآن که قبلاً دریافت شده‌اند نیز ممکن است برای دسترسی هنگام قطع موقت اینترنت در حافظه کش مرورگر نگه‌داری شوند. فایل‌های صوتی فقط پس از انتخاب دانلود آفلاین ذخیره می‌شوند.</p>
+<p>این کش‌ها با یادداشت‌ها و اطلاعات شخصی مطالعه جدا هستند. پاک‌کردن داده‌های سایت از تنظیمات مرورگر می‌تواند حافظه محلی و کش را نیز حذف کند.</p>
+</section>
+
+<section class="panel" aria-labelledby="tracking-title">
+<h2 id="tracking-title">۶. تبلیغات و تحلیل بازدید</h2>
+<p>کد صفحه عمومی در این نسخه ابزار تبلیغاتی یا اسکریپت تحلیل رفتار بازدیدکننده ندارد. زیرساخت میزبانی سایت و سرویس‌های بیرونی ممکن است درخواست‌های فنی را مطابق سیاست‌های خود پردازش کنند.</p>
+</section>
+
+<section class="panel" aria-labelledby="contact-title">
+<h2 id="contact-title">۷. پرسش یا گزارش حریم خصوصی</h2>
+<p>برای پرسش یا گزارش مشکل می‌توانی از بخش ارتباط با مدیر در صفحه اصلی استفاده کنی. هنگام نوشتن پیام، فقط اطلاعات لازم برای پاسخ را وارد کن.</p>
+<div class="actions"><a class="btn" href="./index.html#contactAdmin">ارتباط با مدیر</a><a class="btn soft" href="./index.html#personalDataCard">مدیریت اطلاعات شخصی</a><a class="btn soft" href="./download.html">دریافت برنامه</a></div>
+</section>
+</main>
+<footer><div class="wrap">نور قرآن · شفافیت درباره داده‌ها و احترام به حریم خصوصی</div></footer>
+</body>
+</html>
