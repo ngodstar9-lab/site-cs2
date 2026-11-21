@@ -13,7 +13,9 @@ const requiredFiles = [
   "app-icon.svg",
   "favicon.png",
   "sw.js",
-  "offline.html"
+  "offline.html",
+  "privacy.html",
+  "download.html"
 ];
 
 await fs.rm(outputDir, { recursive: true, force: true });
