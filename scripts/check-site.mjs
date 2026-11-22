@@ -42,7 +42,11 @@ for (const file of pages) {
     const tag = match[0];
     const id = attr(tag, "id");
     const accessibleName = attr(tag, "aria-label") || attr(tag, "aria-labelledby");
-    assert.ok(accessibleName || (id && labels.has(id)), file + ": form control has no explicit label: " + tag);
+    const beforeControl = html.slice(0, match.index);
+    const lastLabelOpen = beforeControl.lastIndexOf("<label");
+    const lastLabelClose = beforeControl.lastIndexOf("</label>");
+    const nestedLabel = lastLabelOpen > lastLabelClose && html.indexOf("</label>", match.index) !== -1;
+    assert.ok(accessibleName || (id && labels.has(id)) || nestedLabel, file + ": form control has no explicit label: " + tag);
   }
 
   const blankLinks = [...html.matchAll(/<a\b[^>]*\btarget=["']_blank["'][^>]*>/gi)].map((m) => m[0]);
