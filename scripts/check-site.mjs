@@ -92,7 +92,7 @@ assert.match(indexHtml, /id=["']installAppBtn["']/);
 
 const sw = readFileSync(path.join(root, "sw.js"), "utf8");
 new vm.Script(sw, { filename: "sw.js" });
-assert.match(sw, /noor-quran-shell-v6/);
+assert.match(sw, /noor-quran-shell-v7/);
 assert.match(sw, /\.\/manifest\.webmanifest/);
 
 for (const file of ["index.html", "admin.html"]) {
