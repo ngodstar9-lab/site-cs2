@@ -44,7 +44,8 @@ const browser = await chromium.launch({ headless: true });
 let failed = false;
 try {
   for (const route of ["/index.html", "/privacy.html", "/download.html", "/admin.html"]) {
-    const page = await browser.newPage({ viewport: { width: 1365, height: 900 } });
+    const context = await browser.newContext({ viewport: { width: 1365, height: 900 } });
+    const page = await context.newPage();
     await page.goto("http://127.0.0.1:4173" + route, { waitUntil: "domcontentloaded", timeout: 30000 });
 
     if (route === "/index.html") {
@@ -64,7 +65,7 @@ try {
         console.error("  " + node.target.join(", ") + " — " + String(node.failureSummary || "").split("\n").join(" ").slice(0, 220));
       }
     }
-    await page.close();
+    await context.close();
   }
 } finally {
   await browser.close();
