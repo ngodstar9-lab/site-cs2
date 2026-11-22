@@ -1,4 +1,4 @@
-const CACHE_NAME = "noor-quran-shell-v4";
+const CACHE_NAME = "noor-quran-shell-v5";
 const QURAN_DATA_CACHE_NAME = "noor-quran-data-v1";
 const QURAN_API_ORIGIN = "https://api.alquran.cloud";
 const MAX_QURAN_DATA_ENTRIES = 60;
@@ -7,6 +7,7 @@ const AUDIO_PATH_PREFIX = "/quran/audio-surah/128/ar.shahriarparhizgar/";
 const CORE_FILES = [
   "./",
   "./index.html",
+  "./manifest.webmanifest",
   "./admin.html",
   "./app-icon.svg",
   "./favicon.png",
@@ -46,11 +47,14 @@ self.addEventListener("fetch", event => {
       try {
         const response = await fetch(request);
         if (response && response.ok) {
-          cache.put(request, response.clone()).then(async () => {
+          try {
+            await cache.put(request, response.clone());
             const keys = await cache.keys();
             const excess = keys.length - MAX_QURAN_DATA_ENTRIES;
             for (let i = 0; i < excess; i++) await cache.delete(keys[i]);
-          }).catch(() => {});
+          } catch (cacheError) {
+            // A cache quota error must never block the online Quran response.
+          }
           return response;
         }
         const cached = await cache.match(request);
@@ -78,7 +82,7 @@ self.addEventListener("fetch", event => {
       try {
         const response = await fetch(request);
         if (response && (response.ok || response.type === "opaque")) {
-          cache.put(request, response.clone()).catch(() => {});
+          try { await cache.put(request, response.clone()); } catch (cacheError) { /* online audio still plays if cache storage is full */ }
         }
         return response;
       } catch (error) {
@@ -100,7 +104,7 @@ self.addEventListener("fetch", event => {
         const response = await fetch(request);
         if (response && response.ok) {
           const cache = await caches.open(CACHE_NAME);
-          cache.put(request, response.clone()).catch(() => {});
+          try { await cache.put(request, response.clone()); } catch (cacheError) { /* online navigation remains available */ }
         }
         return response;
       } catch (error) {
@@ -113,7 +117,7 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  const isAppAsset = ["app-icon.svg", "favicon.png", "offline.html"].some(name => url.pathname.endsWith("/" + name));
+  const isAppAsset = ["app-icon.svg", "favicon.png", "offline.html", "manifest.webmanifest"].some(name => url.pathname.endsWith("/" + name));
   if (!isAppAsset) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
