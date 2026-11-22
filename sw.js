@@ -1,4 +1,4 @@
-const CACHE_NAME = "noor-quran-shell-v5";
+const CACHE_NAME = "noor-quran-shell-v6";
 const QURAN_DATA_CACHE_NAME = "noor-quran-data-v1";
 const QURAN_API_ORIGIN = "https://api.alquran.cloud";
 const MAX_QURAN_DATA_ENTRIES = 60;
@@ -125,7 +125,9 @@ self.addEventListener("fetch", event => {
     if (cached) return cached;
     try {
       const response = await fetch(request);
-      if (response && response.ok) cache.put(request, response.clone()).catch(() => {});
+      if (response && response.ok) {
+        try { await cache.put(request, response.clone()); } catch (cacheError) { /* cached assets are optional; keep the online response */ }
+      }
       return response;
     } catch (error) {
       return new Response("منبع آفلاین در دسترس نیست.", { status: 503, headers: { "Content-Type": "text/plain; charset=utf-8" } });
