@@ -92,7 +92,16 @@ assert.match(indexHtml, /id=["']installAppBtn["']/);
 
 const sw = readFileSync(path.join(root, "sw.js"), "utf8");
 new vm.Script(sw, { filename: "sw.js" });
-assert.match(sw, /noor-quran-shell-v7/);
+assert.match(sw, /noor-quran-shell-v8/);
+assert.match(sw, /quran-offline\\.fa\\.json/);
+const offline = JSON.parse(readFileSync(path.join(root, "quran-offline.fa.json"), "utf8"));
+assert.equal(offline.schemaVersion, 1);
+assert.equal(offline.chapters.length, 114);
+assert.equal(offline.chapters.reduce((sum, chapter) => sum + offline.surahs[String(chapter.number)].length, 0), 6236);
+assert.match(offline.source.persian.version, /1\\.1\\.3/);
+assert.match(offline.source.arabic.license, /CC BY 3\\.0/);
+assert.match(indexHtml, /quran_user_backups/);
+assert.match(indexHtml, /quran-offline\\.fa\\.json/);
 assert.match(sw, /\.\/manifest\.webmanifest/);
 
 for (const file of ["index.html", "admin.html"]) {

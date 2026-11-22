@@ -10,8 +10,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="نور قرآن">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' blob: https://cdn.islamic.network https://everyayah.com https://huggingface.co; connect-src 'self' https://api.alquran.cloud https://wizwuaptaypzabmvrwiq.supabase.co https://cdn.islamic.network https://everyayah.com https://huggingface.co; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' blob: https://cdn.islamic.network https://everyayah.com https://huggingface.co; connect-src 'self' https://api.alquran.cloud https://wizwuaptaypzabmvrwiq.supabase.co https://cdn.islamic.network https://everyayah.com https://huggingface.co; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests">
 <link rel="preconnect" href="https://api.alquran.cloud" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://cdn.islamic.network" crossorigin>
 <link rel="preconnect" href="https://everyayah.com" crossorigin>
 <link rel="preconnect" href="https://wizwuaptaypzabmvrwiq.supabase.co" crossorigin>
@@ -136,6 +137,7 @@ main:focus{outline:none}
 .data-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
 .data-actions .btn{margin:0}
 .data-actions input[type=file]{max-width:100%}
+.cloud-sync-panel{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,#fffef9,#f2f5ee)}.cloud-sync-panel h3{margin:0 0 6px;color:var(--green);font-size:16px}.cloud-sync-panel>p{font-size:12px;color:var(--muted)}.cloud-sync-consent{margin:12px 0;padding:10px 12px;border:1px solid #d8c58e;border-radius:10px;background:#fff8e5;color:#51421f;font-size:12px}.cloud-sync-consent label{display:flex;align-items:flex-start;gap:8px}.cloud-sync-consent input{width:auto;margin-top:5px}.cloud-sync-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cloud-sync-fields label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.cloud-sync-fields input{width:100%;min-width:0;border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff;color:var(--ink)}.cloud-sync-actions{margin-top:12px}.cloud-sync-actions button:disabled{opacity:.55;cursor:not-allowed}.cloud-sync-panel .study-note{display:block}@media(max-width:680px){.cloud-sync-fields{grid-template-columns:1fr}.cloud-sync-actions{display:grid;grid-template-columns:1fr}.cloud-sync-actions button{width:100%}}
 .btn-danger-soft{background:#fff0ed;color:#81372e;border:1px solid #e5c1b8}
 #personalDataStatus{min-height:24px;margin-bottom:0}
 body.dark-mode .section-label{color:#e3c47b}
@@ -144,6 +146,7 @@ body.dark-mode .advanced-study-tools>summary{color:var(--green)}
 body.dark-mode .advanced-study-tools[open]>summary{background:#26372c;border-color:var(--line)}
 body.dark-mode .data-privacy-note{background:#2d2a1d;color:#f0e2bd;border-color:#665735}
 body.dark-mode .btn-danger-soft{background:#3b2523;color:#ffd7d0;border-color:#78423b}
+body.dark-mode .cloud-sync-panel{background:linear-gradient(145deg,#17251c,#1a2a20);border-color:var(--line)}body.dark-mode .cloud-sync-consent{background:#2d2a1d;color:#f0e2bd;border-color:#665735}body.dark-mode .cloud-sync-fields input{background:#101b14;color:#e8eee8;border-color:#405344}
 @media(max-width:680px){.advanced-study-tools>summary{font-size:13px;padding:12px}.advanced-study-tools .study-grid,.learning-details{padding:10px}.data-actions{display:grid;grid-template-columns:1fr}.data-actions .btn,.data-actions label{width:100%;justify-content:center}}
 @media(forced-colors:active){.skip-link,.advanced-study-tools,.data-privacy-note,.btn{border:1px solid ButtonText}.skip-link:focus, :where(summary):focus-visible{outline:2px solid Highlight}}
 
@@ -308,7 +311,26 @@ body.dark-mode .btn-danger-soft{background:#3b2523;color:#ffd7d0;border-color:#7
 <input id="personalDataImport" type="file" accept=".json,application/json" hidden>
 <button class="btn btn-danger-soft" id="clearPersonalDataBtn" type="button">پاک‌کردن اطلاعات همین دستگاه</button>
 <a class="btn btn-soft" href="./privacy.html">راهنمای حریم خصوصی</a>
+
+<div class="cloud-sync-panel" aria-labelledby="cloudSyncTitle">
+ <h3 id="cloudSyncTitle">همگام‌سازی اختیاری بین دستگاه‌ها</h3>
+ <p>اطلاعات مطالعه به‌صورت پیش‌فرض فقط روی همین دستگاه می‌ماند. پس از ساخت حساب و ورود، فقط با زدن دکمهٔ ذخیره و تأیید رضایت، نسخه‌ای از نشانک‌ها، یادداشت‌ها و تنظیماتت در حساب خودت ذخیره می‌شود.</p>
+ <div class="cloud-sync-consent"><label for="cloudSyncConsent"><input id="cloudSyncConsent" type="checkbox"> رضایت می‌دهم نسخهٔ پشتیبان اطلاعات شخصی مطالعه‌ام در حساب ابری خودم ذخیره شود.</label></div>
+ <div class="cloud-sync-fields">
+  <div><label for="cloudSyncEmail">ایمیل حساب</label><input id="cloudSyncEmail" type="email" autocomplete="email" maxlength="254" placeholder="name@example.com"></div>
+  <div><label for="cloudSyncPassword">رمز عبور حساب</label><input id="cloudSyncPassword" type="password" autocomplete="current-password" minlength="8" placeholder="حداقل ۸ کاراکتر"></div>
+ </div>
+ <div class="data-actions cloud-sync-actions">
+  <button class="btn btn-soft" id="cloudSignUpBtn" type="button">ساخت حساب همگام‌سازی</button>
+  <button class="btn btn-soft" id="cloudSignInBtn" type="button">ورود به حساب</button>
+  <button class="btn btn-primary" id="cloudSyncBtn" type="button" disabled>ذخیرهٔ نسخه در ابر</button>
+  <button class="btn btn-soft" id="cloudRestoreBtn" type="button" disabled>بازیابی از ابر</button>
+  <button class="btn btn-danger-soft" id="cloudSignOutBtn" type="button" disabled>خروج از حساب</button>
+ </div>
+ <p id="cloudSyncStatus" class="feedback-status" role="status" aria-live="polite">هنوز به حساب همگام‌سازی وارد نشده‌ای. این بخش اختیاری است.</p>
+ <p class="study-note">همگام‌سازی خودکار نیست. رمز عبور در این سایت ذخیره نمی‌شود. برای افراد کم‌سن، ساخت حساب و ذخیرهٔ اطلاعات در فضای ابری باید با آگاهی و اجازهٔ سرپرست انجام شود. ابتدا فایل <code>quran_user_sync_setup.sql</code> را در SQL Editor پروژهٔ Supabase اجرا کن.</p>
 </div>
+<p id="offlineDataStatus" class="feedback-status" role="status" aria-live="polite">در حال بررسی آماده‌بودن متن و ترجمهٔ آفلاین قرآن...</p>
 <p id="personalDataStatus" class="feedback-status" role="status" aria-live="polite">می‌توانی هر زمان نسخه‌ای از اطلاعات شخصی‌ات دریافت کنی.</p>
 </article>
 </div>
@@ -349,6 +371,7 @@ body.dark-mode .btn-danger-soft{background:#3b2523;color:#ffd7d0;border-color:#7
 </main>
 <footer><div class="wrap"><div class="footer-row"><span>نور قرآن · همراه مطالعه و تلاوت قرآن کریم</span><span>متن و ترجمه: Al Quran Cloud · تلاوت پرهیزگار: <a href="https://everyayah.com/" target="_blank" rel="noopener noreferrer">EveryAyah.com</a></span><span><a href="./privacy.html">حریم خصوصی و اطلاعات</a> · <a href="admin.html">ورود مدیر سایت</a></span></div><div class="footer-row" style="margin-top:14px;padding-top:12px;border-top:1px solid #ffffff20"><span>نور قرآن را به دوستانت معرفی کن:</span><span><a href="https://t.me/share/url?url=https%3A%2F%2Fngodstar9-lab.github.io%2Fsite-cs2%2F&text=%D9%86%D9%88%D8%B1%20%D9%82%D8%B1%D8%A2%D9%86%20%7C%20%D9%82%D8%B1%D8%A2%D9%86%20%DA%A9%D8%B1%DB%8C%D9%85%20%D8%A8%D8%A7%20%D8%AA%D8%B1%D8%AC%D9%85%D9%87%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C%20%D9%88%20%D8%AA%D9%84%D8%A7%D9%88%D8%AA" target="_blank" rel="noopener noreferrer">اشتراک در تلگرام</a> · <a href="https://wa.me/?text=%D9%86%D9%88%D8%B1%20%D9%82%D8%B1%D8%A2%D9%86%20-%20%D9%82%D8%B1%D8%A2%D9%86%20%DA%A9%D8%B1%DB%8C%D9%85%20%D8%A8%D8%A7%20%D8%AA%D8%B1%D8%AC%D9%85%D9%87%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C%20%D9%88%20%D8%AA%D9%84%D8%A7%D9%88%D8%AA%3A%20https%3A%2F%2Fngodstar9-lab.github.io%2Fsite-cs2%2F" target="_blank" rel="noopener noreferrer">اشتراک در واتساپ</a> · <a href="./download.html">دریافت اپلیکیشن</a></span></div></div></footer>
 <div id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const QURAN_API="https://api.alquran.cloud/v1";
 const AUDIO_CDN="https://cdn.islamic.network/quran/audio";
@@ -395,7 +418,74 @@ function toast(message){const el=$("toast");el.textContent=message;el.classList.
 async function getJson(url,timeoutMs=18000){const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),timeoutMs);try{const response=await fetch(url,{signal:controller.signal,cache:"no-store"});if(!response.ok)throw new Error("خطا در دریافت اطلاعات ("+response.status+")");const data=await response.json();if(data.code!==200)throw new Error(data.status||"پاسخ سرویس قرآن معتبر نیست.");return data.data}catch(error){if(error.name==="AbortError")throw new Error("پاسخ سرویس قرآن بیش از حد طول کشید. دوباره تلاش کن.");throw error}finally{clearTimeout(timeout)}}
 function numberFa(n){return Number(n).toLocaleString("fa-IR")}
 function safeText(el,value){el.textContent=value==null?"":String(value)}
-async function loadSurahs(){try{allSurahs=await getJson(QURAN_API+"/surah");$("surahCount").textContent=numberFa(allSurahs.length)+" سوره";renderSurahs(allSurahs);const select=$("tartilSurahSelect");select.replaceChildren();for(const surah of allSurahs){const option=document.createElement("option");option.value=surah.number;option.textContent=numberFa(surah.number)+" · "+surah.name;select.append(option)}}catch(error){$("surahGrid").textContent="دریافت فهرست سوره‌ها ممکن نشد. اتصال اینترنت را بررسی و صفحه را تازه‌سازی کن.";safeText($("surahCount"),"خطا");$("tartilSurahSelect").textContent="فهرست سوره‌ها در دسترس نیست."}}
+
+let offlineQuranData=null,offlineQuranPromise=null,offlineVerseRows=null;
+const OFFLINE_TRANSLATION_LABEL="ترجمهٔ فارسی آفلاین · مرکز ترجمه رواد";
+function updateOfflineDataStatus(message){const el=$("offlineDataStatus");if(el)el.textContent=message}
+async function loadOfflineQuranData(){
+ if(offlineQuranData)return offlineQuranData;
+ if(offlineQuranPromise)return offlineQuranPromise;
+ offlineQuranPromise=(async()=>{
+  const response=await fetch("./quran-offline.fa.json",{cache:"force-cache"});
+  if(!response.ok)throw new Error("بستهٔ آفلاین در دسترس نیست.");
+  const data=await response.json();
+  if(data.schemaVersion!==1||!Array.isArray(data.chapters)||data.chapters.length!==114||!data.surahs||!data.indexes)throw new Error("ساختار بستهٔ آفلاین معتبر نیست.");
+  const count=data.chapters.reduce((sum,c)=>sum+(Array.isArray(data.surahs[String(c.number)])?data.surahs[String(c.number)].length:0),0);
+  if(count!==6236)throw new Error("تعداد آیات بستهٔ آفلاین با مقدار مورد انتظار مطابقت ندارد.");
+  offlineQuranData=data;offlineVerseRows=null;
+  updateOfflineDataStatus("آمادهٔ آفلاین: متن عربی و ترجمهٔ فارسیِ ۶٬۲۳۶ آیه از ۱۱۴ سوره روی این دستگاه ذخیره شده است.");
+  return data;
+ })().catch(error=>{offlineQuranPromise=null;updateOfflineDataStatus("بستهٔ آفلاین هنوز روی این دستگاه آماده نیست: "+error.message);throw error});
+ return offlineQuranPromise;
+}
+function getOfflineVerseRows(){
+ if(offlineVerseRows)return offlineVerseRows;
+ if(!offlineQuranData)throw new Error("دادهٔ آفلاین هنوز بارگذاری نشده است.");
+ const rows=[];let globalNumber=0;
+ for(const chapter of offlineQuranData.chapters){
+  const pairs=offlineQuranData.surahs[String(chapter.number)]||[];
+  pairs.forEach((pair,index)=>{
+   globalNumber++;
+   const surah={number:chapter.number,name:chapter.name,englishName:chapter.englishName,englishNameTranslation:chapter.englishNameTranslation,revelationType:chapter.revelationType};
+   rows.push({arabic:{number:globalNumber,numberInSurah:index+1,text:pair[0],surah},translation:{number:globalNumber,numberInSurah:index+1,text:pair[1],surah},surah});
+  });
+ }
+ offlineVerseRows=rows;return rows;
+}
+function buildOfflineSurahEditions(number){
+ const chapter=offlineQuranData?.chapters.find(item=>item.number===Number(number));
+ const rows=getOfflineVerseRows().filter(item=>item.surah.number===Number(number));
+ if(!chapter||!rows.length)throw new Error("این سوره در بستهٔ آفلاین پیدا نشد.");
+ return [
+  {number:chapter.number,name:chapter.name,englishName:chapter.englishName,revelationType:chapter.revelationType,numberOfAyahs:chapter.numberOfAyahs,ayahs:rows.map(item=>item.arabic)},
+  {name:OFFLINE_TRANSLATION_LABEL,edition:{name:OFFLINE_TRANSLATION_LABEL},ayahs:rows.map(item=>item.translation)}
+ ];
+}
+function findOfflineVerse(surahNumber,ayahNumber){
+ const chapter=offlineQuranData?.chapters.find(item=>item.number===Number(surahNumber));
+ if(!chapter||!Number.isInteger(Number(ayahNumber))||Number(ayahNumber)<1||Number(ayahNumber)>chapter.numberOfAyahs)throw new Error("نشانی آیه در بستهٔ آفلاین پیدا نشد.");
+ let offset=0;
+ for(const item of offlineQuranData.chapters){if(item.number===chapter.number)break;offset+=item.numberOfAyahs}
+ return getOfflineVerseRows()[offset+Number(ayahNumber)-1];
+}
+function getOfflineUnitRows(kind,number){
+ const indexName={juz:"juzs",page:"pages",hizbQuarter:"hizbs"}[kind];
+ if(!indexName)throw new Error("این نوع مرور در نسخهٔ آفلاین فهرست‌بندی نشده است؛ می‌توانی سوره را مستقیم باز کنی.");
+ const starts=offlineQuranData?.indexes?.[indexName];
+ if(!Array.isArray(starts)||!starts[number-1])throw new Error("نشانی این بخش در فهرست آفلاین موجود نیست.");
+ const toOffset=point=>{let offset=0;for(const chapter of offlineQuranData.chapters){if(chapter.number===point.sura)return offset+point.aya-1;offset+=chapter.numberOfAyahs}return offset};
+ const rows=getOfflineVerseRows(),from=toOffset(starts[number-1]),to=starts[number]?toOffset(starts[number]):rows.length;
+ if(from<0||to<=from)throw new Error("بازهٔ این بخش در دادهٔ آفلاین معتبر نیست.");
+ return rows.slice(from,to);
+}
+function normalizeOfflineSearch(value){return String(value||"").normalize("NFKC").replace(/[\u064B-\u065F\u0670\u0640]/g,"").replace(/[يى]/g,"ی").replace(/ك/g,"ک").toLocaleLowerCase()}
+function searchOfflineTranslation(query){
+ const needle=normalizeOfflineSearch(query);
+ return getOfflineVerseRows().filter(row=>normalizeOfflineSearch(row.translation.text).includes(needle)).slice(0,40).map(row=>({surah:{number:row.surah.number,name:row.surah.name},numberInSurah:row.arabic.numberInSurah,text:row.translation.text}));
+}
+
+function setSurahControls(rows){$("surahCount").textContent=numberFa(rows.length)+" سوره";renderSurahs(rows);const select=$("tartilSurahSelect");select.replaceChildren();for(const surah of rows){const option=document.createElement("option");option.value=surah.number;option.textContent=numberFa(surah.number)+" · "+surah.name;select.append(option)}}
+async function loadSurahs(){try{allSurahs=await getJson(QURAN_API+"/surah")}catch(error){try{allSurahs=(await loadOfflineQuranData()).chapters;updateOfflineDataStatus("فهرست سوره‌ها از بستهٔ محلی بارگذاری شد؛ متن و ترجمهٔ آیات نیز آفلاین در دسترس‌اند.")}catch(offlineError){$("surahGrid").textContent="دریافت فهرست سوره‌ها ممکن نشد. اتصال اینترنت را بررسی و صفحه را تازه‌سازی کن.";safeText($("surahCount"),"خطا");$("tartilSurahSelect").textContent="فهرست سوره‌ها در دسترس نیست.";return}}setSurahControls(allSurahs)}
 function renderSurahs(rows){const grid=$("surahGrid");grid.replaceChildren();if(!rows.length){grid.textContent="سوره‌ای پیدا نشد.";return}for(const s of rows){const button=document.createElement("button");button.type="button";button.className="surah-card";const no=document.createElement("span");no.className="surah-no";const noInner=document.createElement("span");noInner.textContent=numberFa(s.number);no.append(noInner);const info=document.createElement("span");info.className="surah-info";const title=document.createElement("strong");title.textContent=s.englishName+" · "+s.name;const meta=document.createElement("small");meta.textContent=(s.revelationType==="Meccan"?"مکی":"مدنی")+" · "+numberFa(s.numberOfAyahs)+" آیه";info.append(title,meta);const arabic=document.createElement("span");arabic.className="surah-ar";arabic.textContent=s.name;button.append(no,info,arabic);button.addEventListener("click",()=>openSurah(s.number));grid.append(button)}}
 $("surahSearch").addEventListener("input",()=>{const q=$("surahSearch").value.trim().toLocaleLowerCase();renderSurahs(allSurahs.filter(s=>String(s.number).includes(q)||s.name.includes(q)||s.englishName.toLocaleLowerCase().includes(q)||s.englishNameTranslation.toLocaleLowerCase().includes(q)))});
 $("clearSearch").addEventListener("click",()=>{$("surahSearch").value="";renderSurahs(allSurahs)});
@@ -421,8 +511,18 @@ async function openSurah(number,focusAyah){
   renderAyahs(focusAyah||0);saveBookmark(number,focusAyah||1,false);
  }catch(error){
   if(loadId!==surahLoadId)return;
-  $("readerStatus").textContent="بارگذاری سوره انجام نشد: "+error.message+" — دکمه انتخاب سوره را دوباره بزن.";
-  $("playSurah").disabled=true;$("bookmarkSurah").disabled=true;
+  try{
+   await loadOfflineQuranData();if(loadId!==surahLoadId)return;
+   const editions=buildOfflineSurahEditions(number),arabic=editions[0],translation=editions[1];
+   currentSurah=arabic;currentContentIsFullSurah=true;currentAyahs=arabic.ayahs.map((ayah,i)=>({arabic:ayah,translation:translation.ayahs[i]}));
+   $("readerTitle").textContent=arabic.name+" · "+arabic.englishName;
+   $("readerMeta").textContent=(arabic.revelationType==="Meccan"?"مکی":"مدنی")+" · "+numberFa(arabic.numberOfAyahs)+" آیه · "+OFFLINE_TRANSLATION_LABEL+" · قاری: "+(RECITER_NAMES[reciterEdition]||reciterEdition);
+   $("readerStatus").textContent="این سوره از بستهٔ آفلاین این دستگاه نمایش داده شد. صوت به اینترنت یا دانلود قبلی نیاز دارد.";
+   $("playSurah").disabled=false;$("bookmarkSurah").disabled=false;renderAyahs(focusAyah||0);saveBookmark(number,focusAyah||1,false);
+  }catch(offlineError){
+   $("readerStatus").textContent="بارگذاری سوره انجام نشد: "+error.message+" — بستهٔ آفلاین هم در دسترس نیست: "+offlineError.message;
+   $("playSurah").disabled=true;$("bookmarkSurah").disabled=true;
+  }
  }
 }
 function renderAyahs(focus){
@@ -564,7 +664,20 @@ async function openReadingUnit(kind,number){
   renderAyahs(0);
   const first=currentAyahs[0].arabic;
   saveBookmark(first.surah?.number||currentSurah.number,first.numberInSurah||1,false);
- }catch(error){if(seq!==surahLoadId)return;$("readerStatus").textContent="بارگذاری این بخش انجام نشد: "+error.message;$("playSurah").disabled=true;$("bookmarkSurah").disabled=true}
+ }catch(error){
+  if(seq!==surahLoadId)return;
+  try{
+   await loadOfflineQuranData();if(seq!==surahLoadId)return;
+   const rows=getOfflineUnitRows(kind,n);
+   currentSurah={number:rows[0].surah.number,name:labels[kind]+" "+n,englishName:labels[kind]+" "+n,revelationType:""};
+   currentAyahs=rows.map(item=>({arabic:item.arabic,translation:item.translation}));
+   $("readerTitle").textContent=labels[kind]+" "+numberFa(n);
+   $("readerMeta").textContent=numberFa(currentAyahs.length)+" آیه · "+OFFLINE_TRANSLATION_LABEL+" · قاری: "+(RECITER_NAMES[reciterEdition]||reciterEdition);
+   $("readerStatus").textContent="این بخش از دادهٔ آفلاین ذخیره‌شده نمایش داده شد. صوت به اینترنت یا دانلود قبلی نیاز دارد.";
+   $("playSurah").disabled=false;$("bookmarkSurah").disabled=false;renderAyahs(0);
+   const first=currentAyahs[0].arabic;saveBookmark(first.surah?.number||currentSurah.number,first.numberInSurah||1,false);
+  }catch(offlineError){$("readerStatus").textContent="بارگذاری این بخش انجام نشد: "+error.message+" — "+offlineError.message;$("playSurah").disabled=true;$("bookmarkSurah").disabled=true}
+ }
 }
 $("openUnitBtn").addEventListener("click",()=>openReadingUnit($("unitType").value,$("unitNumber").value));
 $("unitType").addEventListener("change",()=>{const max={juz:30,page:604,manzil:7,hizbQuarter:240}[$("unitType").value];$("unitNumber").max=String(max);$("unitNumber").value="1";$("unitNumber").placeholder="۱ تا "+max;$("unitHelp").textContent="شماره‌ای بین ۱ تا "+numberFa(max)+" وارد کن."});
@@ -584,7 +697,20 @@ $("quranSearchForm").addEventListener("submit",async event=>{
    button.append(title,text);button.addEventListener("click",()=>openSurah(match.surah.number,match.numberInSurah));box.append(button);
   }
   const note=document.createElement("p");note.className="study-note";note.textContent="نمایش "+numberFa(matches.length)+" نتیجه نخست.";box.append(note);
- }catch(error){box.textContent="جستجو انجام نشد: "+error.message}
+ }catch(error){
+  try{
+   await loadOfflineQuranData();
+   const matches=searchOfflineTranslation(query);box.replaceChildren();
+   if(!matches.length){box.textContent="در ترجمهٔ فارسی آفلاین نتیجه‌ای پیدا نشد.";return}
+   for(const match of matches){
+    const button=document.createElement("button");button.type="button";button.className="tool-result";
+    const title=document.createElement("strong");title.textContent=(match.surah?.name||"سوره")+" · آیه "+numberFa(match.numberInSurah);
+    const text=document.createElement("small");text.textContent=match.text;
+    button.append(title,text);button.addEventListener("click",()=>openSurah(match.surah.number,match.numberInSurah));box.append(button);
+   }
+   const note=document.createElement("p");note.className="study-note";note.textContent="نتایج از "+OFFLINE_TRANSLATION_LABEL+" جستجو شدند.";box.append(note);
+  }catch(offlineError){box.textContent="جستجو انجام نشد: "+error.message+" — "+offlineError.message}
+ }
 });
 // نشانک‌های شخصی، فقط در مرورگر همین دستگاه
 function getSavedAyahs(){try{return JSON.parse(localStorage.getItem("noor-quran-saved-ayahs")||"[]")}catch{return []}}
@@ -748,7 +874,7 @@ $("resumeBtn").addEventListener("click",()=>{try{const b=JSON.parse(localStorage
 $("readDaily").addEventListener("click",()=>{const parts=dailyAyahRef.split(":").map(Number);if(parts.length===2&&parts.every(Number.isInteger))openSurah(parts[0],parts[1]);else toast("نشانی آیه منتخب معتبر نیست.")});
 $("randomBtn").addEventListener("click",()=>{if(!allSurahs.length){toast("فهرست سوره‌ها هنوز آماده نیست.");return}const s=allSurahs[Math.floor(Math.random()*allSurahs.length)];openSurah(s.number)});
 $("closeReader").addEventListener("click",()=>{$("reader").hidden=true;stopAudio()});
-async function loadDaily(ref=dailyAyahRef,note=dailyAyahNote){const seq=++dailyLoadSequence;const normalized=String(ref||"2:255").trim();if(!/^\d{1,3}:\d{1,3}$/.test(normalized)){toast("نشانی آیه روز معتبر نیست؛ نمونه درست: 2:255");return}try{const editions=await getJson(QURAN_API+"/ayah/"+normalized+"/editions/quran-uthmani,fa.makarem");if(seq!==dailyLoadSequence)return;dailyAyahRef=normalized;dailyAyahNote=note||"آیه منتخب";$("dailyArabic").textContent=editions[0].text;$("dailyTranslation").textContent=editions[1].text;$("dailyTranslator").textContent=editions[1].edition.name||"ترجمه فارسی";$("dailyRefText").textContent=dailyAyahNote+" · "+normalized}catch{$("dailyArabic").textContent="آیه برگزیده در حال حاضر در دسترس نیست.";$("dailyTranslation").textContent="";$("dailyRefText").textContent="آیه منتخب"}}
+async function loadDaily(ref=dailyAyahRef,note=dailyAyahNote){const seq=++dailyLoadSequence;const normalized=String(ref||"2:255").trim();if(!/^\d{1,3}:\d{1,3}$/.test(normalized)){toast("نشانی آیه روز معتبر نیست؛ نمونه درست: 2:255");return}try{const editions=await getJson(QURAN_API+"/ayah/"+normalized+"/editions/quran-uthmani,fa.makarem");if(seq!==dailyLoadSequence)return;dailyAyahRef=normalized;dailyAyahNote=note||"آیه منتخب";$("dailyArabic").textContent=editions[0].text;$("dailyTranslation").textContent=editions[1].text;$("dailyTranslator").textContent=editions[1].edition.name||"ترجمه فارسی";$("dailyRefText").textContent=dailyAyahNote+" · "+normalized}catch(error){try{await loadOfflineQuranData();if(seq!==dailyLoadSequence)return;const [surah,ayah]=normalized.split(":").map(Number),row=findOfflineVerse(surah,ayah);dailyAyahRef=normalized;dailyAyahNote=note||"آیه منتخب";$("dailyArabic").textContent=row.arabic.text;$("dailyTranslation").textContent=row.translation.text;$("dailyTranslator").textContent=OFFLINE_TRANSLATION_LABEL;$("dailyRefText").textContent=dailyAyahNote+" · "+normalized}catch{$("dailyArabic").textContent="آیه برگزیده در حال حاضر در دسترس نیست.";$("dailyTranslation").textContent="";$("dailyRefText").textContent="آیه منتخب"}}}
 async function loadAnnouncements(){const box=$("announcementList");try{const r=await fetch(SUPABASE_URL+"/rest/v1/quran_announcements?select=id,title,body,created_at&is_published=eq.true&order=created_at.desc",{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});if(!r.ok)throw new Error("unavailable");const rows=await r.json();box.replaceChildren();if(!rows.length){box.textContent="در حال حاضر اطلاعیه‌ای ثبت نشده است.";return}for(const n of rows){const card=document.createElement("article");card.className="notice-card";const h=document.createElement("h3");h.textContent=n.title;const p=document.createElement("p");p.textContent=n.body;card.append(h,p);box.append(card)}}catch{box.textContent="اطلاعیه‌ها فعلاً بارگذاری نشدند."}}
 $("feedbackForm").addEventListener("submit",async e=>{e.preventDefault();const status=$("feedbackStatus");const message=$("feedbackMessage").value.trim();const contact=$("feedbackContact").value.trim();const subject=$("feedbackSubject").value;const packed="[ارتباط با مدیر]\nموضوع: "+subject+"\nراه پاسخ‌گویی: "+(contact||"ارائه نشده")+"\nمتن پیام:\n"+message;if(packed.length>1200){status.textContent="متن پیام به‌همراه اطلاعات واردشده بیش از حد طولانی است؛ کوتاه‌ترش کن.";return}status.textContent="در حال ارسال پیام خصوصی...";try{const r=await fetch(SUPABASE_URL+"/rest/v1/quran_feedback",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({name:$("feedbackName").value.trim(),message:packed})});if(!r.ok){const error=await r.json().catch(()=>({}));throw new Error(error.message||"ارسال پیام انجام نشد.")}$("feedbackForm").reset();status.textContent="پیام با موفقیت به صندوق خصوصی پنل مدیریت ارسال شد."}catch(error){status.textContent="خطا در ارسال پیام: "+error.message+" (ممکن است فایل quran_setup.sql هنوز اجرا نشده باشد.)"}});
 $("adminRequestForm").addEventListener("submit",async event=>{event.preventDefault();const status=$("adminRequestStatus");status.textContent="در حال ارسال درخواست...";try{const response=await fetch(SUPABASE_URL+"/rest/v1/quran_admin_requests",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({display_name:$("requestName").value.trim(),contact:$("requestContact").value.trim(),reason:$("requestReason").value.trim()})});if(!response.ok){const error=await response.json().catch(()=>({}));throw new Error(error.message||"ارسال درخواست انجام نشد.")}$("adminRequestForm").reset();status.textContent="درخواستت ثبت شد. نتیجه پس از بررسی اونر اعلام می‌شود."}catch(error){status.textContent="خطا در ثبت درخواست: "+error.message+" — ممکن است فایل quran_admin_access_setup.sql هنوز اجرا نشده باشد."}});
@@ -799,7 +925,7 @@ function closeWelcome(targetId){
 welcomeEnterBtn.addEventListener("click",()=>closeWelcome(null));
 welcomeExploreBtn.addEventListener("click",()=>closeWelcome("studyTools"));
 
-Promise.all([loadSurahs(),loadDaily(),loadAnnouncements(),loadSettings()]).finally(()=>{renderSavedAyahs();renderKhatm();renderDailyGoal();renderTasbih()});
+Promise.all([loadOfflineQuranData().catch(()=>null),loadSurahs(),loadDaily(),loadAnnouncements(),loadSettings()]).finally(()=>{renderSavedAyahs();renderKhatm();renderDailyGoal();renderTasbih()});
 
 if("serviceWorker" in navigator){
  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js",{scope:"./"}).catch(error=>console.warn("PWA service worker registration failed:",error)));
@@ -899,6 +1025,67 @@ function clearPersonalData(){
 $("exportPersonalDataBtn").addEventListener("click",exportPersonalData);
 $("personalDataImport").addEventListener("change",event=>{const file=event.target.files?.[0];importPersonalData(file).finally(()=>{event.target.value=""})});
 $("clearPersonalDataBtn").addEventListener("click",clearPersonalData);
+
+
+/* همگام‌سازی داوطلبانه: فقط با ورود کاربر و فشردن دکمه، پشتیبان به حساب همان کاربر ارسال می‌شود. */
+const cloudSyncStatus=$("cloudSyncStatus");
+const cloudClient=window.supabase?.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+let cloudSyncUser=null;
+function setCloudSyncStatus(message){if(cloudSyncStatus)cloudSyncStatus.textContent=message}
+function updateCloudSyncUI(user){
+ cloudSyncUser=user||null;const signedIn=!!cloudSyncUser;
+ $("cloudSyncBtn").disabled=!signedIn;$("cloudRestoreBtn").disabled=!signedIn;$("cloudSignOutBtn").disabled=!signedIn;
+ $("cloudSignInBtn").disabled=signedIn;$("cloudSignUpBtn").disabled=signedIn;
+ setCloudSyncStatus(signedIn?"وارد حساب شدی: "+(cloudSyncUser.email||"کاربر")+" · ذخیره و بازیابی فقط با انتخاب خودت انجام می‌شود.":"برای همگام‌سازی اختیاری، وارد حساب خودت شو.");
+}
+function cloudConsentGranted(){if(!$("cloudSyncConsent").checked){setCloudSyncStatus("برای ادامه، ابتدا رضایت صریح خودت را در کادر بالا فعال کن.");return false}return true}
+function getPersonalBackupSnapshot(){const data={};for(const key of PERSONAL_DATA_KEYS){const value=localStorage.getItem(key);if(value!==null)data[key]=value}return {format:"noor-quran-personal-backup",schemaVersion:1,exportedAt:new Date().toISOString(),data}}
+async function requireCloudSession(){if(!cloudClient)throw new Error("کتابخانهٔ همگام‌سازی بارگذاری نشد؛ صفحه را تازه‌سازی کن.");const {data,error}=await cloudClient.auth.getSession();if(error)throw error;if(!data.session?.user?.id)throw new Error("ابتدا وارد حساب همگام‌سازی شو.");return data.session}
+$("cloudSignUpBtn").addEventListener("click",async()=>{
+ const email=$("cloudSyncEmail").value.trim(),password=$("cloudSyncPassword").value;
+ if(!cloudClient){setCloudSyncStatus("سرویس همگام‌سازی بارگذاری نشد؛ اتصال را بررسی کن.");return}
+ if(!email||password.length<8){setCloudSyncStatus("ایمیل معتبر و رمز عبور حداقل ۸ کاراکتری وارد کن.");return}
+ setCloudSyncStatus("در حال ساخت حساب...");
+ try{const {data,error}=await cloudClient.auth.signUp({email,password,options:{emailRedirectTo:window.location.origin+window.location.pathname}});if(error)throw error;$("cloudSyncPassword").value="";if(data.session){updateCloudSyncUI(data.user);setCloudSyncStatus("حساب ساخته شد و وارد شدی. برای ذخیرهٔ اطلاعات، دکمهٔ همگام‌سازی را جداگانه بزن.")}else setCloudSyncStatus("درخواست ساخت حساب ثبت شد. اگر تأیید ایمیل فعال باشد، پیام تأیید را باز کن و سپس وارد شو.")}
+ catch(error){setCloudSyncStatus("ساخت حساب انجام نشد: "+(error.message||"خطای نامشخص"))}
+});
+$("cloudSignInBtn").addEventListener("click",async()=>{
+ const email=$("cloudSyncEmail").value.trim(),password=$("cloudSyncPassword").value;
+ if(!cloudClient){setCloudSyncStatus("سرویس همگام‌سازی بارگذاری نشد؛ اتصال را بررسی کن.");return}
+ if(!email||!password){setCloudSyncStatus("ایمیل و رمز حساب را وارد کن.");return}
+ setCloudSyncStatus("در حال ورود...");
+ try{const {data,error}=await cloudClient.auth.signInWithPassword({email,password});if(error)throw error;$("cloudSyncPassword").value="";updateCloudSyncUI(data.user)}
+ catch(error){setCloudSyncStatus("ورود انجام نشد: "+(error.message||"خطای نامشخص"))}
+});
+$("cloudSyncBtn").addEventListener("click",async()=>{
+ if(!cloudConsentGranted())return;
+ if(!confirm("نسخه‌ای از نشانک‌ها، یادداشت‌ها، برنامه ختم و تنظیمات همین دستگاه در حساب Supabase خودت ذخیره شود؟"))return;
+ setCloudSyncStatus("در حال ذخیرهٔ نسخهٔ پشتیبان در حساب تو...");
+ try{const session=await requireCloudSession(),snapshot=getPersonalBackupSnapshot();const {error}=await cloudClient.from("quran_user_backups").upsert({user_id:session.user.id,backup:snapshot,updated_at:new Date().toISOString()},{onConflict:"user_id"});if(error)throw error;setCloudSyncStatus("نسخهٔ پشتیبان ذخیره شد. فایل‌های صوتی و اطلاعات ورود در این نسخه همگام‌سازی نمی‌شوند.")}
+ catch(error){setCloudSyncStatus("همگام‌سازی انجام نشد: "+(error.message||"خطای نامشخص")+" · فایل quran_user_sync_setup.sql باید در Supabase اجرا شده باشد.")}
+});
+$("cloudRestoreBtn").addEventListener("click",async()=>{
+ if(!cloudConsentGranted())return;
+ if(!confirm("پشتیبان حساب تو خوانده شود و کلیدهایی که در آن وجود دارند جایگزین مقادیر هم‌نام روی این دستگاه شوند؟"))return;
+ setCloudSyncStatus("در حال دریافت نسخهٔ پشتیبان حساب...");
+ try{
+  const session=await requireCloudSession();
+  const {data,error}=await cloudClient.from("quran_user_backups").select("backup,updated_at").eq("user_id",session.user.id).maybeSingle();
+  if(error)throw error;const backup=data?.backup;
+  if(!backup||backup.format!=="noor-quran-personal-backup"||backup.schemaVersion!==1||!backup.data||typeof backup.data!=="object"||Array.isArray(backup.data))throw new Error("برای این حساب نسخهٔ پشتیبان معتبر پیدا نشد.");
+  const entries=Object.entries(backup.data);if(entries.length>PERSONAL_DATA_KEYS.length)throw new Error("تعداد بخش‌های پشتیبان معتبر نیست.");
+  for(const [key,value] of entries)validatePersonalBackupEntry(key,value);
+  for(const [key,value] of entries)localStorage.setItem(key,value);
+  applyReaderPreferences();if(welcomeThemeSelect)welcomeThemeSelect.value=localStorage.getItem("noor-quran-theme")==="dark"?"dark":"light";
+  renderSavedAyahs();renderKhatm();renderDailyGoal();renderTasbih();renderAyahNotes();renderReadingStats();
+  setCloudSyncStatus("بازیابی انجام شد؛ "+numberFa(entries.length)+" بخش از نسخهٔ "+(data.updated_at?new Date(data.updated_at).toLocaleString("fa-IR"):"ذخیره‌شده")+" وارد شد.");
+ }catch(error){setCloudSyncStatus("بازیابی انجام نشد: "+(error.message||"خطای نامشخص"))}
+});
+$("cloudSignOutBtn").addEventListener("click",async()=>{if(!cloudClient)return;try{const {error}=await cloudClient.auth.signOut();if(error)throw error;updateCloudSyncUI(null)}catch(error){setCloudSyncStatus("خروج انجام نشد: "+(error.message||"خطای نامشخص"))}});
+if(cloudClient){
+ cloudClient.auth.onAuthStateChange((_event,session)=>updateCloudSyncUI(session?.user||null));
+ cloudClient.auth.getSession().then(({data,error})=>{if(error){setCloudSyncStatus("وضعیت حساب بررسی نشد: "+error.message);return}updateCloudSyncUI(data.session?.user||null)}).catch(error=>setCloudSyncStatus("وضعیت حساب بررسی نشد: "+error.message));
+}else{updateCloudSyncUI(null);setCloudSyncStatus("کتابخانهٔ همگام‌سازی بارگذاری نشده است؛ ورود و همگام‌سازی فعلاً غیرفعال است.")}
 
 </script>
 </body>

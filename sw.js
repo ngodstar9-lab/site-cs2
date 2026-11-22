@@ -1,4 +1,4 @@
-const CACHE_NAME = "noor-quran-shell-v7";
+const CACHE_NAME = "noor-quran-shell-v8";
 const QURAN_DATA_CACHE_NAME = "noor-quran-data-v1";
 const QURAN_API_ORIGIN = "https://api.alquran.cloud";
 const MAX_QURAN_DATA_ENTRIES = 60;
@@ -7,6 +7,7 @@ const AUDIO_PATH_PREFIX = "/quran/audio-surah/128/ar.shahriarparhizgar/";
 const CORE_FILES = [
   "./",
   "./index.html",
+  "./quran-offline.fa.json",
   "./manifest.webmanifest",
   "./app-icon-192.png",
   "./admin.html",
@@ -118,7 +119,7 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  const isAppAsset = ["app-icon.svg", "app-icon-192.png", "favicon.png", "offline.html", "manifest.webmanifest"].some(name => url.pathname.endsWith("/" + name));
+  const isAppAsset = ["app-icon.svg", "app-icon-192.png", "favicon.png", "offline.html", "manifest.webmanifest", "quran-offline.fa.json"].some(name => url.pathname.endsWith("/" + name));
   if (!isAppAsset) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
