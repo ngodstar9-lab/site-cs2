@@ -32,7 +32,7 @@
 <meta name="twitter:description" content="قرآن کریم را بخوان، ترجمه را دنبال کن، تلاوت گوش بده و مطالعه‌ات را برنامه‌ریزی کن.">
 <title>نور قرآن | قرآن کریم، ترجمه فارسی و تلاوت صوتی</title>
 <style>
-:root{--bg:#f7f5ed;--paper:#fffef9;--paper2:#f0eee4;--green:#123b30;--green2:#1d5945;--green3:#2d7659;--gold:#c49a48;--gold2:#e3c47b;--ink:#1b2923;--muted:#69756e;--line:#e5e0d2;--shadow:0 18px 50px #163a2a12}
+:root{--bg:#f7f5ed;--paper:#fffef9;--paper2:#f0eee4;--green:#123b30;--green2:#1d5945;--green3:#2d7659;--gold:#c49a48;--gold2:#e3c47b;--ink:#1b2923;--muted:#59665e;--line:#e5e0d2;--shadow:0 18px 50px #163a2a12}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:85px}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.9}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #c49a48aa;outline-offset:2px}
 .wrap{width:min(1180px,92%);margin:auto}.topbar{background:var(--green);color:#e8e4d6;font-size:12px;padding:6px 0}.topbar .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 header{position:sticky;top:0;z-index:20;background:#fffef9ed;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;min-width:205px}.brand-mark{width:44px;height:44px;border:1px solid #d8c18b;border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:26px;background:#f9f4e5}.brand-name{font-size:23px;font-weight:900;color:var(--green);line-height:1.2}.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:.3px}nav{display:flex;align-items:center;gap:24px}nav a{font-size:14px;color:#43544b}nav a:hover{color:var(--green3)}.nav-actions{display:flex;align-items:center;gap:9px}.btn{border:0;border-radius:10px;padding:10px 17px;font-weight:700;transition:.2s}.btn:hover{transform:translateY(-1px);filter:brightness(1.04)}.btn-primary{background:var(--green);color:white;box-shadow:0 7px 18px #123b3020}.btn-soft{background:#edf1e9;color:var(--green);border:1px solid #dbe4d8}.btn-gold{background:var(--gold);color:#201b10}.icon-btn{border:1px solid var(--line);background:white;color:var(--green);border-radius:10px;padding:8px 12px}
@@ -150,6 +150,9 @@ body.dark-mode .cloud-sync-panel{background:linear-gradient(145deg,#17251c,#1a2a
 @media(max-width:680px){.advanced-study-tools>summary{font-size:13px;padding:12px}.advanced-study-tools .study-grid,.learning-details{padding:10px}.data-actions{display:grid;grid-template-columns:1fr}.data-actions .btn,.data-actions label{width:100%;justify-content:center}}
 @media(forced-colors:active){.skip-link,.advanced-study-tools,.data-privacy-note,.btn{border:1px solid ButtonText}.skip-link:focus, :where(summary):focus-visible{outline:2px solid Highlight}}
 
+
+/* WCAG: footer links remain underlined and distinguishable from surrounding copy. */
+footer .footer-row a{color:#fff!important;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
 </style>
 </head>
 <body class="welcome-open">
