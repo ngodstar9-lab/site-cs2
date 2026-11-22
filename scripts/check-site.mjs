@@ -40,6 +40,7 @@ for (const file of pages) {
   const controls = [...html.matchAll(/<(input|select|textarea)\b[^>]*>/gi)];
   for (const match of controls) {
     const tag = match[0];
+    if (attr(tag, "type")?.toLowerCase() === "hidden") continue;
     const id = attr(tag, "id");
     const accessibleName = attr(tag, "aria-label") || attr(tag, "aria-labelledby");
     const beforeControl = html.slice(0, match.index);
