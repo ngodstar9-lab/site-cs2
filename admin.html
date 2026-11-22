@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://wizwuaptaypzabmvrwiq.supabase.co https://api.alquran.cloud; frame-src 'none'; upgrade-insecure-requests">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://wizwuaptaypzabmvrwiq.supabase.co" crossorigin>
 <link rel="icon" type="image/svg+xml" href="app-icon.svg"><link rel="icon" type="image/png" href="favicon.png?v=20261108"><link rel="apple-touch-icon" href="favicon.png?v=20261108">
 <meta name="theme-color" content="#123b30">
 <title>مدیریت نور قرآن</title>
@@ -109,10 +112,14 @@ body.dark-mode .tabs button{color:#c0d0c3}
 body.dark-mode .tabs button.active{background:#d4e5d6;color:#163b29}
 body.dark-mode .btn-soft{background:#26392b;color:#e0ebe2;border-color:#405544}
 
+
+.skip-link{position:absolute;top:8px;right:8px;transform:translateY(-160%);z-index:1000;background:#fff;color:#123b30;padding:9px 14px;border:2px solid #c49a48;border-radius:9px}
+.skip-link:focus{transform:translateY(0)}
 </style>
 </head>
 <body>
-<main>
+<a class="skip-link" href="#adminMain">پرش به محتوای اصلی</a>
+<main id="adminMain" tabindex="-1">
 <a class="brand" href="./index.html"><span class="brand-mark">۞</span><span>نور قرآن <small class="muted">· پنل مدیریت</small></span></a>
 <p class="muted">مدیریت محتوای سایت، اطلاعیه‌ها، تنظیمات قرائت و پیام‌های کاربران.</p>
 <section id="loginPanel" class="panel"><h1>ورود مدیر سایت</h1><p class="muted">با حساب مدیریتی قبلی وارد شو.</p><form id="loginForm"><label for="email">ایمیل مدیر</label><input id="email" type="email" autocomplete="username" required><label for="password">رمز عبور</label><input id="password" type="password" autocomplete="current-password" required><div class="toolbar"><button class="btn" type="submit">ورود به پنل</button><button class="btn btn-soft" id="forgotPasswordBtn" type="button">فراموشی رمز عبور</button></div></form></section>
