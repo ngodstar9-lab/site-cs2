@@ -223,6 +223,14 @@ body.dark-mode .btn-danger-soft{background:#3b2523;color:#ffd7d0;border-color:#7
 <nav aria-label="منوی اصلی"><a href="#surahs">سوره‌ها</a><a href="#tartil">ترتیل</a><a href="#studyTools">ابزار مطالعه</a><a href="#learning">آموزش تجوید</a><a href="#announcements">اطلاعیه‌ها</a><a href="#contactAdmin">ارتباط</a><a href="./download.html">دانلود برنامه</a></nav>
 <div class="nav-actions"><button id="resumeBtn" class="btn btn-soft" type="button">ادامه مطالعه</button><a class="btn btn-gold" href="./download.html">دریافت اپ اصلی</a><a class="btn btn-primary" href="admin.html">مدیریت</a></div>
 </div></header>
+
+<div id="installHelp" class="install-help" role="region" aria-labelledby="installHelpTitle">
+ <h3 id="installHelpTitle">نصب نور قرآن روی دستگاه</h3>
+ <p>در مرورگرهای سازگار، دکمه نصب را بزن تا نور قرآن مثل یک برنامه مستقل باز شود. در iPhone و مرورگرهایی که این دکمه را نشان نمی‌دهند، از منوی اشتراک‌گذاری یا منوی مرورگر گزینه «افزودن به صفحه اصلی» یا «Install app» را انتخاب کن.</p>
+ <button id="installAppBtn" class="btn btn-primary install-button" type="button" hidden>نصب نور قرآن</button>
+ <span id="installStatus" class="study-note" role="status" aria-live="polite"></span>
+</div>
+
 <div id="siteNoticeBanner" class="site-notice" role="status" hidden></div>
 <section class="hero"><div class="wrap hero-content">
 <p class="eyebrow">یک مکث کوتاه؛ چند آیه نور</p><div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
@@ -348,6 +356,39 @@ const SURAH_AUDIO_CDN="https://cdn.islamic.network/quran/audio-surah/128";
 const SUPABASE_URL="https://wizwuaptaypzabmvrwiq.supabase.co";
 const SUPABASE_KEY="sb_publishable_6X8vkKyo0lIOt1LK5HDSWg_eq3qG3Ds";
 const $=id=>document.getElementById(id);
+
+const installAppBtn=$("installAppBtn"),installStatus=$("installStatus");
+let deferredInstallPrompt=null;
+window.addEventListener("beforeinstallprompt",event=>{
+ event.preventDefault();
+ deferredInstallPrompt=event;
+ installAppBtn.hidden=false;
+ installStatus.textContent="این مرورگر امکان نصب مستقیم نور قرآن را فراهم کرده است.";
+});
+installAppBtn.addEventListener("click",async()=>{
+ if(!deferredInstallPrompt){
+  installStatus.textContent="برای نصب، منوی مرورگر را باز کن و گزینه افزودن به صفحه اصلی یا Install app را انتخاب کن.";
+  return;
+ }
+ installAppBtn.disabled=true;
+ try{
+  await deferredInstallPrompt.prompt();
+  const choice=await deferredInstallPrompt.userChoice;
+  installStatus.textContent=choice?.outcome==="accepted"?"درخواست نصب پذیرفته شد.":"درخواست نصب لغو شد؛ هر زمان خواستی می‌توانی دوباره امتحان کنی.";
+ }catch(error){
+  installStatus.textContent="این مرورگر نصب مستقیم را در حال حاضر ارائه نمی‌کند؛ از منوی مرورگر استفاده کن.";
+ }finally{
+  deferredInstallPrompt=null;
+  installAppBtn.hidden=true;
+  installAppBtn.disabled=false;
+ }
+});
+window.addEventListener("appinstalled",()=>{
+ deferredInstallPrompt=null;
+ installAppBtn.hidden=true;
+ installStatus.textContent="نور قرآن با موفقیت به دستگاه اضافه شد.";
+});
+
 let allSurahs=[],currentSurah=null,currentAyahs=[],currentContentIsFullSurah=false,translationEdition="fa.makarem",reciterEdition="parhizgar",playingSequence=false,sequenceIndex=-1,surahLoadId=0,audioSessionId=0,activeAudioState=null,lastAudioIndex=0,lastAudioWasSequence=false,repeatCurrentAudio=false,dailyAyahRef="2:255",dailyAyahNote="آیه‌ای برای تأمل و یادآوری",dailyLoadSequence=0,audioDownloadRunning=false,audioDownloadPaused=false,activeSurahObjectUrl=null;
 const RECITER_NAMES={"parhizgar":"استاد شهریار پرهیزگار","ar.husary":"استاد محمود خلیل‌الحصری","ar.minshawi":"استاد محمد صدیق منشاوی","ar.alafasy":"مشاری العفاسی"};
 function toast(message){const el=$("toast");el.textContent=message;el.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove("show"),3200)}
